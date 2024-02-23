@@ -1,3 +1,3 @@
-# google_clone
+# docs_ai
 
 A new Flutter project.
