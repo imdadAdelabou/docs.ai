@@ -37,10 +37,10 @@ class Login extends ConsumerWidget {
         children: [
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: kBlueColor,
               ),
-              child: Column(
+              child: const Column(
                 children: [],
               ),
             ),

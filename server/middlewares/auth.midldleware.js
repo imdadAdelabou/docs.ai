@@ -11,7 +11,8 @@ async function auth(req, res, next) {
     if (!isVerified)
       return res.status(401).json({ message: "Incorrect token" });
 
-    req.body.userId = isVerified;
+    req.userId = isVerified;
+    req.token = token;
     next();
   } catch (e) {
     return res.status(500).json({message: "Internal Server Error"});
