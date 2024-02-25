@@ -54,7 +54,6 @@ class AuthRepository {
           token: '',
           id: '',
         );
-
         final res = await _dioClient.post(
           '/signup',
           data: userData.toJson(),
@@ -66,6 +65,7 @@ class AuthRepository {
                   id: res.data['user']['_id'], token: res.data['token']);
 
               error = ErrorModel(data: newUser);
+              print(newUser.token);
               _localStorageRepository.setToken(token: newUser.token);
               break;
             }

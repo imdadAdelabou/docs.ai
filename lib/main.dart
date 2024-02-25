@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/models/error_model.dart';
-import 'package:google_clone/models/user.dart';
 import 'package:google_clone/repository/auth_repository.dart';
 import 'package:google_clone/screens/home.dart';
-import 'package:google_clone/screens/loader_screen.dart';
-import 'package:google_clone/screens/login.dart';
-import 'package:google_clone/utils/constant.dart';
+import 'package:google_clone/screens/login/login.dart';
+
 
 void main() {
   runApp(
@@ -36,13 +34,7 @@ class _MainAppState extends ConsumerState<MainApp> {
     }
   }
 
-  String getTheRightView({required UserModel? user, required ViewState viewState}) {
-    if (viewState != ViewState.busy) {
-      return user == null ? Login.routeName : Home.routeName;
-    }
-
-    return LoaderScreen.routeName;
-  }
+ 
 
   @override
   void initState() {
@@ -54,13 +46,12 @@ class _MainAppState extends ConsumerState<MainApp> {
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider);
 
-    print(user != null  ? user.toJson() : "Is null");
     return MaterialApp(
-      initialRoute: user == null ? Login.routeName : Home.routeName,
+      // initialRoute: '',
+      home: user == null ? const Login() : const Home(),
       routes: {
         Login.routeName: (_) => const Login(),
-        Home.routeName: (_) => const Home(),
-        LoaderScreen.routeName: (_) => const LoaderScreen()
+        Home.routeName: (_) => const Home()
       },
     );
   }
