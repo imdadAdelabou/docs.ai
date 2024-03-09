@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/repository/auth_repository.dart';
 import 'package:google_clone/screens/verify_if_user_not_null.dart';
+import 'package:google_clone/widgets/custom_app_bar.dart';
 import 'package:google_clone/widgets/user_data.display.dart';
 
 class Home extends ConsumerWidget {
@@ -13,6 +14,7 @@ class Home extends ConsumerWidget {
     var user = ref.watch(userProvider);
 
     return Scaffold(
+      appBar: const CustomAppBar(),
       body: VerifyIfUserNotNull(
         child: Column(
           children: [

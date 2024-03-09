@@ -10,33 +10,50 @@ import 'package:google_sign_in/google_sign_in.dart';
 //For register service
 final authRepositoryProvider = Provider(
   (ref) => AuthRepository(
-      googleSignIn: GoogleSignIn(),
-      dioClient: Dio(
-        BaseOptions(
-          baseUrl: apiHost,
-          headers: {'Content-Type': 'application/json; charset=UTF-8'},
-        ),
+    googleSignIn: GoogleSignIn(),
+    dioClient: Dio(
+      BaseOptions(
+        baseUrl: apiHost,
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
       ),
-      localStorageRepository: LocalStorageRepository()),
+    ),
+    localStorageRepository: LocalStorageRepository(),
+    providerRef: ref,
+  ),
 );
 
 //StateProvider to create a provider for variables
 final userProvider = StateProvider<UserModel?>((ref) => null);
-final stateViewCheckLogin = StateProvider<ViewState>((ref) => ViewState.busy);
-
 
 class AuthRepository {
   final GoogleSignIn _googleSignIn;
   final Dio _dioClient;
   final LocalStorageRepository _localStorageRepository;
+  final ProviderRef<Object?> _providerRef;
 
-  AuthRepository(
-      {required GoogleSignIn googleSignIn,
-      required Dio dioClient,
-      required LocalStorageRepository localStorageRepository})
-      : _googleSignIn = googleSignIn,
+  AuthRepository({
+    required GoogleSignIn googleSignIn,
+    required Dio dioClient,
+    required LocalStorageRepository localStorageRepository,
+    required ProviderRef<Object?> providerRef,
+  })  : _googleSignIn = googleSignIn,
         _dioClient = dioClient,
-        _localStorageRepository = localStorageRepository;
+        _localStorageRepository = localStorageRepository,
+        _providerRef = providerRef;
+
+  Future<bool> signOut() async {
+    try {
+      await _googleSignIn.signOut();
+      bool isRemove = await LocalStorageRepository().removeToken();
+      if (isRemove) {
+        _providerRef.read(userProvider.notifier).update((state) => null);
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
 
   Future<ErrorModel> signInWithGoogle() async {
     ErrorModel error = const ErrorModel(
@@ -62,10 +79,11 @@ class AuthRepository {
           case 201:
             {
               final newUser = userData.copyWith(
-                  id: res.data['user']['_id'], token: res.data['token']);
+                id: res.data['user']['_id'],
+                token: res.data['token'],
+              );
 
               error = ErrorModel(data: newUser);
-              print(newUser.token);
               _localStorageRepository.setToken(token: newUser.token);
               break;
             }

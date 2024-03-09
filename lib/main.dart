@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/models/error_model.dart';
 import 'package:google_clone/repository/auth_repository.dart';
-import 'package:google_clone/screens/home.dart';
-import 'package:google_clone/screens/login/login.dart';
-
+import 'package:google_clone/router.dart';
+import 'package:routemaster/routemaster.dart';
 
 void main() {
   runApp(
@@ -34,8 +33,6 @@ class _MainAppState extends ConsumerState<MainApp> {
     }
   }
 
- 
-
   @override
   void initState() {
     super.initState();
@@ -44,15 +41,26 @@ class _MainAppState extends ConsumerState<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userProvider);
-
-    return MaterialApp(
+    return MaterialApp.router(
       // initialRoute: '',
-      home: user == null ? const Login() : const Home(),
-      routes: {
-        Login.routeName: (_) => const Login(),
-        Home.routeName: (_) => const Home()
-      },
+      // home: user == null ? const Login() : const Home(),
+      // routes: {
+      //   Login.routeName: (_) => const Login(),
+      //   Home.routeName: (_) => const Home()
+      // },
+      debugShowCheckedModeBanner: false,
+      routerDelegate: RoutemasterDelegate(
+        routesBuilder: (context) {
+          final user = ref.watch(userProvider);
+          if (user != null && user.token.isNotEmpty) {
+            //User is connected
+            return loggedInRoute;
+          }
+
+          return loggedOutRoute;
+        },
+      ),
+      routeInformationParser: const RoutemasterParser(),
     );
   }
 }

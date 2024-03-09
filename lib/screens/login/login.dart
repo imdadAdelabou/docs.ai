@@ -9,11 +9,11 @@ import 'package:google_clone/widgets/signin_with_google_btn.dart';
 //WidgetRef is used to communicate with widget
 //ref.watch when you are inside the build method
 //ref.read when you are outside the build method
+//routemaster to manage rooting on web
 
 class Login extends ConsumerWidget {
   static const String routeName = "/login";
   const Login({super.key});
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +38,8 @@ class Login extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SignInWithGoogleBtn(
-                        onPressed: () => LoginViewModel().signinWithGoogle(ref, context),
+                        onPressed: () =>
+                            LoginViewModel().signinWithGoogle(ref, context),
                       ),
                     ],
                   ),

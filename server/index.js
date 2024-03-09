@@ -4,7 +4,7 @@ import cors from "cors";
 config();
 import mongoose from "mongoose";
 import authRouter from "./routers/auth.route.js";
-
+import documentRouter from "./routers/document.route.js";
 
 const app = express();
 
@@ -14,7 +14,8 @@ app.use(express.json());
 const PORT = process.env.PORT || 3001;
 const MONGODB_URI = process.env.MONGODB_URI;
 
-app.use('/api', authRouter);
+app.use("/api", authRouter);
+app.use("/api", documentRouter);
 
 mongoose
   .connect(MONGODB_URI)
