@@ -25,24 +25,41 @@ class DocumentScreenAppBar extends StatelessWidget
         ShareBtn(),
         Gap(20.0),
       ],
-      title: Row(
-        children: [
-          Image.asset(
-            AppAssets.docsIcon,
-            height: 40,
-          ),
-          const Gap(10.0),
-          SizedBox(
-            width: 180,
-            child: TextFormField(
-              controller: titleCtrl,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(left: 10.0),
+      title: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 9.0),
+        child: Row(
+          children: [
+            Image.asset(
+              AppAssets.docsIcon,
+              height: 40,
+            ),
+            const Gap(10.0),
+            SizedBox(
+              width: 180,
+              child: TextFormField(
+                controller: titleCtrl,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(left: 10.0),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: kBlueColorVariant),
+                  ),
+                ),
               ),
             ),
+          ],
+        ),
+      ),
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(1),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: kGreyColor,
+              width: 0.1,
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
