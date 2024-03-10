@@ -11,12 +11,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 final authRepositoryProvider = Provider(
   (ref) => AuthRepository(
     googleSignIn: GoogleSignIn(),
-    dioClient: Dio(
-      BaseOptions(
-        baseUrl: apiHost,
-        headers: {'Content-Type': 'application/json; charset=UTF-8'},
-      ),
-    ),
+    dioClient: dioClient,
     localStorageRepository: LocalStorageRepository(),
     providerRef: ref,
   ),

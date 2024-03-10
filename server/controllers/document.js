@@ -20,4 +20,18 @@ async function create(req, res) {
   }
 }
 
-export { create };
+async function me(req, res) {
+  try {
+    const documents = await Document.find({ uid: req.userId.id });
+    if (documents.length <= 0) {
+      return res.status(200).json({ message: "No document to display" });
+    }
+
+    return res.status(200).json({ message: "Success", documents });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Internal Server", error: e });
+  }
+}
+
+export { create, me };
