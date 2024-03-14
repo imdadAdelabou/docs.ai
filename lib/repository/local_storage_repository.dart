@@ -1,15 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final localStorageRepositoryProvider =
-    Provider((ref) => LocalStorageRepository());
+final Provider<LocalStorageRepository> localStorageRepositoryProvider =
+    Provider<LocalStorageRepository>(
+        (ProviderRef<Object?> ref) => LocalStorageRepository(),);
 
 class LocalStorageRepository {
-  void setToken({required String token}) async {
+  Future<void> setToken({required String token}) async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
 
-    sharedPreferences.setString('x-auth-token', token);
+    await sharedPreferences.setString('x-auth-token', token);
   }
 
   Future<String?> getToken() async {

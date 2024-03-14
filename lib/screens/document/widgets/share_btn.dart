@@ -16,7 +16,7 @@ class ShareBtn extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: kBlueColorVariant,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4.0),
+          borderRadius: BorderRadius.circular(4),
         ),
         minimumSize: const Size(150, 50),
       ),

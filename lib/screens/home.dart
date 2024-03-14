@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/models/document_model.dart';
 import 'package:google_clone/models/error_model.dart';
+import 'package:google_clone/models/user.dart';
 import 'package:google_clone/repository/auth_repository.dart';
 import 'package:google_clone/repository/document_repository.dart';
 import 'package:google_clone/screens/document/widgets/document_card.dart';
@@ -10,18 +11,18 @@ import 'package:google_clone/widgets/custom_app_bar.dart';
 import 'package:google_clone/widgets/user_data.display.dart';
 
 class Home extends ConsumerWidget {
-  static String routeName = "/home";
   const Home({super.key});
+  static String routeName = '/home';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var user = ref.watch(userProvider);
+    final UserModel? user = ref.watch(userProvider);
 
     return Scaffold(
       appBar: const CustomAppBar(),
       body: VerifyIfUserNotNull(
         child: Column(
-          children: [
+          children: <Widget>[
             if (user != null)
               UserDataDisplay(
                 userModel: user,
@@ -42,7 +43,7 @@ class Home extends ConsumerWidget {
                 if (snapshot.data != null && snapshot.data!.error != null) {
                   return Text(snapshot.data!.error!);
                 }
-                List<DocumentModel> documents =
+                final List<DocumentModel> documents =
                     snapshot.data!.data as List<DocumentModel>;
 
                 return Center(

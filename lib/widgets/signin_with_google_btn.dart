@@ -5,11 +5,11 @@ import 'package:google_clone/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignInWithGoogleBtn extends StatelessWidget {
-  final Function()? onPressed;
   const SignInWithGoogleBtn({
     super.key,
     this.onPressed,
   });
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class SignInWithGoogleBtn extends StatelessWidget {
         backgroundColor: kBlueColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-            5.0,
+            5,
           ),
         ),
       ),

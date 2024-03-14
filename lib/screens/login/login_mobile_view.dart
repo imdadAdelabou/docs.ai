@@ -10,7 +10,7 @@ class LoginMobileView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      children: <Widget>[
         Center(
           child: SignInWithGoogleBtn(
             onPressed: () => LoginViewModel().signinWithGoogle(

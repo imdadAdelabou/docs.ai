@@ -1,49 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:google_clone/repository/auth_repository.dart';
+import 'package:google_clone/repository/document_repository.dart';
 import 'package:google_clone/screens/document/widgets/share_btn.dart';
 import 'package:google_clone/utils/app_assets.dart';
 import 'package:google_clone/utils/colors.dart';
 
-class DocumentScreenAppBar extends StatelessWidget
+class DocumentScreenAppBar extends ConsumerWidget
     implements PreferredSizeWidget {
+  const DocumentScreenAppBar({
+    required this.titleCtrl, required this.id, super.key,
+    this.height = kToolbarHeight,
+  });
   final double height;
   final TextEditingController titleCtrl;
-  const DocumentScreenAppBar({
-    Key? key,
-    this.height = kToolbarHeight,
-    required this.titleCtrl,
-  }) : super(key: key);
+  final String id;
+
+  Future<void> _updateTitle({required WidgetRef ref, required String title}) async {
+    final String token = ref.read(userProvider)!.token;
+    await ref.read(documentRepositoryProvider).updateTitleDocument(
+          docId: id,
+          token: token,
+          newTitle: title,
+        );
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AppBar(
       backgroundColor: kWhiteColor,
       toolbarHeight: height,
       elevation: 0,
       automaticallyImplyLeading: false,
-      actions: const [
+      actions: const <Widget>[
         ShareBtn(),
-        Gap(20.0),
+        Gap(20),
       ],
       title: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 9.0),
+        padding: const EdgeInsets.symmetric(vertical: 9),
         child: Row(
-          children: [
+          children: <Widget>[
             Image.asset(
               AppAssets.docsIcon,
               height: 40,
             ),
-            const Gap(10.0),
+            const Gap(10),
             SizedBox(
               width: 180,
               child: TextFormField(
                 controller: titleCtrl,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(left: 10.0),
+                  contentPadding: EdgeInsets.only(left: 10),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: kBlueColorVariant),
                   ),
+                ),
+                onFieldSubmitted: (String value) => _updateTitle(
+                  ref: ref,
+                  title: value,
                 ),
               ),
             ),

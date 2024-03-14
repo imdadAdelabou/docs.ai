@@ -12,8 +12,8 @@ import 'package:google_clone/widgets/signin_with_google_btn.dart';
 //routemaster to manage rooting on web
 
 class Login extends ConsumerWidget {
-  static const String routeName = "/login";
   const Login({super.key});
+  static const String routeName = '/login';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,21 +22,21 @@ class Login extends ConsumerWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth > 480) {
             return Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
+              children: <Widget>[
+                const Expanded(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
                       color: kBlueColor,
                     ),
-                    child: const Column(
-                      children: [],
+                    child: Column(
+                      
                     ),
                   ),
                 ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: <Widget>[
                       SignInWithGoogleBtn(
                         onPressed: () =>
                             LoginViewModel().signinWithGoogle(ref, context),

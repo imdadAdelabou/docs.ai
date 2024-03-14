@@ -12,6 +12,7 @@ async function signUp(req, res, next) {
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWTPRIVATEKEY);
+    console.log(token);
     return res
       .status(201)
       .json({ message: "User created", user: user, token: token });

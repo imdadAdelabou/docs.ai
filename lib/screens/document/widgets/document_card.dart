@@ -4,11 +4,10 @@ import 'package:google_clone/utils/colors.dart';
 import 'package:routemaster/routemaster.dart';
 
 class DocumentCard extends StatelessWidget {
-  final DocumentModel document;
   const DocumentCard({
-    super.key,
-    required this.document,
+    required this.document, super.key,
   });
+  final DocumentModel document;
 
   void _goToDocument(BuildContext context, String documentId) {
     Routemaster.of(context).push('/document/$documentId');
@@ -21,10 +20,10 @@ class DocumentCard extends StatelessWidget {
       child: Card(
         color: kWhiteColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4.0),
+          borderRadius: BorderRadius.circular(4),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Text(
             '${document.title} - ${document.id}',
           ),

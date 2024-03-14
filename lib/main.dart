@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/models/error_model.dart';
+import 'package:google_clone/models/user.dart';
 import 'package:google_clone/repository/auth_repository.dart';
 import 'package:google_clone/router.dart';
 import 'package:routemaster/routemaster.dart';
@@ -13,7 +16,9 @@ void main() {
   );
 }
 
+/// The first widget that is load when the application is launch for the first time
 class MainApp extends ConsumerStatefulWidget {
+  /// Creates a [MainApp] widget
   const MainApp({super.key});
 
   @override
@@ -24,11 +29,11 @@ class _MainAppState extends ConsumerState<MainApp> {
   bool isLoading = false;
   ErrorModel? errorModel;
 
-  void getUserData() async {
+  Future<void> getUserData() async {
     errorModel = await ref.read(authRepositoryProvider).getUserData();
     if (errorModel != null && errorModel!.data != null) {
       ref.read(userProvider.notifier).update(
-            (state) => errorModel!.data,
+            (UserModel? state) => errorModel!.data,
           );
     }
   }
@@ -36,24 +41,18 @@ class _MainAppState extends ConsumerState<MainApp> {
   @override
   void initState() {
     super.initState();
-    getUserData();
+    unawaited(getUserData());
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      // initialRoute: '',
-      // home: user == null ? const Login() : const Home(),
-      // routes: {
-      //   Login.routeName: (_) => const Login(),
-      //   Home.routeName: (_) => const Home()
-      // },
       debugShowCheckedModeBanner: false,
       routerDelegate: RoutemasterDelegate(
-        routesBuilder: (context) {
-          final user = ref.watch(userProvider);
+        routesBuilder: (BuildContext context) {
+          final UserModel? user = ref.watch(userProvider);
           if (user != null && user.token.isNotEmpty) {
-            //User is connected
+            //User is connected root
             return loggedInRoute;
           }
 

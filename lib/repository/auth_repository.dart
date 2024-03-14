@@ -8,8 +8,9 @@ import 'package:google_clone/utils/constant.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 //For register service
-final authRepositoryProvider = Provider(
-  (ref) => AuthRepository(
+final Provider<AuthRepository> authRepositoryProvider =
+    Provider<AuthRepository>(
+  (ProviderRef<Object?> ref) => AuthRepository(
     googleSignIn: GoogleSignIn(),
     dioClient: dioClient,
     localStorageRepository: LocalStorageRepository(),
@@ -18,14 +19,10 @@ final authRepositoryProvider = Provider(
 );
 
 //StateProvider to create a provider for variables
-final userProvider = StateProvider<UserModel?>((ref) => null);
+final StateProvider<UserModel?> userProvider =
+    StateProvider<UserModel?>((StateProviderRef<UserModel?> ref) => null);
 
 class AuthRepository {
-  final GoogleSignIn _googleSignIn;
-  final Dio _dioClient;
-  final LocalStorageRepository _localStorageRepository;
-  final ProviderRef<Object?> _providerRef;
-
   AuthRepository({
     required GoogleSignIn googleSignIn,
     required Dio dioClient,
@@ -35,13 +32,19 @@ class AuthRepository {
         _dioClient = dioClient,
         _localStorageRepository = localStorageRepository,
         _providerRef = providerRef;
+  final GoogleSignIn _googleSignIn;
+  final Dio _dioClient;
+  final LocalStorageRepository _localStorageRepository;
+  final ProviderRef<Object?> _providerRef;
 
   Future<bool> signOut() async {
     try {
       await _googleSignIn.signOut();
-      bool isRemove = await LocalStorageRepository().removeToken();
+      final bool isRemove = await LocalStorageRepository().removeToken();
       if (isRemove) {
-        _providerRef.read(userProvider.notifier).update((state) => null);
+        _providerRef
+            .read(userProvider.notifier)
+            .update((UserModel? state) => null);
         return true;
       }
       return false;
@@ -57,29 +60,29 @@ class AuthRepository {
     );
 
     try {
-      final user = await _googleSignIn.signIn();
+      final GoogleSignInAccount? user = await _googleSignIn.signIn();
       if (user != null) {
-        final userData = UserModel(
+        final UserModel userData = UserModel(
           email: user.email,
-          name: user.displayName ?? "",
-          photoUrl: user.photoUrl ?? "",
+          name: user.displayName ?? '',
+          photoUrl: user.photoUrl ?? '',
           token: '',
           id: '',
         );
-        final res = await _dioClient.post(
+        final Response<dynamic> res = await _dioClient.post(
           '/signup',
           data: userData.toJson(),
         );
         switch (res.statusCode) {
           case 201:
             {
-              final newUser = userData.copyWith(
+              final UserModel newUser = userData.copyWith(
                 id: res.data['user']['_id'],
                 token: res.data['token'],
               );
 
               error = ErrorModel(data: newUser);
-              _localStorageRepository.setToken(token: newUser.token);
+              await _localStorageRepository.setToken(token: newUser.token);
               break;
             }
         }
@@ -92,16 +95,16 @@ class AuthRepository {
   }
 
   Future<ErrorModel> getUserData() async {
-    ErrorModel errorModel = const ErrorModel(data: null, error: null);
+    ErrorModel errorModel = const ErrorModel(data: null);
 
     try {
-      String? token = await _localStorageRepository.getToken();
+      final String? token = await _localStorageRepository.getToken();
 
       if (token != null) {
-        final res = await _dioClient.get(
+        final Response<dynamic> res = await _dioClient.get(
           '/me',
           options: Options(
-            headers: {
+            headers: <String, dynamic>{
               'x-auth-token': token,
             },
           ),
@@ -109,7 +112,6 @@ class AuthRepository {
 
         res.data['user']['token'] = '';
         errorModel = ErrorModel(
-          error: null,
           data: UserModel.fromJson(
             res.data['user'],
           ).copyWith(token: token),
@@ -117,7 +119,7 @@ class AuthRepository {
         return errorModel;
       }
 
-      throw "Bad request";
+      throw 'Bad request';
     } catch (e) {
       return const ErrorModel(
         data: null,

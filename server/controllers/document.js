@@ -34,4 +34,33 @@ async function me(req, res) {
   }
 }
 
-export { create, me };
+async function updateTitle(req, res) {
+  try {
+    const { id, title } = req.body;
+    const document = await Document.findByIdAndUpdate(id, { title });
+    if (!document) {
+      return res.status(404).json({ message: "No document found" });
+    }
+
+    return res.status(200).json({ message: "Success", document });
+  } catch (e) {
+    return res.status(500).json({ message: "Internal Server", error: e });
+  }
+}
+
+async function getDocById(req, res) {
+  try {
+    const { id } = req.params.id;
+    const document = await Document.findById(id);
+
+    if (!document) {
+      return res.status(404).json({ message: "No document found" });
+    }
+
+    return res.status(200).json({ message: "Success", document });
+  } catch (e) {
+    return res.status(500).json({ message: "Internal Server", error: e });
+  }
+}
+
+export { create, me, updateTitle, getDocById };

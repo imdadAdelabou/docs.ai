@@ -7,7 +7,7 @@ SnackBar customSnackBar({required String content, bool isError = false}) {
       content,
       style: GoogleFonts.lato(
         fontWeight: FontWeight.w500,
-        fontSize: 14.0,
+        fontSize: 14,
       ),
     ),
     backgroundColor: isError ? Colors.red : Colors.green,

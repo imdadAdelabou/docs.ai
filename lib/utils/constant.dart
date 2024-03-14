@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 
-const apiHost = 'http://192.168.1.23:3001/api';
+const String apiHost = 'http://192.168.1.23:3001/api';
 
 enum ViewState { idle, busy, error, retrieved }
 
-final dioClient = Dio(
+final Dio dioClient = Dio(
   BaseOptions(
     baseUrl: apiHost,
-    headers: {
+    headers: <String, dynamic>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
   ),
