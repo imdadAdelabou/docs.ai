@@ -3,11 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/models/user.dart';
 import 'package:google_clone/repository/auth_repository.dart';
 
-
+/// A widget that show a circularProgressindicator widget when the user data
+/// is still getting from the server and display
+/// a custom widget when all the data is loaded
 class VerifyIfUserNotNull extends ConsumerWidget {
+  /// Creates a [VerifyIfUserNotNull] widget
   const VerifyIfUserNotNull({
-    required this.child, super.key,
+    required this.child,
+    super.key,
   });
+
+  /// Contains the child to display when user data is loaded
   final Widget child;
 
   @override

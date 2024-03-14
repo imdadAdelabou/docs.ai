@@ -4,11 +4,15 @@ import 'package:google_clone/utils/app_text.dart';
 import 'package:google_clone/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/// A widget to display the button to sign-in with google
 class SignInWithGoogleBtn extends StatelessWidget {
+  /// Creates a [SignInWithGoogleBtn] widget
   const SignInWithGoogleBtn({
     super.key,
     this.onPressed,
   });
+
+  /// A function to execute when the button is clicked
   final Function()? onPressed;
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/screens/login/login_mobile_view.dart';
@@ -11,9 +13,10 @@ import 'package:google_clone/widgets/signin_with_google_btn.dart';
 //ref.read when you are outside the build method
 //routemaster to manage rooting on web
 
+/// Contains the visual aspect of the login page
 class Login extends ConsumerWidget {
+  /// Creates a [Login] widget
   const Login({super.key});
-  static const String routeName = '/login';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,9 +31,7 @@ class Login extends ConsumerWidget {
                     decoration: BoxDecoration(
                       color: kBlueColor,
                     ),
-                    child: Column(
-                      
-                    ),
+                    child: Column(),
                   ),
                 ),
                 Expanded(
@@ -38,8 +39,9 @@ class Login extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       SignInWithGoogleBtn(
-                        onPressed: () =>
-                            LoginViewModel().signinWithGoogle(ref, context),
+                        onPressed: () => unawaited(
+                          LoginViewModel().signinWithGoogle(ref, context),
+                        ),
                       ),
                     ],
                   ),

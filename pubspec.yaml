@@ -9,15 +9,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  
   flutter_riverpod:
+  gap:
   google_fonts:
   google_sign_in:
   json_annotation:
-  dio:
-  cached_network_image:
-  gap:
-  shared_preferences: ^2.2.2
   routemaster: ^1.0.1
+  shared_preferences: ^2.2.2
+  cached_network_image:
+  dio: ^5.4.1
   flutter_quill: ^9.3.1
   
 
@@ -25,10 +27,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  blackfoot_flutter_lint: ^2.0.0
+  build_runner:
   flutter_lints: ^3.0.0
   json_serializable: ^6.7.1
-  build_runner:
-  blackfoot_flutter_lint: ^2.0.0
+  
+  
+  
 
 flutter:
   uses-material-design: true

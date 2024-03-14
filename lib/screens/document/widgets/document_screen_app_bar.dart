@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -7,17 +9,30 @@ import 'package:google_clone/screens/document/widgets/share_btn.dart';
 import 'package:google_clone/utils/app_assets.dart';
 import 'package:google_clone/utils/colors.dart';
 
+/// Contains the AppBar of the document screen
 class DocumentScreenAppBar extends ConsumerWidget
     implements PreferredSizeWidget {
+  /// Creates a [DocumentScreenAppBar]
   const DocumentScreenAppBar({
-    required this.titleCtrl, required this.id, super.key,
+    required this.titleCtrl,
+    required this.id,
+    super.key,
     this.height = kToolbarHeight,
   });
+
+  /// Contains the height of the AppBar
   final double height;
+
+  /// Contains the textEditingController of the input that contains the title of the document
   final TextEditingController titleCtrl;
+
+  /// Contains the id of the document
   final String id;
 
-  Future<void> _updateTitle({required WidgetRef ref, required String title}) async {
+  Future<void> _updateTitle({
+    required WidgetRef ref,
+    required String title,
+  }) async {
     final String token = ref.read(userProvider)!.token;
     await ref.read(documentRepositoryProvider).updateTitleDocument(
           docId: id,
@@ -54,12 +69,16 @@ class DocumentScreenAppBar extends ConsumerWidget
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(left: 10),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kBlueColorVariant),
+                    borderSide: BorderSide(
+                      color: kBlueColorVariant,
+                    ),
                   ),
                 ),
-                onFieldSubmitted: (String value) => _updateTitle(
-                  ref: ref,
-                  title: value,
+                onFieldSubmitted: (String value) => unawaited(
+                  _updateTitle(
+                    ref: ref,
+                    title: value,
+                  ),
                 ),
               ),
             ),

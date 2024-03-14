@@ -4,6 +4,7 @@ import 'package:google_clone/models/document_model.dart';
 import 'package:google_clone/models/error_model.dart';
 import 'package:google_clone/utils/constant.dart';
 
+/// Allow to store the documentRepository inside the provider and access them globaly
 final Provider<DocumentRepository> documentRepositoryProvider =
     Provider<DocumentRepository>(
   (ProviderRef<Object?> ref) => DocumentRepository(
@@ -11,13 +12,16 @@ final Provider<DocumentRepository> documentRepositoryProvider =
   ),
 );
 
+/// Represents the document service and contains all the functions needed to interact with a document
 class DocumentRepository {
+  /// Creates a [DocumentRepository] instance
   const DocumentRepository({
     required Dio dioClient,
   }) : _dioClient = dioClient;
 
   final Dio _dioClient;
 
+  /// A function used to create an empty document
   Future<ErrorModel> createDocument(String token) async {
     try {
       final Response<dynamic> result = await _dioClient.post(
@@ -48,6 +52,7 @@ class DocumentRepository {
     }
   }
 
+  /// A function used to retrieve the documents created by the connected user
   Future<ErrorModel> meDocument(String token) async {
     try {
       final Response<dynamic> result = await _dioClient.get(
@@ -79,6 +84,7 @@ class DocumentRepository {
     }
   }
 
+  /// A function used to update the title of a document
   Future<ErrorModel> updateTitleDocument({
     required String docId,
     required String token,
@@ -114,6 +120,7 @@ class DocumentRepository {
     }
   }
 
+  /// A function to get a document by his id
   Future<ErrorModel> getDocumentById({
     required String docId,
     required String token,

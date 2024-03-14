@@ -7,7 +7,8 @@ import 'package:google_clone/utils/app_text.dart';
 import 'package:google_clone/utils/constant.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-//For register service
+/// Contains all the functions using for authentification (SignIn, Logout, getUserData)
+/// and Provider allow to access the service globaly
 final Provider<AuthRepository> authRepositoryProvider =
     Provider<AuthRepository>(
   (ProviderRef<Object?> ref) => AuthRepository(
@@ -19,10 +20,14 @@ final Provider<AuthRepository> authRepositoryProvider =
 );
 
 //StateProvider to create a provider for variables
-final StateProvider<UserModel?> userProvider =
-    StateProvider<UserModel?>((StateProviderRef<UserModel?> ref) => null);
+/// Contains a provider for the UserModel that allow it to be access from any component
+final StateProvider<UserModel?> userProvider = StateProvider<UserModel?>(
+  (StateProviderRef<UserModel?> ref) => null,
+);
 
+/// Represent the Authentification service
 class AuthRepository {
+  /// Creates a [AuthRepository] instance
   AuthRepository({
     required GoogleSignIn googleSignIn,
     required Dio dioClient,
@@ -37,6 +42,7 @@ class AuthRepository {
   final LocalStorageRepository _localStorageRepository;
   final ProviderRef<Object?> _providerRef;
 
+  /// A function used to sign out a user from the app
   Future<bool> signOut() async {
     try {
       await _googleSignIn.signOut();
@@ -53,6 +59,7 @@ class AuthRepository {
     }
   }
 
+  /// A function used to sign-in a user to the app
   Future<ErrorModel> signInWithGoogle() async {
     ErrorModel error = const ErrorModel(
       error: 'ServerError',
@@ -94,6 +101,7 @@ class AuthRepository {
     return error;
   }
 
+  /// A function to get a data of the connected user
   Future<ErrorModel> getUserData() async {
     ErrorModel errorModel = const ErrorModel(data: null);
 
@@ -119,7 +127,10 @@ class AuthRepository {
         return errorModel;
       }
 
-      throw 'Bad request';
+      return const ErrorModel(
+        error: 'Bad request',
+        data: null,
+      );
     } catch (e) {
       return const ErrorModel(
         data: null,

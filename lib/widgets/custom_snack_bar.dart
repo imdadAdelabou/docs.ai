@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/// A function to create a snackBar
 SnackBar customSnackBar({required String content, bool isError = false}) {
   return SnackBar(
     content: Text(

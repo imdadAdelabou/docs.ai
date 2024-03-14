@@ -6,11 +6,16 @@ import 'package:google_clone/repository/auth_repository.dart';
 import 'package:google_clone/widgets/custom_snack_bar.dart';
 import 'package:routemaster/routemaster.dart';
 
+/// Contains all the logics using inside and using by the LoginView
 class LoginViewModel {
+  /// A function that trigger the sign in with logger and redirect
+  /// the user to the home screen if the sign in is succesded
+  /// otherwise the function show a snackbar with an error
   Future<void> signinWithGoogle(WidgetRef ref, BuildContext context) async {
     final ScaffoldMessengerState sMessenger = ScaffoldMessenger.of(context);
     final Routemaster navigator = Routemaster.of(context);
-    final ErrorModel result = await ref.read(authRepositoryProvider).signInWithGoogle();
+    final ErrorModel result =
+        await ref.read(authRepositoryProvider).signInWithGoogle();
     if (result.error != null) {
       sMessenger.showSnackBar(
         customSnackBar(content: result.error!, isError: true),

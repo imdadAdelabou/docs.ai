@@ -10,9 +10,10 @@ import 'package:google_clone/screens/verify_if_user_not_null.dart';
 import 'package:google_clone/widgets/custom_app_bar.dart';
 import 'package:google_clone/widgets/user_data.display.dart';
 
+/// Contains the visual aspect of the home screen
 class Home extends ConsumerWidget {
+  /// Creates a [Home] widget
   const Home({super.key});
-  static String routeName = '/home';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,6 +30,7 @@ class Home extends ConsumerWidget {
               ),
             FutureBuilder<ErrorModel>(
               future:
+                  // ignore: discarded_futures
                   ref.read(documentRepositoryProvider).meDocument(user!.token),
               builder:
                   (BuildContext context, AsyncSnapshot<ErrorModel> snapshot) {

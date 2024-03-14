@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,10 +12,15 @@ import 'package:google_clone/screens/document/widgets/document_screen_app_bar.da
 import 'package:google_clone/utils/colors.dart';
 
 //Snippet : stfl
+/// Contains the visual aspect of the document screen
 class DocumentScreen extends ConsumerStatefulWidget {
+  /// Creates [DocumentScreen] widget
   const DocumentScreen({
-    required this.id, super.key,
+    required this.id,
+    super.key,
   });
+
+  /// Contains the unique id of the document to display
   final String id;
 
   @override
@@ -42,7 +49,7 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
   @override
   void initState() {
     super.initState();
-    _fetchDocumentData();
+    unawaited(_fetchDocumentData());
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -12,13 +13,20 @@ import 'package:google_clone/utils/colors.dart';
 import 'package:google_clone/widgets/custom_snack_bar.dart';
 import 'package:routemaster/routemaster.dart';
 
+/// The appBar of the home page
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
+  /// Creates a [CustomAppBar] widget
   const CustomAppBar({
     super.key,
     this.height = kTextTabBarHeight,
   });
+
+  /// A parameter to manage the height of the AppBar
   final double height;
 
+  /// A function to trigger the function to create a document
+  /// And redirect to the document screen created
+  /// otherwise display a snack bar with an error message
   Future<void> createDocument(BuildContext context, WidgetRef ref) async {
     final String token = ref.read(userProvider)!.token;
     final Routemaster navigator = Routemaster.of(context);
@@ -46,14 +54,14 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
         IconButton(
           icon: const Icon(Icons.add),
           color: kBlackColor,
-          onPressed: () => createDocument(context, ref),
+          onPressed: () => unawaited(createDocument(context, ref)),
         ),
         const Gap(20),
-        //TODO: Ajouter une confirmation avant le logout
         IconButton(
           icon: const Icon(Icons.logout),
           color: kRedColor,
-          onPressed: () => ref.read(authRepositoryProvider).signOut(),
+          onPressed: () =>
+              unawaited(ref.read(authRepositoryProvider).signOut()),
         ),
         const Gap(20),
       ],
