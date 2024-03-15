@@ -7,10 +7,11 @@ environment:
   sdk: '>=3.2.5 <4.0.0'
 
 dependencies:
+  cached_network_image:
+  dio: ^5.4.1
   flutter:
     sdk: flutter
-  
-  
+  flutter_quill: ^9.3.1
   flutter_riverpod:
   gap:
   google_fonts:
@@ -18,19 +19,29 @@ dependencies:
   json_annotation:
   routemaster: ^1.0.1
   shared_preferences: ^2.2.2
-  cached_network_image:
-  dio: ^5.4.1
-  flutter_quill: ^9.3.1
   
 
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   blackfoot_flutter_lint: ^2.0.0
   build_runner:
   flutter_lints: ^3.0.0
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
   json_serializable: ^6.7.1
+  patrol: ^3.5.2
+  
+ 
+  
+
+patrol:
+  app_name: docs.ai
+  android:
+    package_name: com.example.google_clone
+  ios:
+    bundle_id: com.example.googleClone
   
   
   
