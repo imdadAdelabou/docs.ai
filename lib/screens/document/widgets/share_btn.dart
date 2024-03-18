@@ -6,7 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 /// Contains the button used to share access to a document
 class ShareBtn extends StatelessWidget {
   /// Creates a [ShareBtn] widget
-  const ShareBtn({super.key});
+  const ShareBtn({super.key, this.onPressed});
+
+  /// The function that is launch when the button is clicked
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class ShareBtn extends StatelessWidget {
         ),
         minimumSize: const Size(150, 50),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       label: Text(
         AppText.shareLabel,
         style: GoogleFonts.lato(

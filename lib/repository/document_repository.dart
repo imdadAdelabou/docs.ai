@@ -134,6 +134,7 @@ class DocumentRepository {
           },
         ),
       );
+
       if (result.statusCode == 200 && result.data['document'] != null) {
         return ErrorModel(
           data: DocumentModel.fromJson(

@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:google_clone/models/document_model.dart';
 import 'package:google_clone/models/error_model.dart';
 import 'package:google_clone/repository/auth_repository.dart';
 import 'package:google_clone/repository/document_repository.dart';
+import 'package:google_clone/repository/socket_repository.dart';
 import 'package:google_clone/screens/document/widgets/document_screen_app_bar.dart';
 import 'package:google_clone/utils/colors.dart';
 
@@ -33,23 +35,65 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
   );
   final QuillController _controller = QuillController.basic();
   late ErrorModel _errorModel;
+  SocketRespository socketRespository = SocketRespository();
+  late StreamSubscription<DocChange> _subscriptionToDoc;
+  late Timer timerAutoSave;
 
   Future<void> _fetchDocumentData() async {
     _errorModel = await ref.read(documentRepositoryProvider).getDocumentById(
           docId: widget.id,
           token: ref.read(userProvider)!.token,
         );
+
     if (_errorModel.data != null) {
       final DocumentModel document = _errorModel.data;
       titleCtrl.text = document.title;
+
+      _controller.document = document.content.isEmpty
+          ? Document()
+          : Document.fromDelta(
+              Delta.fromJson(document.content),
+            );
       setState(() {});
     }
+    _subscriptionToDoc = _controller.document.changes.listen(
+      (DocChange event) {
+        if (event.source == ChangeSource.local) {
+          final Map<String, dynamic> map = <String, dynamic>{
+            'delta': event.change,
+            'room': widget.id,
+          };
+
+          socketRespository.typing(map);
+        }
+      },
+    );
   }
 
   @override
   void initState() {
     super.initState();
+    socketRespository.joinRoom(widget.id);
     unawaited(_fetchDocumentData());
+
+    socketRespository.changeListener(
+      (Map<String, dynamic> data) {
+        _controller.compose(
+          Delta.fromJson(data['delta']),
+          const TextSelection.collapsed(offset: 0),
+          ChangeSource.remote,
+        );
+      },
+    );
+
+    Timer.periodic(const Duration(seconds: 2), (Timer timer) {
+      socketRespository.save(
+        <String, dynamic>{
+          'id': widget.id,
+          'delta': _controller.document.toDelta(),
+        },
+      );
+    });
   }
 
   @override
@@ -99,5 +143,8 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
   void dispose() {
     super.dispose();
     titleCtrl.dispose();
+    // timerAutoSave.cancel();
+    _controller.dispose();
+    unawaited(_subscriptionToDoc.cancel());
   }
 }

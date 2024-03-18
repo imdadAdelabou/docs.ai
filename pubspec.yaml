@@ -19,6 +19,7 @@ dependencies:
   json_annotation:
   routemaster: ^1.0.1
   shared_preferences: ^2.2.2
+  socket_io_client: ^1.0.2
   
 
 

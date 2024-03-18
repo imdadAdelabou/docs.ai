@@ -51,16 +51,33 @@ async function updateTitle(req, res) {
 async function getDocById(req, res) {
   try {
     const { id } = req.params.id;
-    const document = await Document.findById(id);
+    console.log(req.params.id);
+    const document = await Document.findById({ _id: req.params.id });
 
     if (!document) {
       return res.status(404).json({ message: "No document found" });
     }
 
+    console.log(document);
     return res.status(200).json({ message: "Success", document });
   } catch (e) {
+    console.log(e);
     return res.status(500).json({ message: "Internal Server", error: e });
   }
 }
 
-export { create, me, updateTitle, getDocById };
+async function updateDocument(data) {
+  try {
+    let document = await Document.findById(data.id);
+    if (!document) {
+      return "No document found";
+    }
+    document.content = data.delta;
+    document = await document.save();
+  } catch (e) {
+    console.log(e);
+    return;
+  }
+}
+
+export { create, me, updateTitle, getDocById, updateDocument };

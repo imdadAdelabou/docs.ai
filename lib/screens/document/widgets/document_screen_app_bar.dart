@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:google_clone/repository/auth_repository.dart';
@@ -8,6 +10,8 @@ import 'package:google_clone/repository/document_repository.dart';
 import 'package:google_clone/screens/document/widgets/share_btn.dart';
 import 'package:google_clone/utils/app_assets.dart';
 import 'package:google_clone/utils/colors.dart';
+import 'package:google_clone/widgets/custom_snack_bar.dart';
+import 'package:routemaster/routemaster.dart';
 
 /// Contains the AppBar of the document screen
 class DocumentScreenAppBar extends ConsumerWidget
@@ -48,17 +52,32 @@ class DocumentScreenAppBar extends ConsumerWidget
       toolbarHeight: height,
       elevation: 0,
       automaticallyImplyLeading: false,
-      actions: const <Widget>[
-        ShareBtn(),
-        Gap(20),
+      actions: <Widget>[
+        ShareBtn(
+          onPressed: () {
+            unawaited(
+              Clipboard.setData(
+                ClipboardData(text: 'http://localhost:3000/#/document/$id'),
+              ).then(
+                (_) => ScaffoldMessenger.of(context).showSnackBar(
+                  customSnackBar(content: 'Link Copied'),
+                ),
+              ),
+            );
+          },
+        ),
+        const Gap(20),
       ],
       title: Padding(
         padding: const EdgeInsets.symmetric(vertical: 9),
         child: Row(
           children: <Widget>[
-            Image.asset(
-              AppAssets.docsIcon,
-              height: 40,
+            GestureDetector(
+              onTap: () => Routemaster.of(context).replace('/'),
+              child: Image.asset(
+                AppAssets.docsIcon,
+                height: 40,
+              ),
             ),
             const Gap(10),
             SizedBox(
