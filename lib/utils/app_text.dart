@@ -11,4 +11,11 @@ class AppText {
 
   /// Contains the text that is displayed on the share button
   static const String shareLabel = 'Share';
+
+  /// Contains the description text showed on the upload picture screen
+  static const String descriptionOnUploadPicture =
+      'Help your friends to easily find you by adding a profile photo';
+
+  /// Contains the cta upload text
+  static const String upload = 'Upload';
 }

@@ -24,6 +24,7 @@ class LoginViewModel {
     }
     //We need to update the state with a new value of user
     ref.read(userProvider.notifier).update((UserModel? state) => result.data);
-    navigator.replace('/');
+    navigator.replace('/upload-picture');
+    // navigator.replace('/');
   }
 }

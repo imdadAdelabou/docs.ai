@@ -10,14 +10,16 @@ class UploadPicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth > 480) {
-            return const UploadPictureLargeView();
-          }
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            if (constraints.maxWidth > 480) {
+              return const UploadPictureLargeView();
+            }
 
-          return const UploadPictureMobileView();
-        },
+            return const UploadPictureMobileView();
+          },
+        ),
       ),
     );
   }
