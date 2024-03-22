@@ -67,7 +67,7 @@ class _UploadPictureMobileViewState
               onPressed: () {},
             ),
           ),
-          const Gap(20),
+          const Gap(50),
         ],
       ),
     );
