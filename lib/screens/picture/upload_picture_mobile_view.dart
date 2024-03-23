@@ -84,6 +84,22 @@ class _UploadPictureMobileViewState
     return Center(
       child: Column(
         children: <Widget>[
+          const Gap(20),
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: InkWell(
+                onTap: () => Routemaster.of(context).replace('/'),
+                child: Text(
+                  AppText.skip,
+                  style: GoogleFonts.lato(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+          ),
           const Gap(30),
           Stack(
             clipBehavior: Clip.none,

@@ -18,4 +18,7 @@ class AppText {
 
   /// Contains the cta upload text
   static const String upload = 'Upload';
+
+  /// Contains the skip label
+  static const String skip = 'Skip';
 }
