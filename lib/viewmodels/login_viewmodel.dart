@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/models/error_model.dart';
@@ -24,6 +26,12 @@ class LoginViewModel {
     }
     //We need to update the state with a new value of user
     ref.read(userProvider.notifier).update((UserModel? state) => result.data);
-    navigator.replace('/');
+    final UserModel user = result.data as UserModel;
+    log('IsNewUser: ${user.isNewUser}');
+    if (user.isNewUser != null && user.isNewUser!) {
+      navigator.replace('/upload-picture');
+    } else {
+      navigator.replace('/');
+    }
   }
 }

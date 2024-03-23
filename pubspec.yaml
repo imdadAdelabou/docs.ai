@@ -9,6 +9,8 @@ environment:
 dependencies:
   cached_network_image:
   dio: ^5.4.1
+  firebase_core:
+  firebase_storage:
   flutter:
     sdk: flutter
   flutter_quill: ^9.3.1
@@ -16,6 +18,7 @@ dependencies:
   gap:
   google_fonts:
   google_sign_in:
+  image_picker: ^1.0.7
   json_annotation:
   routemaster: ^1.0.1
   shared_preferences: ^2.2.2

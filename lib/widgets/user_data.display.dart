@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_clone/models/user.dart';
 import 'package:google_clone/utils/app_assets.dart';
+import 'package:google_clone/widgets/show_remote_profile_pic.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// A widget to display some user information(image profile, name and email)
@@ -27,15 +27,7 @@ class UserDataDisplay extends StatelessWidget {
             backgroundImage: AssetImage(AppAssets.avatarPlaceHolder),
           )
         else
-          CachedNetworkImage(
-            imageUrl: userModel.photoUrl,
-            imageBuilder:
-                (BuildContext context, ImageProvider<Object> imageProvider) =>
-                    CircleAvatar(
-              radius: 70,
-              backgroundImage: imageProvider,
-            ),
-          ),
+          ShowRemoteProfilPic(url: userModel.photoUrl),
         const Gap(4),
         Text(
           userModel.name,

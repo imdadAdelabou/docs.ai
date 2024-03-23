@@ -12,6 +12,7 @@ class UserModel {
     required this.photoUrl,
     required this.token,
     required this.id,
+    this.isNewUser,
   });
 
   /// A function to convert a JSON to a UserModel instance
@@ -33,6 +34,9 @@ class UserModel {
   /// Contains the profile picture of a user
   final String photoUrl;
 
+  /// To know if the current user is a new user or not
+  final bool? isNewUser;
+
   /// A function that returns a JSON representation of the UserModel instance
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
@@ -43,6 +47,7 @@ class UserModel {
     String? photoUrl,
     String? token,
     String? id,
+    bool? isNewUser,
   }) =>
       UserModel(
         email: email ?? this.email,
@@ -50,5 +55,6 @@ class UserModel {
         photoUrl: photoUrl ?? this.photoUrl,
         token: token ?? this.token,
         id: id ?? this.id,
+        isNewUser: isNewUser ?? this.isNewUser,
       );
 }
