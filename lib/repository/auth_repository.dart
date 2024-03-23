@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/models/error_model.dart';
@@ -69,6 +71,7 @@ class AuthRepository {
     try {
       final GoogleSignInAccount? user = await _googleSignIn.signIn();
       if (user != null) {
+        log('Photo Url: ${user.photoUrl}');
         final UserModel userData = UserModel(
           email: user.email,
           name: user.displayName ?? '',
@@ -86,6 +89,7 @@ class AuthRepository {
               final UserModel newUser = userData.copyWith(
                 id: res.data['user']['_id'],
                 token: res.data['token'],
+                isNewUser: res.data['isNewUser'],
               );
 
               error = ErrorModel(data: newUser);

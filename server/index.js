@@ -5,9 +5,11 @@ import { config } from "dotenv";
 import cors from "cors";
 config();
 import mongoose from "mongoose";
+import auth from "./middlewares/auth.midldleware.js";
 import authRouter from "./routers/auth.route.js";
 import documentRouter from "./routers/document.route.js";
 import { updateDocument } from "./controllers/document.js";
+import userRouter from "./routers/user.route.js";
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -21,6 +23,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use("/api", authRouter);
 app.use("/api", documentRouter);
+app.use("/api/user", auth, userRouter);
 
 mongoose
   .connect(MONGODB_URI)

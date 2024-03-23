@@ -14,7 +14,7 @@ class AppText {
 
   /// Contains the description text showed on the upload picture screen
   static const String descriptionOnUploadPicture =
-      'Help your friends to easily find you by adding a profile photo';
+      'Help your friends to easily find you by adding a profile picture';
 
   /// Contains the cta upload text
   static const String upload = 'Upload';

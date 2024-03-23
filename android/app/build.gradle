@@ -57,6 +57,7 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "pl.leancode.patrol.PatrolJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: "true"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -74,4 +75,5 @@ flutter {
 
 dependencies {
     androidTestUtil "androidx.test:orchestrator:1.4.2"
+    implementation "androidx.multidex:multidex:2.0.1"
 }
