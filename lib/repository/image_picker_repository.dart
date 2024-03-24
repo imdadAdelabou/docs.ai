@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -27,5 +28,12 @@ class ImagePickerRepository {
     final XFile? image = await _picker.pickImage(source: ImageSource.camera);
 
     return image;
+  }
+
+  /// Allow a user to pick a picture from his device on web device
+  Future<FilePickerResult?> pickImageFromWeb() async {
+    final FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    return result;
   }
 }

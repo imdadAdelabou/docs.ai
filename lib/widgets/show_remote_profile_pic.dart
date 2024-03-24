@@ -22,6 +22,14 @@ class ShowRemoteProfilPic extends StatelessWidget {
         radius: 70,
         backgroundImage: imageProvider,
       ),
+      errorWidget: (BuildContext context, _, Object object) =>
+          const CircleAvatar(
+        radius: 70,
+        child: Icon(
+          Icons.error,
+          color: Colors.red,
+        ),
+      ),
     );
   }
 }

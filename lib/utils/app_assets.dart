@@ -8,4 +8,7 @@ class AppAssets {
 
   /// Contains the path docs icon image
   static String docsIcon = 'assets/imgs/docs-logo.png';
+
+  /// Contains the illustration to display on the uploading picture screen in web view
+  static String uploadingImage = 'assets/imgs/uploadingImageIll.svg';
 }

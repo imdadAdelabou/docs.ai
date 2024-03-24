@@ -8,7 +8,9 @@ import 'package:google_clone/repository/document_repository.dart';
 import 'package:google_clone/screens/document/widgets/document_card.dart';
 import 'package:google_clone/screens/verify_if_user_not_null.dart';
 import 'package:google_clone/widgets/custom_app_bar.dart';
+import 'package:google_clone/widgets/custom_btn.dart';
 import 'package:google_clone/widgets/user_data.display.dart';
+import 'package:routemaster/routemaster.dart';
 
 /// Contains the visual aspect of the home screen
 class Home extends ConsumerWidget {
@@ -62,6 +64,10 @@ class Home extends ConsumerWidget {
                   ),
                 );
               },
+            ),
+            CustomBtn(
+              label: 'Go to upload picture',
+              onPressed: () => Routemaster.of(context).push('/upload-picture'),
             ),
           ],
         ),

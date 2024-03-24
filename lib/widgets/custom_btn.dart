@@ -9,6 +9,7 @@ class CustomBtn extends StatelessWidget {
     required this.label,
     this.isLoading = false,
     this.onPressed,
+    this.width,
     super.key,
   });
 
@@ -21,10 +22,13 @@ class CustomBtn extends StatelessWidget {
   /// Used to show a loading process it the valus is true
   final bool isLoading;
 
+  /// Used to define a custom width for the button
+  final double? width;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: width ?? double.infinity,
       height: 40,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
