@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -22,7 +24,17 @@ import 'package:routemaster/routemaster.dart';
 /// The widgets that contains the layout to display on mobile device
 class UploadPictureMobileView extends ConsumerStatefulWidget {
   /// Creates a [UploadPictureMobileView] instance
-  const UploadPictureMobileView({super.key});
+  const UploadPictureMobileView({
+    super.key,
+    this.showDescriptionText = false,
+    this.width,
+  });
+
+  /// Used to display or not the description text
+  final bool showDescriptionText;
+
+  /// Used to define a custom width to the upload button
+  final double? width;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -31,12 +43,24 @@ class UploadPictureMobileView extends ConsumerStatefulWidget {
 
 class _UploadPictureMobileViewState
     extends ConsumerState<UploadPictureMobileView> {
-  XFile? _pickedFile;
+  dynamic _pickedFile;
   bool _isLoading = false;
 
   Future<void> _pickFile(WidgetRef ref) async {
-    _pickedFile =
-        await ref.read(imagePickerRepositoryProvider).pickImageFromGallery();
+    if (kIsWeb) {
+      final FilePickerResult? result =
+          await ref.read(imagePickerRepositoryProvider).pickImageFromWeb();
+      if (result != null) {
+        _pickedFile = result.files.first;
+      }
+    } else {
+      final XFile? file =
+          await ref.read(imagePickerRepositoryProvider).pickImageFromGallery();
+      if (file != null) {
+        _pickedFile = File(file.path);
+      }
+    }
+
     setState(() {});
   }
 
@@ -45,12 +69,18 @@ class _UploadPictureMobileViewState
     setState(() {
       _isLoading = true;
     });
+    String fileName = '';
+    if (kIsWeb && _pickedFile is PlatformFile) {
+      fileName = FileNameForFileForPlatformFile(file: _pickedFile).getName();
+    } else {
+      fileName = FileNameForFile(file: _pickedFile).getName();
+    }
+
     final String pictureUrl =
         await ref.read(firebaseStorageRepositoryProvider).uploadFile(
               path: 'images/',
-              file: File(
-                _pickedFile!.path,
-              ),
+              file: _pickedFile!,
+              fileName: fileName,
             );
 
     if (pictureUrl is bool) {
@@ -75,6 +105,18 @@ class _UploadPictureMobileViewState
 
     ///Upate profile pic on backend
     goToHome();
+  }
+
+  ImageProvider<Object>? _returnTheRightImage() {
+    if (_pickedFile == null) {
+      return null;
+    }
+
+    if (kIsWeb) {
+      return Image.memory((_pickedFile as PlatformFile).bytes!).image;
+    }
+
+    return FileImage(_pickedFile);
   }
 
   @override
@@ -104,20 +146,20 @@ class _UploadPictureMobileViewState
           Stack(
             clipBehavior: Clip.none,
             children: <Widget>[
-              if (userModel != null && userModel.photoUrl.isNotEmpty)
+              if (userModel != null &&
+                  userModel.photoUrl.isNotEmpty &&
+                  _pickedFile == null)
                 ShowRemoteProfilPic(
                   url: userModel.photoUrl,
                 )
               else
                 CircleAvatar(
                   radius: 70,
-                  backgroundImage: _pickedFile != null
-                      ? FileImage(File(_pickedFile!.path))
-                      : null,
+                  backgroundImage: _returnTheRightImage(),
                 ),
               Positioned(
                 bottom: -18,
-                left: 43,
+                left: 50,
                 child: IconButton(
                   onPressed: () => unawaited(
                     _pickFile(ref),
@@ -135,21 +177,25 @@ class _UploadPictureMobileViewState
             ],
           ),
           const Gap(40),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              AppText.descriptionOnUploadPicture,
-              style: GoogleFonts.lato(
-                fontSize: 16,
-                color: kGreyColor,
+          Visibility(
+            visible: widget.showDescriptionText,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                AppText.descriptionOnUploadPicture,
+                style: GoogleFonts.lato(
+                  fontSize: 16,
+                  color: kGreyColor,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
           ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: CustomBtn(
+              width: widget.width,
               isLoading: _isLoading,
               label: AppText.upload,
               onPressed: _pickedFile != null
