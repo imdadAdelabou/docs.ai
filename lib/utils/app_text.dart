@@ -21,4 +21,11 @@ class AppText {
 
   /// Contains the skip label
   static const String skip = 'Skip';
+
+  /// Contains the title that is displayed on the first section of the onboarding screen
+  static const String collaborativeTitle = 'Collaborative';
+
+  /// Contains the text that is displayed on the first section of the onboarding screen
+  static const String collaborativeDescription =
+      'Share ideas, work together with friends in real-time, and turn your collective creativity into reality';
 }

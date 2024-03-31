@@ -11,4 +11,7 @@ class AppAssets {
 
   /// Contains the illustration to display on the uploading picture screen in web view
   static String uploadingImage = 'assets/imgs/uploadingImageIll.svg';
+
+  /// Contains the illustration to display on the login
+  static String collaborativeIllustration = 'assets/imgs/collaborative.svg';
 }
