@@ -18,6 +18,11 @@ final List<OnBoardingItemModel> _onBoardingItems = <OnBoardingItemModel>[
     description: AppText.easyToUseDescription,
     icon: AppAssets.easyToUseIllustration,
   ),
+  OnBoardingItemModel(
+    title: AppText.ai,
+    description: AppText.aiDescription,
+    icon: AppAssets.aiIllustration,
+  ),
 ];
 
 class _OnBoardingView extends StatelessWidget {

@@ -18,4 +18,7 @@ class AppAssets {
   /// Contains the illustration to display on the login
   static String easyToUseIllustration =
       'assets/imgs/illustrationEasyToUse2.svg';
+
+  /// Contains the illustration about AI feature to display on the login
+  static String aiIllustration = 'assets/imgs/onlineEditorIllustration.svg';
 }

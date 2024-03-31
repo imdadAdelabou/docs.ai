@@ -35,4 +35,11 @@ class AppText {
   /// Contains the text description that is displayed on the second section of the onboarding screen
   static const String easyToUseDescription =
       'An intuitive and user-friendly interface that enables quicker creation and completion of documents';
+
+  /// Contains the text that is displayed on the AI text
+  static const String ai = 'AI';
+
+  /// Contains the text that is displayed on the AI description
+  static const String aiDescription =
+      'Unlock the power of the ultimate toolkit, combining the best and most popular text and image generative AI technologies in one platform';
 }
