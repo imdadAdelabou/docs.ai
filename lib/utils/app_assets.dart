@@ -14,4 +14,8 @@ class AppAssets {
 
   /// Contains the illustration to display on the login
   static String collaborativeIllustration = 'assets/imgs/collaborative.svg';
+
+  /// Contains the illustration to display on the login
+  static String easyToUseIllustration =
+      'assets/imgs/illustrationEasyToUse2.svg';
 }

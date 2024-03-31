@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_clone/screens/login/model.dart';
 import 'package:google_clone/utils/app_assets.dart';
@@ -12,6 +13,11 @@ final List<OnBoardingItemModel> _onBoardingItems = <OnBoardingItemModel>[
     description: AppText.collaborativeDescription,
     icon: AppAssets.collaborativeIllustration,
   ),
+  OnBoardingItemModel(
+    title: AppText.easyToUseTitle,
+    description: AppText.easyToUseDescription,
+    icon: AppAssets.easyToUseIllustration,
+  ),
 ];
 
 class _OnBoardingView extends StatelessWidget {
@@ -23,30 +29,46 @@ class _OnBoardingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        SvgPicture.asset(
-          item.icon,
-        ),
-        Text(
-          item.title,
-          style: GoogleFonts.lato(
-            fontWeight: FontWeight.w700,
-            fontSize: 34,
-            color: kWhiteColor,
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: SvgPicture.asset(
+              item.icon,
+            ),
           ),
-        ),
-        Text(
-          item.description,
-          style: GoogleFonts.lato(
-            fontWeight: FontWeight.w400,
-            fontSize: 18,
-            color: kWhiteColor,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  item.title,
+                  style: GoogleFonts.lato(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 34,
+                    color: kWhiteColor,
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * .3,
+                  child: Text(
+                    item.description,
+                    style: GoogleFonts.lato(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18,
+                      color: kWhiteColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

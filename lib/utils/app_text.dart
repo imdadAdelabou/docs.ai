@@ -28,4 +28,11 @@ class AppText {
   /// Contains the text that is displayed on the first section of the onboarding screen
   static const String collaborativeDescription =
       'Share ideas, work together with friends in real-time, and turn your collective creativity into reality';
+
+  /// Contains the title that is displayed on the second section of the onboarding screen
+  static const String easyToUseTitle = 'Easy to use';
+
+  /// Contains the text description that is displayed on the second section of the onboarding screen
+  static const String easyToUseDescription =
+      'An intuitive and user-friendly interface that enables quicker creation and completion of documents';
 }
