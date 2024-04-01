@@ -7,6 +7,7 @@ import 'package:google_clone/utils/app_assets.dart';
 import 'package:google_clone/utils/app_text.dart';
 import 'package:google_clone/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:routemaster/routemaster.dart';
 
 final List<OnBoardingItemModel> _onBoardingItems = <OnBoardingItemModel>[
   OnBoardingItemModel(
@@ -27,11 +28,21 @@ final List<OnBoardingItemModel> _onBoardingItems = <OnBoardingItemModel>[
 ];
 
 class _OnBoardingView extends StatelessWidget {
-  const _OnBoardingView({
-    required this.item,
-  });
+  const _OnBoardingView(
+      {required this.item,
+      this.width,
+      this.iconHeight,
+      this.descriptionFontSize = 18,
+      this.titleFontSize = 34});
 
   final OnBoardingItemModel item;
+  final double? width;
+
+  final double? iconHeight;
+
+  final double titleFontSize;
+
+  final double descriptionFontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +54,7 @@ class _OnBoardingView extends StatelessWidget {
           Center(
             child: SvgPicture.asset(
               item.icon,
+              height: iconHeight,
             ),
           ),
           Padding(
@@ -60,12 +72,12 @@ class _OnBoardingView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.sizeOf(context).width * .3,
+                  width: width,
                   child: Text(
                     item.description,
                     style: GoogleFonts.lato(
                       fontWeight: FontWeight.w400,
-                      fontSize: 18,
+                      fontSize: descriptionFontSize,
                       color: kWhiteColor,
                     ),
                   ),
@@ -75,6 +87,60 @@ class _OnBoardingView extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// The widget to display on mobile screen for the onboarding screen
+class OnBoardingForMobile extends StatefulWidget {
+  /// Creates a [OnBoardingForMobile] widget
+  const OnBoardingForMobile({super.key});
+
+  @override
+  State<OnBoardingForMobile> createState() => _OnBoardingForMobileState();
+}
+
+class _OnBoardingForMobileState extends State<OnBoardingForMobile> {
+  int _currentIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    final double maxHeight = MediaQuery.sizeOf(context).height;
+    return Column(
+      children: <Widget>[
+        const Gap(20),
+        Align(
+          alignment: Alignment.topRight,
+          child: TextButton(
+            onPressed: () => Routemaster.of(context).replace('/login'),
+            child: Text(
+              AppText.skip,
+              style: GoogleFonts.lato(
+                color: kWhiteColor,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: PageView.builder(
+            itemCount: _onBoardingItems.length,
+            onPageChanged: (int value) => setState(() {
+              _currentIndex = value;
+            }),
+            itemBuilder: (BuildContext context, int index) => _OnBoardingView(
+              item: _onBoardingItems[index],
+              iconHeight: maxHeight * .5,
+              titleFontSize: 24,
+              descriptionFontSize: 14,
+            ),
+          ),
+        ),
+        OnBoardingTracker(
+          currentIndex: _currentIndex,
+          radius: 6,
+        ),
+        const Gap(30),
+      ],
     );
   }
 }
@@ -104,6 +170,7 @@ class _LoginLargeViewState extends State<LoginLargeView> {
             },
             itemCount: _onBoardingItems.length,
             itemBuilder: (BuildContext context, int index) => _OnBoardingView(
+              width: MediaQuery.sizeOf(context).width * .3,
               item: _onBoardingItems[index],
             ),
           ),
@@ -113,7 +180,7 @@ class _LoginLargeViewState extends State<LoginLargeView> {
             currentIndex: _currentIndex,
           ),
         ),
-        const Gap(30)
+        const Gap(30),
       ],
     );
   }
@@ -140,7 +207,7 @@ class OnBoardingTracker extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: _onBoardingItems
           .map(
-            (elm) => Padding(
+            (OnBoardingItemModel elm) => Padding(
               padding: const EdgeInsets.only(right: 8),
               child: CircleAvatar(
                 radius: radius,
