@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +7,7 @@ import 'package:google_clone/screens/login/model.dart';
 import 'package:google_clone/utils/app_assets.dart';
 import 'package:google_clone/utils/app_text.dart';
 import 'package:google_clone/utils/colors.dart';
+import 'package:google_clone/widgets/custom_btn.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:routemaster/routemaster.dart';
 
@@ -127,11 +129,32 @@ class _OnBoardingForMobileState extends State<OnBoardingForMobile> {
             onPageChanged: (int value) => setState(() {
               _currentIndex = value;
             }),
-            itemBuilder: (BuildContext context, int index) => _OnBoardingView(
-              item: _onBoardingItems[index],
-              iconHeight: maxHeight * .5,
-              titleFontSize: 24,
-              descriptionFontSize: 14,
+            itemBuilder: (BuildContext context, int index) => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                _OnBoardingView(
+                  item: _onBoardingItems[index],
+                  iconHeight: maxHeight * .5,
+                  titleFontSize: 24,
+                  descriptionFontSize: 14,
+                ),
+                Visibility(
+                  visible: index == _onBoardingItems.length - 1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 30,
+                      right: 30,
+                      left: 30,
+                    ),
+                    child: CustomBtn(
+                      label: AppText.next,
+                      onPressed: () =>
+                          Routemaster.of(context).replace('/login'),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ),

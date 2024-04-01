@@ -42,4 +42,7 @@ class AppText {
   /// Contains the text that is displayed on the AI description
   static const String aiDescription =
       'Unlock the power of the ultimate toolkit, combining the best and most popular text and image generative AI technologies in one platform';
+
+  /// Contains the text that is displayed on the next button
+  static const String next = 'Next';
 }
