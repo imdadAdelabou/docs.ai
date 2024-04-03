@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 
 /// Contains the base url of the api
-const String apiHost = 'http://192.168.1.23:3001/api';
+const String apiHost = 'http://10.10.170.219:3001/api';
 
 /// Contains the base url of the api
 const String apiHostWs = 'http://192.168.1.23:3001';
+
+// 10.10.170.219
 
 /// Represents the states of the a view (app screen)
 enum ViewState {

@@ -5,6 +5,7 @@ import 'package:google_clone/models/error_model.dart';
 import 'package:google_clone/models/user.dart';
 import 'package:google_clone/repository/auth_repository.dart';
 import 'package:google_clone/repository/document_repository.dart';
+import 'package:google_clone/screens/PlaceHolderForEmptyDocument.dart';
 import 'package:google_clone/screens/document/widgets/document_card.dart';
 import 'package:google_clone/screens/verify_if_user_not_null.dart';
 import 'package:google_clone/widgets/custom_app_bar.dart';
@@ -45,7 +46,7 @@ class Home extends ConsumerWidget {
                 }
 
                 if (snapshot.data != null && snapshot.data!.error != null) {
-                  return Text(snapshot.data!.error!);
+                  return PlaceHolderForEmptyDocument();
                 }
                 final List<DocumentModel> documents =
                     snapshot.data!.data as List<DocumentModel>;

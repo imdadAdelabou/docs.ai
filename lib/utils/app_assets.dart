@@ -21,4 +21,7 @@ class AppAssets {
 
   /// Contains the illustration about AI feature to display on the login
   static String aiIllustration = 'assets/imgs/onlineEditorIllustration.svg';
+
+  /// Contains the illustration on the home screen when the user has no document
+  static String emptyDocIllustration = 'assets/imgs/emptyDoc.svg';
 }
