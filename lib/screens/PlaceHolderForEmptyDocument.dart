@@ -11,19 +11,23 @@ class PlaceHolderForEmptyDocument extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double maxHeight = MediaQuery.sizeOf(context).height;
+    final double maxWidth = MediaQuery.sizeOf(context).width;
+
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           SvgPicture.asset(
             AppAssets.emptyDocIllustration,
-            height: maxHeight * .3,
+            height: MediaQuery.sizeOf(context).width > 480
+                ? maxHeight * .3
+                : maxHeight * .2,
           ),
           const Gap(10),
           Text(
             AppText.noDocumentYet,
             style: GoogleFonts.lato(
-              fontSize: 24,
+              fontSize: MediaQuery.sizeOf(context).width > 480 ? 24 : 16,
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
