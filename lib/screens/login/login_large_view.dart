@@ -28,12 +28,13 @@ final List<OnBoardingItemModel> _onBoardingItems = <OnBoardingItemModel>[
 ];
 
 class _OnBoardingView extends StatelessWidget {
-  const _OnBoardingView(
-      {required this.item,
-      this.width,
-      this.iconHeight,
-      this.descriptionFontSize = 18,
-      this.titleFontSize = 34});
+  const _OnBoardingView({
+    required this.item,
+    this.width,
+    this.iconHeight,
+    this.descriptionFontSize = 18,
+    this.titleFontSize = 34,
+  });
 
   final OnBoardingItemModel item;
   final double? width;
@@ -151,7 +152,7 @@ class _OnBoardingForMobileState extends State<OnBoardingForMobile> {
                           Routemaster.of(context).replace('/login'),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

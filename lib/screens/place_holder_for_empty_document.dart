@@ -5,13 +5,14 @@ import 'package:google_clone/utils/app_assets.dart';
 import 'package:google_clone/utils/app_text.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/// A placeholder widget to display when there is no document
 class PlaceHolderForEmptyDocument extends StatelessWidget {
+  /// Creates a [PlaceHolderForEmptyDocument] widget
   const PlaceHolderForEmptyDocument({super.key});
 
   @override
   Widget build(BuildContext context) {
     final double maxHeight = MediaQuery.sizeOf(context).height;
-    final double maxWidth = MediaQuery.sizeOf(context).width;
 
     return Center(
       child: Column(
@@ -31,7 +32,7 @@ class PlaceHolderForEmptyDocument extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
-          )
+          ),
         ],
       ),
     );

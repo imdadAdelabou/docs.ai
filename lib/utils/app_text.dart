@@ -46,5 +46,6 @@ class AppText {
   /// Contains the text that is displayed on the next button
   static const String next = 'Next';
 
+  /// Contains the text to display when there is no document yet
   static const String noDocumentYet = 'You have no document yet';
 }
