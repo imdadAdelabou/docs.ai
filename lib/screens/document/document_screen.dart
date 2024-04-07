@@ -115,21 +115,8 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
             Expanded(
               child: SizedBox(
                 width: 750,
-                child: Card(
-                  color: kWhiteColor,
-                  surfaceTintColor: Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(1),
-                  ),
-                  elevation: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: QuillEditor.basic(
-                      configurations: QuillEditorConfigurations(
-                        controller: _controller,
-                      ),
-                    ),
-                  ),
+                child: DocumentBody(
+                  controller: _controller,
                 ),
               ),
             ),
@@ -146,5 +133,36 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
     // timerAutoSave.cancel();
     _controller.dispose();
     unawaited(_subscriptionToDoc.cancel());
+  }
+}
+
+/// Represents the body of the document screen without the app bar
+class DocumentBody extends StatelessWidget {
+  /// Creates a [DocumentBody] widget
+  const DocumentBody({
+    required QuillController controller,
+    super.key,
+  }) : _controller = controller;
+
+  final QuillController _controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: kWhiteColor,
+      surfaceTintColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(1),
+      ),
+      elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.all(30),
+        child: QuillEditor.basic(
+          configurations: QuillEditorConfigurations(
+            controller: _controller,
+          ),
+        ),
+      ),
+    );
   }
 }

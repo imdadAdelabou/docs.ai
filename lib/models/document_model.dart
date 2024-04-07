@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 /// Represents the Document enity
 class DocumentModel {
   /// Creates a [DocumentModel] instance
@@ -7,6 +9,7 @@ class DocumentModel {
     required this.createdAt,
     required this.title,
     required this.content,
+    required this.image,
   });
 
   /// A function to convert a json to a instance of DocumentModel
@@ -18,7 +21,27 @@ class DocumentModel {
         content: List<dynamic>.from(
           json['content'],
         ),
+        image: json['image'],
       );
+
+  /// A function to copy a DocumentModel instance
+  DocumentModel copyWith({
+    String? id,
+    String? uid,
+    DateTime? createdAt,
+    String? title,
+    List<dynamic>? content,
+    Uint8List? image,
+  }) {
+    return DocumentModel(
+      id: id ?? this.id,
+      uid: uid ?? this.uid,
+      createdAt: createdAt ?? this.createdAt,
+      title: title ?? this.title,
+      content: content ?? this.content,
+      image: image ?? this.image,
+    );
+  }
 
   /// The unique id of a document
   final String id;
@@ -34,6 +57,9 @@ class DocumentModel {
 
   /// The contents of a document
   final List<dynamic> content;
+
+  /// A captured image of the document in a DocumentCard widget
+  final Uint8List? image;
 
   /// To create a JSON representation of a DocumentModel instance
   Map<String, dynamic> toJson() => <String, dynamic>{

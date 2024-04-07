@@ -15,5 +15,8 @@ const MaterialColor kRedColor = Colors.red;
 /// A constant to hold a black color
 const Color kBlackColor = Colors.black;
 
+/// A constant to hold a grey color
+const Color kGreyColorPure = Colors.grey;
+
 /// A constant to hold a grey color variant
 Color kGreyColor = Colors.grey.shade800;

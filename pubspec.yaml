@@ -21,8 +21,10 @@ dependencies:
   google_fonts:
   google_sign_in:
   image_picker: ^1.0.7
+  intl: ^0.18.1
   json_annotation:
   routemaster: ^1.0.1
+  screenshot: ^2.3.0
   shared_preferences: ^2.2.2
   socket_io_client: ^1.0.2
   

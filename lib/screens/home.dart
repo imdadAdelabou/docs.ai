@@ -9,9 +9,7 @@ import 'package:google_clone/screens/document/widgets/document_card.dart';
 import 'package:google_clone/screens/place_holder_for_empty_document.dart';
 import 'package:google_clone/screens/verify_if_user_not_null.dart';
 import 'package:google_clone/widgets/custom_app_bar.dart';
-import 'package:google_clone/widgets/custom_btn.dart';
 import 'package:google_clone/widgets/user_data.display.dart';
-import 'package:routemaster/routemaster.dart';
 
 /// Contains the visual aspect of the home screen
 class Home extends ConsumerWidget {
@@ -25,52 +23,75 @@ class Home extends ConsumerWidget {
     return Scaffold(
       appBar: const CustomAppBar(),
       body: VerifyIfUserNotNull(
-        child: Column(
-          children: <Widget>[
-            if (user != null)
-              UserDataDisplay(
-                userModel: user,
-              ),
-            FutureBuilder<ErrorModel>(
-              future:
-                  // ignore: discarded_futures
-                  ref.read(documentRepositoryProvider).meDocument(user!.token),
-              builder:
-                  (BuildContext context, AsyncSnapshot<ErrorModel> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                }
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              if (user != null)
+                UserDataDisplay(
+                  userModel: user,
+                ),
+              FutureBuilder<ErrorModel>(
+                future: ref
+                    .read(documentRepositoryProvider)
+                    // ignore: discarded_futures
+                    .meDocument(user!.token),
+                builder:
+                    (BuildContext context, AsyncSnapshot<ErrorModel> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  }
 
-                if (snapshot.hasError) {
-                  return const Text('Error');
-                }
+                  if (snapshot.hasError) {
+                    return const Text('Error');
+                  }
 
-                if (snapshot.data != null && snapshot.data!.error != null) {
-                  return const PlaceHolderForEmptyDocument();
-                }
-                final List<DocumentModel> documents =
-                    snapshot.data!.data as List<DocumentModel>;
+                  if (snapshot.data != null && snapshot.data!.error != null) {
+                    return const PlaceHolderForEmptyDocument();
+                  }
+                  final List<DocumentModel> documents =
+                      snapshot.data!.data as List<DocumentModel>;
 
-                return Center(
-                  child: SizedBox(
-                    width: 600,
-                    child: ListView.builder(
-                      shrinkWrap: true,
+                  // return DocumentCard(
+                  //   document: documents[0],
+                  // );
+
+                  return LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
+                    if (constraints.maxWidth > 480) {
+                      return SizedBox(
+                        width: 208 * 3,
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          itemCount: documents.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                            childAspectRatio: 0.8,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return DocumentCard(
+                              document: documents[index],
+                            );
+                          },
+                        ),
+                      );
+                    }
+
+                    return ListView.builder(
                       itemCount: documents.length,
-                      itemBuilder: (BuildContext context, int index) =>
-                          DocumentCard(
-                        document: documents[index],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-            CustomBtn(
-              label: 'Go to upload picture',
-              onPressed: () => Routemaster.of(context).push('/upload-picture'),
-            ),
-          ],
+                      itemBuilder: (BuildContext context, int index) {
+                        return DocumentCard(
+                          document: documents[index],
+                        );
+                      },
+                    );
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

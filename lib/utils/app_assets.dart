@@ -24,4 +24,7 @@ class AppAssets {
 
   /// Contains the illustration on the home screen when the user has no document
   static String emptyDocIllustration = 'assets/imgs/emptyDoc.svg';
+
+  /// Contains the AI icons of software
+  static String googleDocsIcon = 'assets/imgs/docsIcons.png';
 }
