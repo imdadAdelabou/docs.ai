@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:google_clone/models/document_model.dart';
 import 'package:google_clone/models/error_model.dart';
 import 'package:google_clone/models/user.dart';
@@ -24,73 +25,90 @@ class Home extends ConsumerWidget {
       appBar: const CustomAppBar(),
       body: VerifyIfUserNotNull(
         child: Center(
-          child: Column(
-            children: <Widget>[
-              if (user != null)
-                UserDataDisplay(
-                  userModel: user,
-                ),
-              FutureBuilder<ErrorModel>(
-                future: ref
-                    .read(documentRepositoryProvider)
-                    // ignore: discarded_futures
-                    .meDocument(user!.token),
-                builder:
-                    (BuildContext context, AsyncSnapshot<ErrorModel> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  }
-
-                  if (snapshot.hasError) {
-                    return const Text('Error');
-                  }
-
-                  if (snapshot.data != null && snapshot.data!.error != null) {
-                    return const PlaceHolderForEmptyDocument();
-                  }
-                  final List<DocumentModel> documents =
-                      snapshot.data!.data as List<DocumentModel>;
-
-                  // return DocumentCard(
-                  //   document: documents[0],
-                  // );
-
-                  return LayoutBuilder(builder:
-                      (BuildContext context, BoxConstraints constraints) {
-                    if (constraints.maxWidth > 480) {
-                      return SizedBox(
-                        width: 208 * 3,
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          itemCount: documents.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 16,
-                            childAspectRatio: 0.8,
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return DocumentCard(
-                              document: documents[index],
-                            );
-                          },
-                        ),
-                      );
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                if (user != null)
+                  UserDataDisplay(
+                    userModel: user,
+                  ),
+                FutureBuilder<ErrorModel>(
+                  future: ref
+                      .read(documentRepositoryProvider)
+                      // ignore: discarded_futures
+                      .meDocument(user!.token),
+                  builder: (
+                    BuildContext context,
+                    AsyncSnapshot<ErrorModel> snapshot,
+                  ) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
                     }
 
-                    return ListView.builder(
-                      itemCount: documents.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return DocumentCard(
-                          document: documents[index],
+                    if (snapshot.hasError) {
+                      return const Text('Error');
+                    }
+
+                    if (snapshot.data != null && snapshot.data!.error != null) {
+                      return const PlaceHolderForEmptyDocument();
+                    }
+                    final List<DocumentModel> documents =
+                        snapshot.data!.data as List<DocumentModel>;
+
+                    return LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        if (constraints.maxWidth > 480) {
+                          return SizedBox(
+                            width: 208 * 3,
+                            child: GridView.builder(
+                              shrinkWrap: true,
+                              itemCount: documents.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 16,
+                                childAspectRatio: 0.8,
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                                return DocumentCard(
+                                  document: documents[index],
+                                );
+                              },
+                            ),
+                          );
+                        }
+
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 40,
+                              ),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: documents.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return SizedBox(
+                                    child: DocumentCard(
+                                      document: documents[index],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            const Gap(20),
+                          ],
                         );
                       },
                     );
-                  });
-                },
-              ),
-            ],
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
