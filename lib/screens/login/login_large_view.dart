@@ -112,7 +112,7 @@ class _OnBoardingForMobileState extends State<OnBoardingForMobile> {
         Align(
           alignment: Alignment.topRight,
           child: TextButton(
-            onPressed: () => Routemaster.of(context).replace('/login'),
+            onPressed: () => Routemaster.of(context).replace('/login-mobile'),
             child: Text(
               AppText.skip,
               style: GoogleFonts.lato(
@@ -149,7 +149,7 @@ class _OnBoardingForMobileState extends State<OnBoardingForMobile> {
                     child: CustomBtn(
                       label: AppText.next,
                       onPressed: () =>
-                          Routemaster.of(context).replace('/login'),
+                          Routemaster.of(context).replace('/login-mobile'),
                     ),
                   ),
                 ),
