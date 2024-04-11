@@ -50,11 +50,18 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppBar(
+      automaticallyImplyLeading: false,
       actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.add),
           color: kBlackColor,
           onPressed: () => unawaited(createDocument(context, ref)),
+        ),
+        const Gap(20),
+        IconButton(
+          icon: const Icon(Icons.settings),
+          color: kBlackColor,
+          onPressed: () => Scaffold.of(context).openDrawer(),
         ),
         const Gap(20),
         IconButton(

@@ -10,7 +10,7 @@ import 'package:google_clone/screens/document/widgets/document_card.dart';
 import 'package:google_clone/screens/place_holder_for_empty_document.dart';
 import 'package:google_clone/screens/verify_if_user_not_null.dart';
 import 'package:google_clone/widgets/custom_app_bar.dart';
-import 'package:google_clone/widgets/user_data.display.dart';
+import 'package:google_clone/widgets/custom_drawer.dart';
 
 /// Contains the visual aspect of the home screen
 class Home extends ConsumerWidget {
@@ -22,16 +22,14 @@ class Home extends ConsumerWidget {
     final UserModel? user = ref.watch(userProvider);
 
     return Scaffold(
+      drawer: const CustomDrawer(),
       appBar: const CustomAppBar(),
       body: VerifyIfUserNotNull(
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                if (user != null)
-                  UserDataDisplay(
-                    userModel: user,
-                  ),
+                /// Mes documents
                 FutureBuilder<ErrorModel>(
                   future: ref
                       .read(documentRepositoryProvider)
