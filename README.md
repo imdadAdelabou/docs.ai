@@ -2,7 +2,7 @@
 
 A simple and collaborative editor that uses AI to enhance and make your research or writing process faster.
 
-## Features
+## Featuress
 
 ## Technologies
 <li>Flutter</li>
