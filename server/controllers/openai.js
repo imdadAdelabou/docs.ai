@@ -24,7 +24,6 @@ async function summarize(req, res) {
       ]
     });
 
-    console.log(response.choices[0].message.content);
     return res.status(200).json({ data: response.choices[0].message.content });
   } catch (e) {
     return res.status(500).send(e);
@@ -52,7 +51,6 @@ async function generate_image(req, res) {
 
     return res.status(200).json({ data: response.data.url });
   } catch (e) {
-    console.log(e);
     return res.status(500).send(e);
   }
 }
