@@ -9,18 +9,22 @@ environment:
 dependencies:
   cached_network_image:
   dio: ^5.4.1
+  file_picker: ^8.0.0+1
   firebase_core:
   firebase_storage:
   flutter:
     sdk: flutter
   flutter_quill: ^9.3.1
   flutter_riverpod:
+  flutter_svg:
   gap:
   google_fonts:
   google_sign_in:
   image_picker: ^1.0.7
+  intl: ^0.18.1
   json_annotation:
   routemaster: ^1.0.1
+  screenshot: ^2.3.0
   shared_preferences: ^2.2.2
   socket_io_client: ^1.0.2
   

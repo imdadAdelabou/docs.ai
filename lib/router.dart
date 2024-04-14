@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_clone/screens/custom_splash_screen.dart';
 import 'package:google_clone/screens/document/document_screen.dart';
 import 'package:google_clone/screens/home.dart';
 import 'package:google_clone/screens/login/login.dart';
+import 'package:google_clone/screens/login/login_mobile_view.dart';
 import 'package:google_clone/screens/picture/upload_picture.dart';
 import 'package:routemaster/routemaster.dart';
 
@@ -9,7 +11,13 @@ import 'package:routemaster/routemaster.dart';
 final RouteMap loggedOutRoute = RouteMap(
   routes: <String, PageBuilder>{
     '/': (RouteData route) => const MaterialPage<dynamic>(
+          child: CustomSplashScreen(),
+        ),
+    '/login': (RouteData route) => const MaterialPage<dynamic>(
           child: Login(),
+        ),
+    '/login-mobile': (RouteData route) => const MaterialPage<dynamic>(
+          child: LoginViewWithBtn(),
         ),
   },
 );

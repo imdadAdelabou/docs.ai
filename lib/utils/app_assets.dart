@@ -8,4 +8,23 @@ class AppAssets {
 
   /// Contains the path docs icon image
   static String docsIcon = 'assets/imgs/docs-logo.png';
+
+  /// Contains the illustration to display on the uploading picture screen in web view
+  static String uploadingImage = 'assets/imgs/uploadingImageIll.svg';
+
+  /// Contains the illustration to display on the login
+  static String collaborativeIllustration = 'assets/imgs/collaborative.svg';
+
+  /// Contains the illustration to display on the login
+  static String easyToUseIllustration =
+      'assets/imgs/illustrationEasyToUse2.svg';
+
+  /// Contains the illustration about AI feature to display on the login
+  static String aiIllustration = 'assets/imgs/onlineEditorIllustration.svg';
+
+  /// Contains the illustration on the home screen when the user has no document
+  static String emptyDocIllustration = 'assets/imgs/emptyDoc.svg';
+
+  /// Contains the AI icons of software
+  static String googleDocsIcon = 'assets/imgs/docsIcons.png';
 }

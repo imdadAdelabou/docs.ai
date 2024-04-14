@@ -17,7 +17,9 @@ class UploadPicture extends StatelessWidget {
               return const UploadPictureLargeView();
             }
 
-            return const UploadPictureMobileView();
+            return const UploadPictureMobileView(
+              showDescriptionText: true,
+            );
           },
         ),
       ),

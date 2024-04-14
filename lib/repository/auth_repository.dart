@@ -90,6 +90,7 @@ class AuthRepository {
                 id: res.data['user']['_id'],
                 token: res.data['token'],
                 isNewUser: res.data['isNewUser'],
+                photoUrl: res.data['user']['photoUrl'],
               );
 
               error = ErrorModel(data: newUser);

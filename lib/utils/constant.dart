@@ -1,10 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:google_clone/models/pricing.dart';
 
 /// Contains the base url of the api
-const String apiHost = 'http://192.168.1.23:3001/api';
+const String baseApiUrl = 'http://172.20.10.2:3001';
 
 /// Contains the base url of the api
-const String apiHostWs = 'http://192.168.1.23:3001';
+const String apiHost = '$baseApiUrl/api';
+
+// 172.20.10.2
+// 192.168.1.23:3001
+
+/// Contains the base url of the api
+const String apiHostWs = baseApiUrl;
+
+// 10.10.170.219
 
 /// Represents the states of the a view (app screen)
 enum ViewState {
@@ -30,3 +40,21 @@ final Dio dioClient = Dio(
     },
   ),
 );
+
+/// A list of test pricing for the application
+const List<Pricing> pricingTest = <Pricing>[
+  Pricing(
+    id: '0',
+    labelColor: Colors.red,
+    label: 'Basic',
+    price: 0,
+    currency: 'USD',
+  ),
+  Pricing(
+    id: '0',
+    labelColor: Colors.green,
+    label: 'Pro',
+    price: 10,
+    currency: 'USD',
+  ),
+];

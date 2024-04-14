@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_clone/screens/login/login_large_view.dart';
 import 'package:google_clone/screens/login/login_mobile_view.dart';
 import 'package:google_clone/utils/colors.dart';
 import 'package:google_clone/viewmodels/login_viewmodel.dart';
@@ -31,7 +32,7 @@ class Login extends ConsumerWidget {
                     decoration: BoxDecoration(
                       color: kBlueColor,
                     ),
-                    child: Column(),
+                    child: LoginLargeView(),
                   ),
                 ),
                 Expanded(

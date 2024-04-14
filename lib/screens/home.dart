@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:google_clone/models/document_model.dart';
 import 'package:google_clone/models/error_model.dart';
 import 'package:google_clone/models/user.dart';
 import 'package:google_clone/repository/auth_repository.dart';
 import 'package:google_clone/repository/document_repository.dart';
 import 'package:google_clone/screens/document/widgets/document_card.dart';
+import 'package:google_clone/screens/place_holder_for_empty_document.dart';
 import 'package:google_clone/screens/verify_if_user_not_null.dart';
 import 'package:google_clone/widgets/custom_app_bar.dart';
-import 'package:google_clone/widgets/user_data.display.dart';
+import 'package:google_clone/widgets/custom_drawer.dart';
 
 /// Contains the visual aspect of the home screen
 class Home extends ConsumerWidget {
@@ -20,50 +22,92 @@ class Home extends ConsumerWidget {
     final UserModel? user = ref.watch(userProvider);
 
     return Scaffold(
+      drawer: const CustomDrawer(),
       appBar: const CustomAppBar(),
       body: VerifyIfUserNotNull(
-        child: Column(
-          children: <Widget>[
-            if (user != null)
-              UserDataDisplay(
-                userModel: user,
-              ),
-            FutureBuilder<ErrorModel>(
-              future:
-                  // ignore: discarded_futures
-                  ref.read(documentRepositoryProvider).meDocument(user!.token),
-              builder:
-                  (BuildContext context, AsyncSnapshot<ErrorModel> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                }
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                /// Mes documents
+                FutureBuilder<ErrorModel>(
+                  future: ref
+                      .read(documentRepositoryProvider)
+                      // ignore: discarded_futures
+                      .meDocument(user!.token),
+                  builder: (
+                    BuildContext context,
+                    AsyncSnapshot<ErrorModel> snapshot,
+                  ) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    }
 
-                if (snapshot.hasError) {
-                  return const Text('Error');
-                }
+                    if (snapshot.hasError) {
+                      return const Text('Error');
+                    }
 
-                if (snapshot.data != null && snapshot.data!.error != null) {
-                  return Text(snapshot.data!.error!);
-                }
-                final List<DocumentModel> documents =
-                    snapshot.data!.data as List<DocumentModel>;
+                    if (snapshot.data != null && snapshot.data!.error != null) {
+                      return const PlaceHolderForEmptyDocument();
+                    }
+                    final List<DocumentModel> documents =
+                        snapshot.data!.data as List<DocumentModel>;
 
-                return Center(
-                  child: SizedBox(
-                    width: 600,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: documents.length,
-                      itemBuilder: (BuildContext context, int index) =>
-                          DocumentCard(
-                        document: documents[index],
-                      ),
-                    ),
-                  ),
-                );
-              },
+                    return LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        if (constraints.maxWidth > 480) {
+                          return SizedBox(
+                            width: 208 * 3,
+                            child: GridView.builder(
+                              shrinkWrap: true,
+                              itemCount: documents.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 16,
+                                childAspectRatio: 0.8,
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                                return DocumentCard(
+                                  document: documents[index],
+                                );
+                              },
+                            ),
+                          );
+                        }
+
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 40,
+                              ),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: documents.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return SizedBox(
+                                    child: DocumentCard(
+                                      document: documents[index],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            const Gap(20),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
