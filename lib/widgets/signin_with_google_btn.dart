@@ -4,6 +4,8 @@ import 'package:google_clone/utils/app_text.dart';
 import 'package:google_clone/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/// Get the key of the widget from constructor
+
 /// A widget to display the button to sign-in with google
 class SignInWithGoogleBtn extends StatelessWidget {
   /// Creates a [SignInWithGoogleBtn] widget

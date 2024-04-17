@@ -20,3 +20,6 @@ const Color kGreyColorPure = Colors.grey;
 
 /// A constant to hold a grey color variant
 Color kGreyColor = Colors.grey.shade800;
+
+/// A constant to hold the background color of the pricing card
+const Color kPriceCardBg = Color(0xffF7F8FB);

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_clone/models/pricing.dart';
 
 /// Contains the base url of the api
-const String baseApiUrl = 'http://172.20.10.2:3001';
+const String baseApiUrl = 'http://192.168.1.23:3001';
 
 /// Contains the base url of the api
 const String apiHost = '$baseApiUrl/api';
