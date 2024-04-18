@@ -41,7 +41,7 @@ class Login extends ConsumerWidget {
                     children: <Widget>[
                       SignInWithGoogleBtn(
                         onPressed: () => unawaited(
-                          LoginViewModel().signinWithGoogle(ref, context),
+                          const LoginViewModel().signinWithGoogle(ref, context),
                         ),
                       ),
                     ],
