@@ -1,9 +1,10 @@
+import { config } from "dotenv";
+config();
 import express from "express";
+
 import http from "http";
 import socket from "socket.io";
-import { config } from "dotenv";
 import cors from "cors";
-config();
 import mongoose from "mongoose";
 import auth from "./middlewares/auth.midldleware.js";
 import authRouter from "./routers/auth.route.js";

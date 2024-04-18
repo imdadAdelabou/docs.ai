@@ -1,6 +1,8 @@
-import OpenAI from 'openai';
+import { config } from "dotenv";
+config();
+import OpenAI from "openai";
 
-const openai = new OpenAI(process.env.OPENAI_API_KEY);
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 async function summarize(req, res) {
   try {
@@ -11,24 +13,24 @@ async function summarize(req, res) {
     }
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: "gpt-3.5-turbo",
       messages: [
         {
-          role: 'system',
-          content: 'You are a helpful assistant.'
+          role: "system",
+          content: "You are a helpful assistant.",
         },
         {
-          role: 'user',
-          content: `Summarize the following text:\n${text}`
-        }
-      ]
+          role: "user",
+          content: `Summarize the following text:\n${text}`,
+        },
+      ],
     });
 
     return res.status(200).json({ data: response.choices[0].message.content });
   } catch (e) {
     return res.status(500).send(e);
   }
-};
+}
 
 async function generate_image(req, res) {
   try {
@@ -39,7 +41,7 @@ async function generate_image(req, res) {
     }
 
     const response = await openai.images.generate({
-      model: 'dall-e-2',
+      model: "dall-e-2",
       prompt: prompt,
       size: "1024x1024",
       quality: "standard",
