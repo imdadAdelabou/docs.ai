@@ -107,8 +107,16 @@ class PricingView extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: pricingTest
                 .map(
-                  (Pricing pricing) => PricingCard(
-                    pricing: pricing,
+                  (Pricing pricing) => Padding(
+                    padding: EdgeInsets.only(
+                      right:
+                          pricingTest.indexOf(pricing) != pricingTest.length - 1
+                              ? 10
+                              : 0,
+                    ),
+                    child: PricingCard(
+                      pricing: pricing,
+                    ),
                   ),
                 )
                 .toList(),
