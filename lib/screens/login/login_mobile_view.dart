@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/screens/login/login_large_view.dart';
 import 'package:google_clone/utils/colors.dart';
-import 'package:google_clone/viewmodels/login_viewmodel.dart';
+import 'package:google_clone/viewModels/login_viewmodel.dart';
 import 'package:google_clone/widgets/signin_with_google_btn.dart';
 
 /// Display a screen with a login with google button
@@ -20,7 +20,7 @@ class LoginViewWithBtn extends ConsumerWidget {
           children: <Widget>[
             SignInWithGoogleBtn(
               onPressed: () => unawaited(
-                LoginViewModel().signinWithGoogle(ref, context),
+                const LoginViewModel().signinWithGoogle(ref, context),
               ),
             ),
           ],

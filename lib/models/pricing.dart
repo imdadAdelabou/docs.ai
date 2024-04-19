@@ -9,6 +9,8 @@ class Pricing {
     required this.label,
     required this.price,
     required this.currency,
+    required this.description,
+    required this.advantages,
   });
 
   /// The id of the pricing
@@ -25,4 +27,10 @@ class Pricing {
 
   /// The currency of the pricing
   final String currency;
+
+  /// The description of the pricing
+  final String description;
+
+  /// The advantages of the pricing
+  final List<String> advantages;
 }

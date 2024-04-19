@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_clone/models/pricing.dart';
 
 /// Contains the base url of the api
-const String baseApiUrl = 'http://172.20.10.2:3001';
+const String baseApiUrl = 'http://192.168.1.23:3001';
 
 /// Contains the base url of the api
 const String apiHost = '$baseApiUrl/api';
@@ -49,12 +49,28 @@ const List<Pricing> pricingTest = <Pricing>[
     label: 'Basic',
     price: 0,
     currency: 'USD',
+    description:
+        'This is a basic plan. You will have access to all the platform features but only for 03 days.',
+    advantages: <String>[
+      'Access to all features',
+      'Access to all AI models',
+      '03 days trial',
+      r'10$/month after trial',
+    ],
   ),
   Pricing(
-    id: '0',
+    id: '1',
     labelColor: Colors.green,
     label: 'Pro',
     price: 10,
     currency: 'USD',
+    description:
+        'This is a pro plan. You will have access to all the platform features for unlimited time.',
+    advantages: <String>[
+      'Access to all features',
+      'Access to all AI models',
+      'Unlimited access',
+      r'03 months free and then 10$/month',
+    ],
   ),
 ];

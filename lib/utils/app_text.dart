@@ -48,4 +48,10 @@ class AppText {
 
   /// Contains the text to display when there is no document yet
   static const String noDocumentYet = 'You have no document yet';
+
+  /// Contains the CTA to choose a pricing plan
+  static const String getStarted = 'Get Started';
+
+  /// Contains the text that is displayed on the pricing screen
+  static const String pricing = 'Pricing';
 }

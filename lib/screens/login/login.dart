@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_clone/screens/login/login_large_view.dart';
 import 'package:google_clone/screens/login/login_mobile_view.dart';
 import 'package:google_clone/utils/colors.dart';
-import 'package:google_clone/viewmodels/login_viewmodel.dart';
+import 'package:google_clone/viewModels/login_viewmodel.dart';
 import 'package:google_clone/widgets/signin_with_google_btn.dart';
 
 //ProviderRef is used to communicate with other provider
@@ -41,7 +41,7 @@ class Login extends ConsumerWidget {
                     children: <Widget>[
                       SignInWithGoogleBtn(
                         onPressed: () => unawaited(
-                          LoginViewModel().signinWithGoogle(ref, context),
+                          const LoginViewModel().signinWithGoogle(ref, context),
                         ),
                       ),
                     ],

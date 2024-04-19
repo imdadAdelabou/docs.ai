@@ -10,6 +10,9 @@ import 'package:routemaster/routemaster.dart';
 
 /// Contains all the logics using inside and using by the LoginView
 class LoginViewModel {
+  /// Creates a [LoginViewModel] widget
+  const LoginViewModel();
+
   /// A function that trigger the sign in with logger and redirect
   /// the user to the home screen if the sign in is succesded
   /// otherwise the function show a snackbar with an error
