@@ -24,10 +24,24 @@ class CustomDrawer extends ConsumerWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            icon: GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: const Align(
+                alignment: Alignment.topRight,
+                child: Icon(
+                  Icons.close,
+                  color: kBlackColor,
+                ),
+              ),
+            ),
             content: const PricingView(),
-            insetPadding: const EdgeInsets.symmetric(vertical: 30),
+            insetPadding: EdgeInsets.symmetric(
+              vertical: 30,
+              horizontal: MediaQuery.sizeOf(context).width > 480 ? 0 : 10,
+            ),
             backgroundColor: kDialogColor,
             surfaceTintColor: kDialogColor,
+            scrollable: true,
             title: Text(
               AppText.pricing,
               style: GoogleFonts.lato(

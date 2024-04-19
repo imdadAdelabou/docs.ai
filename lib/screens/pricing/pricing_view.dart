@@ -12,16 +12,20 @@ class PricingCard extends StatelessWidget {
   /// Creates a [PricingCard] widget
   const PricingCard({
     required this.pricing,
+    required this.width,
     super.key,
   });
 
   /// The pricing model
   final Pricing pricing;
 
+  /// The width of the card
+  final double width;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
+      width: width,
       child: Card(
         color: kPriceCardBg,
         surfaceTintColor: kPriceCardBg,
@@ -97,6 +101,19 @@ class PricingView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    return MediaQuery.of(context).size.width > 480
+        ? const _PricingViewForLargeScreen()
+        : const _PricingViewMobileScreen();
+  }
+}
+
+/// Contains the visual aspect of the pricing page for large screen
+class _PricingViewForLargeScreen extends StatelessWidget {
+  /// Creates a [PricingViewForLargeScreen] widget
+  const _PricingViewForLargeScreen();
+
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.sizeOf(context).width * .5,
       child: Column(
@@ -116,6 +133,7 @@ class PricingView extends ConsumerWidget {
                     ),
                     child: PricingCard(
                       pricing: pricing,
+                      width: 300,
                     ),
                   ),
                 )
@@ -123,6 +141,32 @@ class PricingView extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _PricingViewMobileScreen extends StatelessWidget {
+  const _PricingViewMobileScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: pricingTest
+          .map(
+            (Pricing pricing) => Padding(
+              padding: EdgeInsets.only(
+                bottom: pricingTest.indexOf(pricing) != pricingTest.length - 1
+                    ? 10
+                    : 0,
+              ),
+              child: PricingCard(
+                pricing: pricing,
+                width: double.infinity,
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }
