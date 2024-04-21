@@ -4,11 +4,17 @@ workflows:
     environment:
       flutter: stable
     scripts:
+      - name: Install dependencies
+        script: |
+          flutter pub get
+
       - name: Flutter analyze
-        script: dart analyze
+        script: |
+          dart analyze
 
       - name: Flutter test
-        script: flutter test
+        script: |
+          flutter test
 
       - name: Write Google credentials
         script: | 
