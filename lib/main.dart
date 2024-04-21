@@ -1,13 +1,14 @@
 import 'dart:async';
 
+import 'package:docs_ai/firebase_options.dart';
+import 'package:docs_ai/models/error_model.dart';
+import 'package:docs_ai/models/user.dart';
+import 'package:docs_ai/repository/auth_repository.dart';
+import 'package:docs_ai/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_clone/firebase_options.dart';
-import 'package:google_clone/models/error_model.dart';
-import 'package:google_clone/models/user.dart';
-import 'package:google_clone/repository/auth_repository.dart';
-import 'package:google_clone/router.dart';
+
 import 'package:routemaster/routemaster.dart';
 
 void main() async {

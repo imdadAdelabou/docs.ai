@@ -1,4 +1,4 @@
-import 'package:google_clone/clients/socket_client.dart';
+import 'package:docs_ai/clients/socket_client.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 /// Represent the socket client repository service and conatins functions

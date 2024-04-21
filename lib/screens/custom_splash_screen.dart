@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:docs_ai/repository/auth_repository.dart';
+import 'package:docs_ai/utils/app_assets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_clone/repository/auth_repository.dart';
-import 'package:google_clone/utils/app_assets.dart';
 import 'package:routemaster/routemaster.dart';
 
 /// A custom splash screen widget

@@ -1,8 +1,8 @@
+import 'package:docs_ai/models/user.dart';
+import 'package:docs_ai/utils/app_assets.dart';
+import 'package:docs_ai/widgets/show_remote_profile_pic.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_clone/models/user.dart';
-import 'package:google_clone/utils/app_assets.dart';
-import 'package:google_clone/widgets/show_remote_profile_pic.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// A widget to display some user information(image profile, name and email)

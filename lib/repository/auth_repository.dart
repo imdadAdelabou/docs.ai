@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:docs_ai/models/error_model.dart';
+import 'package:docs_ai/models/user.dart';
+import 'package:docs_ai/repository/local_storage_repository.dart';
+import 'package:docs_ai/utils/app_text.dart';
+import 'package:docs_ai/utils/constant.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_clone/models/error_model.dart';
-import 'package:google_clone/models/user.dart';
-import 'package:google_clone/repository/local_storage_repository.dart';
-import 'package:google_clone/utils/app_text.dart';
-import 'package:google_clone/utils/constant.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 /// Contains all the functions using for authentification (SignIn, Logout, getUserData)

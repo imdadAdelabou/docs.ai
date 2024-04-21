@@ -1,10 +1,10 @@
+import 'package:docs_ai/models/pricing.dart';
+import 'package:docs_ai/screens/pricing/get_started_btn.dart';
+import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:google_clone/models/pricing.dart';
-import 'package:google_clone/screens/pricing/get_started_btn.dart';
-import 'package:google_clone/utils/colors.dart';
-import 'package:google_clone/utils/constant.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// A widget to display the pricing card

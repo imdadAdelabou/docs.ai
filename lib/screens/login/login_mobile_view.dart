@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'package:docs_ai/screens/login/login_large_view.dart';
+import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/viewModels/login_viewmodel.dart';
+import 'package:docs_ai/widgets/signin_with_google_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_clone/screens/login/login_large_view.dart';
-import 'package:google_clone/utils/colors.dart';
-import 'package:google_clone/viewModels/login_viewmodel.dart';
-import 'package:google_clone/widgets/signin_with_google_btn.dart';
 
 /// Display a screen with a login with google button
 class LoginViewWithBtn extends ConsumerWidget {

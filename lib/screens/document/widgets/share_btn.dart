@@ -1,6 +1,6 @@
+import 'package:docs_ai/utils/app_text.dart';
+import 'package:docs_ai/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:google_clone/utils/app_text.dart';
-import 'package:google_clone/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// Contains the button used to share access to a document

@@ -1,8 +1,8 @@
+import 'package:docs_ai/models/document_model.dart';
+import 'package:docs_ai/utils/app_assets.dart';
+import 'package:docs_ai/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_clone/models/document_model.dart';
-import 'package:google_clone/utils/app_assets.dart';
-import 'package:google_clone/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:routemaster/routemaster.dart';

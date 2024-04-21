@@ -1,16 +1,16 @@
 import 'dart:async';
 
+import 'package:docs_ai/repository/auth_repository.dart';
+import 'package:docs_ai/repository/document_repository.dart';
+import 'package:docs_ai/screens/document/widgets/share_btn.dart';
+import 'package:docs_ai/utils/app_assets.dart';
+import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/widgets/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:google_clone/repository/auth_repository.dart';
-import 'package:google_clone/repository/document_repository.dart';
-import 'package:google_clone/screens/document/widgets/share_btn.dart';
-import 'package:google_clone/utils/app_assets.dart';
-import 'package:google_clone/utils/colors.dart';
-import 'package:google_clone/widgets/custom_snack_bar.dart';
 import 'package:routemaster/routemaster.dart';
 
 /// Contains the AppBar of the document screen

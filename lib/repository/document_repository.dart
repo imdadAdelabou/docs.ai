@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:docs_ai/models/document_model.dart';
+import 'package:docs_ai/models/error_model.dart';
+import 'package:docs_ai/utils/constant.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_clone/models/document_model.dart';
-import 'package:google_clone/models/error_model.dart';
-import 'package:google_clone/utils/constant.dart';
 
 /// Allow to store the documentRepository inside the provider and access them globaly
 final Provider<DocumentRepository> documentRepositoryProvider =

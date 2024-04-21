@@ -1,7 +1,7 @@
+import 'package:docs_ai/models/user.dart';
+import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_clone/models/user.dart';
-import 'package:google_clone/repository/auth_repository.dart';
 
 /// A widget that show a circularProgressindicator widget when the user data
 /// is still getting from the server and display

@@ -1,17 +1,17 @@
 import 'dart:async';
 
+import 'package:docs_ai/models/document_model.dart';
+import 'package:docs_ai/models/error_model.dart';
+import 'package:docs_ai/repository/auth_repository.dart';
+import 'package:docs_ai/repository/document_repository.dart';
+import 'package:docs_ai/repository/socket_repository.dart';
+import 'package:docs_ai/screens/document/widgets/document_screen_app_bar.dart';
+import 'package:docs_ai/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:google_clone/models/document_model.dart';
-import 'package:google_clone/models/error_model.dart';
-import 'package:google_clone/repository/auth_repository.dart';
-import 'package:google_clone/repository/document_repository.dart';
-import 'package:google_clone/repository/socket_repository.dart';
-import 'package:google_clone/screens/document/widgets/document_screen_app_bar.dart';
-import 'package:google_clone/utils/colors.dart';
 
 //Snippet : stfl
 /// Contains the visual aspect of the document screen

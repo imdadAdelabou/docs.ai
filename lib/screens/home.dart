@@ -1,16 +1,16 @@
+import 'package:docs_ai/models/document_model.dart';
+import 'package:docs_ai/models/error_model.dart';
+import 'package:docs_ai/models/user.dart';
+import 'package:docs_ai/repository/auth_repository.dart';
+import 'package:docs_ai/repository/document_repository.dart';
+import 'package:docs_ai/screens/document/widgets/document_card.dart';
+import 'package:docs_ai/screens/place_holder_for_empty_document.dart';
+import 'package:docs_ai/screens/verify_if_user_not_null.dart';
+import 'package:docs_ai/widgets/custom_app_bar.dart';
+import 'package:docs_ai/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:google_clone/models/document_model.dart';
-import 'package:google_clone/models/error_model.dart';
-import 'package:google_clone/models/user.dart';
-import 'package:google_clone/repository/auth_repository.dart';
-import 'package:google_clone/repository/document_repository.dart';
-import 'package:google_clone/screens/document/widgets/document_card.dart';
-import 'package:google_clone/screens/place_holder_for_empty_document.dart';
-import 'package:google_clone/screens/verify_if_user_not_null.dart';
-import 'package:google_clone/widgets/custom_app_bar.dart';
-import 'package:google_clone/widgets/custom_drawer.dart';
 
 /// Contains the visual aspect of the home screen
 class Home extends ConsumerWidget {

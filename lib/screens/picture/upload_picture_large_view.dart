@@ -1,10 +1,10 @@
+import 'package:docs_ai/screens/picture/upload_picture_mobile_view.dart';
+import 'package:docs_ai/utils/app_assets.dart';
+import 'package:docs_ai/utils/app_text.dart';
+import 'package:docs_ai/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_clone/screens/picture/upload_picture_mobile_view.dart';
-import 'package:google_clone/utils/app_assets.dart';
-import 'package:google_clone/utils/app_text.dart';
-import 'package:google_clone/utils/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// Contains the screen to display when the user is on the large screen

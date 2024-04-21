@@ -1,10 +1,10 @@
+import 'package:docs_ai/screens/custom_splash_screen.dart';
+import 'package:docs_ai/screens/document/document_screen.dart';
+import 'package:docs_ai/screens/home.dart';
+import 'package:docs_ai/screens/login/login.dart';
+import 'package:docs_ai/screens/login/login_mobile_view.dart';
+import 'package:docs_ai/screens/picture/upload_picture.dart';
 import 'package:flutter/material.dart';
-import 'package:google_clone/screens/custom_splash_screen.dart';
-import 'package:google_clone/screens/document/document_screen.dart';
-import 'package:google_clone/screens/home.dart';
-import 'package:google_clone/screens/login/login.dart';
-import 'package:google_clone/screens/login/login_mobile_view.dart';
-import 'package:google_clone/screens/picture/upload_picture.dart';
 import 'package:routemaster/routemaster.dart';
 
 /// Contains the routes available when the user is logOut

@@ -1,16 +1,16 @@
 import 'dart:async';
 
+import 'package:docs_ai/models/user.dart';
+import 'package:docs_ai/repository/auth_repository.dart';
+import 'package:docs_ai/screens/pricing/pricing_view.dart';
+import 'package:docs_ai/utils/app_text.dart';
+import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/utils/constant.dart';
+import 'package:docs_ai/widgets/type_pricing_view.dart';
+import 'package:docs_ai/widgets/user_data.display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:google_clone/models/user.dart';
-import 'package:google_clone/repository/auth_repository.dart';
-import 'package:google_clone/screens/pricing/pricing_view.dart';
-import 'package:google_clone/utils/app_text.dart';
-import 'package:google_clone/utils/colors.dart';
-import 'package:google_clone/utils/constant.dart';
-import 'package:google_clone/widgets/type_pricing_view.dart';
-import 'package:google_clone/widgets/user_data.display.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// A custom drawer to display the user data and other information

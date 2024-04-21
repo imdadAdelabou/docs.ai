@@ -1,11 +1,11 @@
 import 'dart:developer';
 
+import 'package:docs_ai/models/error_model.dart';
+import 'package:docs_ai/models/user.dart';
+import 'package:docs_ai/repository/auth_repository.dart';
+import 'package:docs_ai/widgets/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_clone/models/error_model.dart';
-import 'package:google_clone/models/user.dart';
-import 'package:google_clone/repository/auth_repository.dart';
-import 'package:google_clone/widgets/custom_snack_bar.dart';
 import 'package:routemaster/routemaster.dart';
 
 /// Contains all the logics using inside and using by the LoginView

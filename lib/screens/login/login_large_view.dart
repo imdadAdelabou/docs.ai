@@ -1,11 +1,11 @@
+import 'package:docs_ai/screens/login/model.dart';
+import 'package:docs_ai/utils/app_assets.dart';
+import 'package:docs_ai/utils/app_text.dart';
+import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/widgets/custom_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:google_clone/screens/login/model.dart';
-import 'package:google_clone/utils/app_assets.dart';
-import 'package:google_clone/utils/app_text.dart';
-import 'package:google_clone/utils/colors.dart';
-import 'package:google_clone/widgets/custom_btn.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:routemaster/routemaster.dart';
 

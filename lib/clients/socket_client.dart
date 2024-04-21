@@ -1,4 +1,4 @@
-import 'package:google_clone/utils/constant.dart';
+import 'package:docs_ai/utils/constant.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 /// Represent a client that listen to the server via the socket
