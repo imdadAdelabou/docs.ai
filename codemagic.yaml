@@ -1,8 +1,8 @@
-workflow:
+workflows:
   name: Build and deploy
-  scripts:
+  script:
     - name: Flutter analyze
-      script: flutter analyze
+      script: dart analyze
 
     - name: Flutter test
       script: flutter test
@@ -23,7 +23,6 @@ publishing:
   email:
     recipients:
       - imdadadelabou0@gmail.com
-
 
 environment:
   groups:
