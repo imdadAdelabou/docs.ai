@@ -42,6 +42,7 @@ workflows:
       email:
         recipients:
           - imdadadelabou0@gmail.com
+          - hamidtessilimi@gmail.com
 
 environment:
   groups:
