@@ -3,7 +3,7 @@ workflows:
     name: Web Workflow
     environment:
       flutter: stable
-    script:
+    scripts:
       - name: Flutter analyze
         script: dart analyze
 
@@ -21,7 +21,7 @@ workflows:
       - name: Publish to Firebase Hosting
         script: | 
           firebase deploy --only hosting
-          
+
     artifacts:
       - build/web.zip
       - flutter_drive.log
