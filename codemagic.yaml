@@ -15,7 +15,11 @@ workflows:
       - name: Flutter test
         script: |
           flutter test
-          
+
+      - name: Write Google credentials
+        script: | 
+          echo $FIREBASE_SERVICE_ACCOUNT > $GOOGLE_APPLICATION_CREDENTIALS
+
       - name: Build for web
         script: | 
           flutter build web --release
@@ -37,3 +41,4 @@ environment:
   groups:
     - firebase_credentials:
         FIREBASE_SERVICE_ACCOUNT: $FIREBASE_SERVICE_ACCOUNT
+        GOOGLE_APPLICATION_CREDENTIALS: $GOOGLE_APPLICATION_CREDENTIALS
