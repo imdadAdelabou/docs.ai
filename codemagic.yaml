@@ -47,5 +47,6 @@ workflows:
 environment:
   groups:
     - firebase_credentials:
+        GOOGLE_APPLICATION_CREDENTIALS: $FCI_BUILD_DIR/firebase.json
         FIREBASE_SERVICE_ACCOUNT: $FIREBASE_SERVICE_ACCOUNT
-        
+
