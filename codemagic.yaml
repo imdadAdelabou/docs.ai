@@ -1,4 +1,4 @@
-workflows:
+workflow:
   name: Build and deploy
   scripts:
     - name: Flutter analyze
