@@ -3,11 +3,6 @@ workflows:
     name: Web Workflow
     environment:
       flutter: stable
-      groups:
-        - firebase_credentials:
-            FIREBASE_SERVICE_ACCOUNT: $FIREBASE_SERVICE_ACCOUNT
-            GOOGLE_APPLICATION_CREDENTIALS: $GOOGLE_APPLICATION_CREDENTIALS
-
     scripts:
       - name: Install dependencies
         script: |
@@ -48,3 +43,9 @@ workflows:
         recipients:
           - imdadadelabou0@gmail.com
           - hamidtessilimi@gmail.com
+
+environment:
+  groups:
+    - firebase_credentials:
+        FIREBASE_SERVICE_ACCOUNT: $FIREBASE_SERVICE_ACCOUNT
+        
