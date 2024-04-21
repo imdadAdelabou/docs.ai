@@ -18,7 +18,13 @@ workflows:
 
       - name: Write Google credentials
         script: | 
-          echo $FIREBASE_SERVICE_ACCOUNT > $GOOGLE_APPLICATION_CREDENTIALS
+          if [[ -z "$GOOGLE_APPLICATION_CREDENTIALS" ]]; then
+            echo "Error: GOOGLE_APPLICATION_CREDENTIALS is not set."
+            exit 1
+          fi
+          
+          echo "$FIREBASE_SERVICE_ACCOUNT" > "$GOOGLE_APPLICATION_CREDENTIALS"
+
 
       - name: Build for web
         script: | 
