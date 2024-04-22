@@ -39,9 +39,9 @@ workflows:
           - imdadadelabou0@gmail.com
           - hamidtessilimi@gmail.com
 
-environment:
-  groups:
-    - firebase_credentials:
-        GOOGLE_APPLICATION_CREDENTIALS: $FCI_BUILD_DIR/firebase.json
-        FIREBASE_SERVICE_ACCOUNT: $FIREBASE_SERVICE_ACCOUNT
+    environment:
+      groups:
+        - firebase_credentials:
+            GOOGLE_APPLICATION_CREDENTIALS: $GOOGLE_APPLICATION_CREDENTIALS
+            FIREBASE_SERVICE_ACCOUNT: $FIREBASE_SERVICE_ACCOUNT
 
