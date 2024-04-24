@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:docs_ai/screens/login/loginWithEmail/login_with_email.dart';
 import 'package:docs_ai/screens/login/login_large_view.dart';
 import 'package:docs_ai/screens/login/login_mobile_view.dart';
 import 'package:docs_ai/utils/colors.dart';
@@ -39,6 +40,7 @@ class Login extends ConsumerWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      const LoginWithEmail(),
                       SignInWithGoogleBtn(
                         onPressed: () => unawaited(
                           const LoginViewModel().signinWithGoogle(ref, context),
