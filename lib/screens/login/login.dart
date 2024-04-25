@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:docs_ai/screens/login/loginWithEmail/login_with_email.dart';
 import 'package:docs_ai/screens/login/login_large_view.dart';
 import 'package:docs_ai/screens/login/login_mobile_view.dart';
+import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:docs_ai/viewModels/login_viewmodel.dart';
 import 'package:docs_ai/widgets/signin_with_google_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 //ProviderRef is used to communicate with other provider
 //WidgetRef is used to communicate with widget
@@ -44,6 +47,21 @@ class Login extends ConsumerWidget {
                       SignInWithGoogleBtn(
                         onPressed: () => unawaited(
                           const LoginViewModel().signinWithGoogle(ref, context),
+                        ),
+                      ),
+                      const Gap(30),
+                      TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          AppText.dontHaveAnAccount,
+                          style: GoogleFonts.lato(
+                            color: kGreyColorPure,
+                          ),
                         ),
                       ),
                     ],

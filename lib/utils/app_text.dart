@@ -54,4 +54,16 @@ class AppText {
 
   /// Contains the text that is displayed on the pricing screen
   static const String pricing = 'Pricing';
+
+  /// Contains the text that is displayed on the login screen
+  static const String login = 'Login';
+
+  /// Hold the Sign in text
+  static const String signIn = 'Sign in';
+
+  /// Hold the OR text
+  static const String or = 'OR';
+
+  /// Hold the text that is displayed on the sign-up screen
+  static const String dontHaveAnAccount = "Don't have an account? Sign-up";
 }
