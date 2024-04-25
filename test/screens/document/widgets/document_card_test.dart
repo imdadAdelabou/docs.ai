@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:docs_ai/models/document_model.dart';
 import 'package:docs_ai/screens/document/widgets/document_card.dart';
+import 'package:docs_ai/utils/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -30,9 +29,11 @@ void main() {
         ),
       );
       final Finder titleDocumentFinder = find.text(document.title);
+      final Finder createdAtDocumentFinder =
+          find.text(formatDate(document.createdAt));
 
-      log(titleDocumentFinder.toString());
       expect(titleDocumentFinder, findsOneWidget);
+      expect(createdAtDocumentFinder, findsOneWidget);
     },
   );
 }
