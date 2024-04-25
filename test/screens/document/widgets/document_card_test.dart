@@ -18,7 +18,7 @@ void main() {
   });
 
   testWidgets(
-    'DocumentCard should display the basic information of a card',
+    'DocumentCard should display the basic information of a document',
     (WidgetTester widgetTester) async {
       await widgetTester.pumpWidget(
         Material(
