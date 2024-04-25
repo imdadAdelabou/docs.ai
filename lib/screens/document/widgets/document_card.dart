@@ -49,6 +49,7 @@ class DocumentCard extends StatelessWidget {
                   ),
                   child: Image.asset(
                     AppAssets.googleDocsIcon,
+                    key: const Key('document-card-image'),
                   ),
                 ),
               ),

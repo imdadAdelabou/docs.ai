@@ -28,12 +28,15 @@ void main() {
           ),
         ),
       );
+      final Finder placeHolederDocumentCardFinder =
+          find.byKey(const Key('document-card-image'));
       final Finder titleDocumentFinder = find.text(document.title);
       final Finder createdAtDocumentFinder =
           find.text(formatDate(document.createdAt));
 
       expect(titleDocumentFinder, findsOneWidget);
       expect(createdAtDocumentFinder, findsOneWidget);
+      expect(placeHolederDocumentCardFinder, findsOneWidget);
     },
   );
 }
