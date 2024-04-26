@@ -58,12 +58,21 @@ class AppText {
   /// Contains the text that is displayed on the login screen
   static const String login = 'Login';
 
+  /// Contains the text that is displayed on the register screen
+  static const String register = 'Register';
+
   /// Hold the Sign in text
   static const String signIn = 'Sign in';
+
+  /// Hold the Sign up text
+  static const String signUp = 'Sign up';
 
   /// Hold the OR text
   static const String or = 'OR';
 
   /// Hold the text that is displayed on the sign-up screen
   static const String dontHaveAnAccount = "Don't have an account? Sign-up";
+
+  /// Hold the text to display when the user already have an account
+  static const String haveAnAccount = 'Already have an account? Sign-in';
 }

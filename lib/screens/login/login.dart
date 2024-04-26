@@ -19,12 +19,43 @@ import 'package:google_fonts/google_fonts.dart';
 //routemaster to manage rooting on web
 
 /// Contains the visual aspect of the login page
-class Login extends ConsumerWidget {
+class Login extends ConsumerStatefulWidget {
   /// Creates a [Login] widget
   const Login({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginState();
+}
+
+class _LoginState extends ConsumerState<Login>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  bool _isRegister = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+  }
+
+  void _toggleScreen() {
+    if (_controller.isDismissed) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
+    setState(() {
+      _isRegister = !_isRegister;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -43,7 +74,10 @@ class Login extends ConsumerWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      const LoginWithEmail(),
+                      LoginWithEmail(
+                        controller: _controller,
+                        animation: _animation,
+                      ),
                       SignInWithGoogleBtn(
                         onPressed: () => unawaited(
                           const LoginViewModel().signinWithGoogle(ref, context),
@@ -51,14 +85,16 @@ class Login extends ConsumerWidget {
                       ),
                       const Gap(30),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: _toggleScreen,
                         style: TextButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                         child: Text(
-                          AppText.dontHaveAnAccount,
+                          !_isRegister
+                              ? AppText.dontHaveAnAccount
+                              : AppText.haveAnAccount,
                           style: GoogleFonts.lato(
                             color: kGreyColorPure,
                           ),
