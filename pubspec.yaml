@@ -7,22 +7,22 @@ environment:
   sdk: '>=3.2.5 <4.0.0'
 
 dependencies:
-  cached_network_image:
+  cached_network_image: ^3.3.1
   dio: ^5.4.1
   file_picker: ^8.0.0+1
-  firebase_core:
-  firebase_storage:
+  firebase_core: ^2.30.1
+  firebase_storage: ^11.7.4
   flutter:
     sdk: flutter
   flutter_quill: ^9.3.1
-  flutter_riverpod:
-  flutter_svg:
-  gap:
-  google_fonts:
-  google_sign_in:
+  flutter_riverpod: ^2.5.1
+  flutter_svg: ^2.0.10+1
+  gap: ^3.0.1
+  google_fonts: ^6.2.1
+  google_sign_in: ^6.2.1
   image_picker: ^1.0.7
   intl: ^0.18.1
-  json_annotation:
+  json_annotation: ^4.9.0
   routemaster: ^1.0.1
   screenshot: ^2.3.0
   shared_preferences: ^2.2.2
@@ -32,7 +32,7 @@ dependencies:
 
 dev_dependencies:
   blackfoot_flutter_lint: ^2.0.0
-  build_runner:
+  build_runner: ^2.4.9
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
