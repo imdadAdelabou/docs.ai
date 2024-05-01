@@ -6,6 +6,7 @@ import 'package:docs_ai/widgets/custom_text_form_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -47,12 +48,19 @@ class LoginWithEmail extends StatelessWidget {
                     ),
                   ),
                   const Gap(20),
-                  const CustomTextFormField(
+                  CustomTextFormField(
                     hintText: 'johndoe@gmail.com',
+                    validators: <FieldValidator<dynamic>>[
+                      RequiredValidator(errorText: 'This field is required'),
+                      EmailValidator(errorText: 'Enter a valid email address'),
+                    ],
                   ),
                   const Gap(15),
-                  const CustomTextFormField(
+                  CustomTextFormField(
                     hintText: '********',
+                    validators: <FieldValidator<dynamic>>[
+                      RequiredValidator(errorText: 'This field is required'),
+                    ],
                   ),
                   const Gap(30),
                   CustomBtn(

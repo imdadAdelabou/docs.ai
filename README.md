@@ -71,6 +71,10 @@ A simple and collaborative editor that uses AI to enhance and make your research
     ```
     A Flutter package used to display an svg image.
     ```
+- [form_field_validator](https://pub.dev/packages/form_field_validator)
+    ```
+    A straightforward flutter form field validator that provides common validation options.
+    ```
 - [gap](https://pub.dev/packages/gap/)
     ```
     A Flutter widgets for easily adding gaps inside Flex widgets such as Columns and Rows or scrolling views.
