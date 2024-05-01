@@ -52,8 +52,6 @@ patrol:
   ios:
     bundle_id: com.example.googleClone
   
-  
-  
 
 flutter:
   uses-material-design: true

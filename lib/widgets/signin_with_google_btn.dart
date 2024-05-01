@@ -9,11 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 /// A widget to display the button to sign-in with google
 class SignInWithGoogleBtn extends StatelessWidget {
   /// Creates a [SignInWithGoogleBtn] widget
-  const SignInWithGoogleBtn({
-    this.onPressed,
-  }) : super(
-          key: const Key('sign-in-with-google-btn'),
-        );
+  const SignInWithGoogleBtn({this.onPressed, super.key});
 
   /// A function to execute when the button is clicked
   final Function()? onPressed;

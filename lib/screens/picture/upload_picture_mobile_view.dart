@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:docs_ai/models/error_model.dart';
@@ -11,6 +10,7 @@ import 'package:docs_ai/repository/user.repository.dart';
 import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:docs_ai/widgets/custom_btn.dart';
+import 'package:docs_ai/widgets/custom_snack_bar.dart';
 import 'package:docs_ai/widgets/show_remote_profile_pic.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -65,6 +65,8 @@ class _UploadPictureMobileViewState
   }
 
   Future<void> _uploadHandle(WidgetRef ref) async {
+    final ScaffoldMessengerState scaffolfMessenger =
+        ScaffoldMessenger.of(context);
     void goToHome() => Routemaster.of(context).replace('/');
     setState(() {
       _isLoading = true;
@@ -76,21 +78,25 @@ class _UploadPictureMobileViewState
       fileName = FileNameForFile(file: _pickedFile).getName();
     }
 
-    final String pictureUrl =
+    final dynamic pictureUrl =
         await ref.read(firebaseStorageRepositoryProvider).uploadFile(
               path: 'images/',
               file: _pickedFile!,
               fileName: fileName,
             );
-
     if (pictureUrl is bool) {
       setState(() {
         _isLoading = false;
       });
       // Handle error
+      scaffolfMessenger.showSnackBar(
+        customSnackBar(
+          content: AppText.errorHappenedUploadImage,
+          isError: true,
+        ),
+      );
       return;
     }
-    log(pictureUrl);
     final ErrorModel result = await ref.read(userRepositoryProvider).update(
       data: <String, String>{
         'photoUrl': pictureUrl,

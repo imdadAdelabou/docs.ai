@@ -79,6 +79,7 @@ class _LoginState extends ConsumerState<Login>
                         animation: _animation,
                       ),
                       SignInWithGoogleBtn(
+                        key: const Key('sign-in-with-google-btn'),
                         onPressed: () => unawaited(
                           const LoginViewModel().signinWithGoogle(ref, context),
                         ),

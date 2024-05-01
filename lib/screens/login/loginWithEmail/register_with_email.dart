@@ -1,27 +1,60 @@
 import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/viewModels/login_viewmodel.dart';
 import 'package:docs_ai/widgets/custom_btn.dart';
 import 'package:docs_ai/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:routemaster/routemaster.dart';
 
 /// Contains the visual aspect of the login with email
-class RegisterWithEmail extends StatefulWidget {
+class RegisterWithEmail extends ConsumerStatefulWidget {
   /// Creates a [RegisterWithEmail] widget
   const RegisterWithEmail({super.key});
 
   @override
-  State<RegisterWithEmail> createState() => _RegisterWithEmailState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _RegisterWithEmailState();
 }
 
-class _RegisterWithEmailState extends State<RegisterWithEmail> {
+class _RegisterWithEmailState extends ConsumerState<RegisterWithEmail> {
   final TextEditingController _usernameController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
+  bool isLoading = false;
+
+  Future<void> _handleOnPressed() async {
+    final Routemaster navigator = Routemaster.of(context);
+    if (_key.currentState!.validate()) {
+      setState(() {
+        isLoading = true;
+      });
+      // Do something
+      final bool result =
+          await const LoginViewModel().registerWithEmailAndPassword(
+        ref,
+        context,
+        email: _emailController.text,
+        name: _usernameController.text,
+        password: _passwordController.text,
+      );
+      setState(() {
+        isLoading = false;
+      });
+      if (result) {
+        navigator.replace('/upload-picture');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +110,8 @@ class _RegisterWithEmailState extends State<RegisterWithEmail> {
             CustomBtn(
               width: MediaQuery.sizeOf(context).width * .2 + 30,
               label: AppText.signUp,
-              onPressed: () {
-                if (_key.currentState!.validate()) {
-                  // Do something
-                }
-              },
+              onPressed: _handleOnPressed,
+              isLoading: isLoading,
             ),
             const Gap(20),
             Center(
