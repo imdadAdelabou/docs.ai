@@ -4,12 +4,17 @@ import jwt from "jsonwebtoken";
 async function signUp(req, res, next) {
   try {
     //TODO: implement validation on user input
-    const { email, name, photoUrl } = req.body;
+    const { email, name, photoUrl, password, provider } = req.body;
     let user = await User.findOne({ email });
     let isNewUser = false;
 
     if (!user) {
-      user = new User({ name, email, photoUrl });
+      user = { name, email, photoUrl };
+
+      if (provider === "WITH_EMAIL" && password) {
+        user.password;
+      }
+      user = new User(user);
       user = await user.save();
       isNewUser = true;
     }
