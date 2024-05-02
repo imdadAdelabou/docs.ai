@@ -78,7 +78,9 @@ class AuthRepository {
           photoUrl: user.photoUrl ?? '',
           token: '',
           id: '',
+          provider: 'GOOGLE',
         );
+
         final Response<dynamic> res = await _dioClient.post(
           '/signup',
           data: userData.toJson(),

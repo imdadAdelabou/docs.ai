@@ -48,9 +48,9 @@ dev_dependencies:
 patrol:
   app_name: docs.ai
   android:
-    package_name: com.example.google_clone
+    package_name: com.docsai.app
   ios:
-    bundle_id: com.example.googleClone
+    bundle_id: com.docsai.app
   
 
 flutter:
