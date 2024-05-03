@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:routemaster/routemaster.dart';
 
 /// Contains the visual aspect of the login with email
 class LoginWithEmail extends ConsumerStatefulWidget {
@@ -90,11 +91,12 @@ class _LoginWithEmailState extends ConsumerState<LoginWithEmail> {
                       label: AppText.signIn,
                       isLoading: _isLoading,
                       onPressed: () async {
+                        final Routemaster navigator = Routemaster.of(context);
                         if (_key.currentState!.validate()) {
                           setState(() {
                             _isLoading = true;
                           });
-                          await const LoginViewModel()
+                          final bool result = await const LoginViewModel()
                               .loginWithEmailAndPassword(
                             ref,
                             context,
@@ -104,6 +106,10 @@ class _LoginWithEmailState extends ConsumerState<LoginWithEmail> {
                           setState(() {
                             _isLoading = false;
                           });
+
+                          if (result) {
+                            navigator.replace('/');
+                          }
                         }
                       },
                     ),
