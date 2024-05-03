@@ -54,6 +54,8 @@ async function loginWithEmailAndPassword(req, res) {
   try {
     const { email, password } = req.body;
 
+    console.log(email, password);
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -66,7 +68,7 @@ async function loginWithEmailAndPassword(req, res) {
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWTPRIVATEKEY);
-    return res.status(201).json({
+    return res.status(200).json({
       message: "User login successful",
       user: user,
       token: token,

@@ -64,4 +64,29 @@ class LoginViewModel {
 
     return true;
   }
+
+  /// A function that trigger the login with email and password
+  Future<bool> loginWithEmailAndPassword(
+    WidgetRef ref,
+    BuildContext context, {
+    required String email,
+    required String password,
+  }) async {
+    final ScaffoldMessengerState sMessenger = ScaffoldMessenger.of(context);
+    final ErrorModel result =
+        await ref.read(authRepositoryProvider).loginWithEmailAndPassword(
+              email: email,
+              password: password,
+            );
+    if (result.error != null) {
+      sMessenger.showSnackBar(
+        customSnackBar(content: result.error!, isError: true),
+      );
+      return false;
+    }
+    //We need to update the state with a new value of user
+    ref.read(userProvider.notifier).update((UserModel? state) => result.data);
+
+    return true;
+  }
 }

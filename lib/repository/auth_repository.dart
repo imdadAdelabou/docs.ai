@@ -109,7 +109,6 @@ class AuthRepository {
   }
 
   /// A function used to sign-in a user to the app with email and password
-
   Future<ErrorModel> registerWithEmailAndPassword({
     required String email,
     required String name,
@@ -152,6 +151,68 @@ class AuthRepository {
         return const ErrorModel(
           data: null,
           error: AppText.accountAlreadyExist,
+        );
+      }
+
+      return const ErrorModel(
+        data: null,
+        error: AppText.errorHappened,
+      );
+    }
+  }
+
+  /// A function used to sign-in a user to the app with email and password
+  Future<ErrorModel> loginWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    ErrorModel errorModel = const ErrorModel(data: null);
+    log(email);
+    log(password);
+
+    try {
+      final Response<dynamic> res = await _dioClient.post(
+        '/login',
+        data: <String, dynamic>{
+          'email': email,
+          'password': password,
+        },
+      );
+
+      if (res.statusCode == 200) {
+        final Map<String, dynamic> data = res.data as Map<String, dynamic>;
+
+        log("uSER tOKEN ${data['token']}");
+        errorModel = ErrorModel(
+          data: UserModel.fromJson(
+            data['user'],
+          ).copyWith(
+            token: data['token'],
+          ),
+        );
+        await _localStorageRepository.setToken(token: data['token']);
+        return errorModel;
+      }
+
+      return ErrorModel(error: res.statusMessage, data: null);
+    } on DioException catch (error) {
+      final Response<dynamic>? response = error.response;
+
+      if (response != null &&
+          response.statusCode != null &&
+          response.statusCode == 404) {
+        return const ErrorModel(
+          data: null,
+          error: AppText.accountDoesNotExist,
+        );
+      }
+
+      if (response != null &&
+          response.statusCode != null &&
+          response.statusCode == 401) {
+        return const ErrorModel(
+          data: null,
+          error: AppText.wrongPassword,
         );
       }
 

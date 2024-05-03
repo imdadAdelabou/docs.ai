@@ -83,4 +83,11 @@ class AppText {
   /// Contains the message to display when the user try to sign-in with an account that already exist
   static const String accountAlreadyExist =
       'An account already exist with this email';
+
+  /// Contains the message to display when the user try to sign-in with an account that does not exist
+  static const String accountDoesNotExist =
+      'An account does not exist with this email';
+
+  /// Contains the message to display when the user try to sign-in with a wrong password
+  static const String wrongPassword = 'The password is wrong';
 }
