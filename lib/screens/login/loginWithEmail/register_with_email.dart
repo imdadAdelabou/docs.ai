@@ -14,7 +14,13 @@ import 'package:routemaster/routemaster.dart';
 /// Contains the visual aspect of the login with email
 class RegisterWithEmail extends ConsumerStatefulWidget {
   /// Creates a [RegisterWithEmail] widget
-  const RegisterWithEmail({super.key});
+  const RegisterWithEmail({
+    required this.width,
+    super.key,
+  });
+
+  ///  The width of the widget
+  final double width;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -59,7 +65,7 @@ class _RegisterWithEmailState extends ConsumerState<RegisterWithEmail> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.sizeOf(context).width * .2 + 30,
+      width: widget.width,
       child: Form(
         key: _key,
         child: Column(
@@ -108,7 +114,7 @@ class _RegisterWithEmailState extends ConsumerState<RegisterWithEmail> {
             ),
             const Gap(30),
             CustomBtn(
-              width: MediaQuery.sizeOf(context).width * .2 + 30,
+              width: widget.width,
               label: AppText.signUp,
               onPressed: _handleOnPressed,
               isLoading: isLoading,
