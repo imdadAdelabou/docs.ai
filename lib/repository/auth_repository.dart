@@ -78,7 +78,9 @@ class AuthRepository {
           photoUrl: user.photoUrl ?? '',
           token: '',
           id: '',
+          provider: 'GOOGLE',
         );
+
         final Response<dynamic> res = await _dioClient.post(
           '/signup',
           data: userData.toJson(),
@@ -104,6 +106,60 @@ class AuthRepository {
     }
 
     return error;
+  }
+
+  /// A function used to sign-in a user to the app with email and password
+
+  Future<ErrorModel> registerWithEmailAndPassword({
+    required String email,
+    required String name,
+    required String password,
+  }) async {
+    ErrorModel errorModel = const ErrorModel(data: null);
+
+    try {
+      final Response<dynamic> res = await _dioClient.post(
+        '/register-with-email-and-password',
+        data: <String, dynamic>{
+          'email': email,
+          'name': name,
+          'password': password,
+        },
+      );
+
+      if (res.statusCode == 201) {
+        final Map<String, dynamic> data = res.data as Map<String, dynamic>;
+
+        log("uSER tOKEN ${data['token']}");
+        errorModel = ErrorModel(
+          data: UserModel.fromJson(
+            data['user'],
+          ).copyWith(
+            token: data['token'],
+          ),
+        );
+        await _localStorageRepository.setToken(token: data['token']);
+        return errorModel;
+      }
+
+      return ErrorModel(error: res.statusMessage, data: null);
+    } on DioException catch (error) {
+      final Response<dynamic>? response = error.response;
+
+      if (response != null &&
+          response.statusCode != null &&
+          response.statusCode == 409) {
+        return const ErrorModel(
+          data: null,
+          error: AppText.accountAlreadyExist,
+        );
+      }
+
+      return const ErrorModel(
+        data: null,
+        error: AppText.errorHappened,
+      );
+    }
   }
 
   /// A function to get a data of the connected user

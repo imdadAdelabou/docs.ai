@@ -12,6 +12,7 @@ class UserModel {
     required this.photoUrl,
     required this.token,
     required this.id,
+    required this.provider,
     this.isNewUser,
   });
 
@@ -37,6 +38,9 @@ class UserModel {
   /// To know if the current user is a new user or not
   final bool? isNewUser;
 
+  /// The provider used to sign-in the user
+  final String provider;
+
   /// A function that returns a JSON representation of the UserModel instance
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
@@ -48,6 +52,7 @@ class UserModel {
     String? token,
     String? id,
     bool? isNewUser,
+    String? provider,
   }) =>
       UserModel(
         email: email ?? this.email,
@@ -56,5 +61,6 @@ class UserModel {
         token: token ?? this.token,
         id: id ?? this.id,
         isNewUser: isNewUser ?? this.isNewUser,
+        provider: provider ?? this.provider,
       );
 }

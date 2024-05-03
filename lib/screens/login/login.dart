@@ -77,28 +77,18 @@ class _LoginState extends ConsumerState<Login>
                       LoginWithEmail(
                         controller: _controller,
                         animation: _animation,
+                        width: MediaQuery.sizeOf(context).width * .2 + 30,
                       ),
                       SignInWithGoogleBtn(
+                        key: const Key('sign-in-with-google-btn'),
                         onPressed: () => unawaited(
                           const LoginViewModel().signinWithGoogle(ref, context),
                         ),
                       ),
                       const Gap(30),
-                      TextButton(
+                      AuthTextButton(
+                        isRegister: _isRegister,
                         onPressed: _toggleScreen,
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text(
-                          !_isRegister
-                              ? AppText.dontHaveAnAccount
-                              : AppText.haveAnAccount,
-                          style: GoogleFonts.lato(
-                            color: kGreyColorPure,
-                          ),
-                        ),
                       ),
                     ],
                   ),
@@ -109,6 +99,40 @@ class _LoginState extends ConsumerState<Login>
 
           return const LoginMobileView();
         },
+      ),
+    );
+  }
+}
+
+/// Contains the text button to display at the bottom of the login page
+class AuthTextButton extends StatelessWidget {
+  /// Creates a [AuthTextButton] widget
+  const AuthTextButton({
+    required this.isRegister,
+    required this.onPressed,
+    super.key,
+  });
+
+  /// Holds a value to know if the user is registering
+  final bool isRegister;
+
+  /// The function to execute when the button is pressed
+  final Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      child: Text(
+        isRegister ? AppText.dontHaveAnAccount : AppText.haveAnAccount,
+        style: GoogleFonts.lato(
+          color: kGreyColorPure,
+        ),
       ),
     );
   }

@@ -9,6 +9,10 @@ class AppText {
   /// Contains the text that is displayed when an error occur
   static const String errorHappened = 'A error occur';
 
+  /// Contains the message to display when an error happened while uploading an image
+  static const String errorHappenedUploadImage =
+      'An error occurred while uploading your image. Please try again.';
+
   /// Contains the text that is displayed on the share button
   static const String shareLabel = 'Share';
 
@@ -75,4 +79,8 @@ class AppText {
 
   /// Hold the text to display when the user already have an account
   static const String haveAnAccount = 'Already have an account? Sign-in';
+
+  /// Contains the message to display when the user try to sign-in with an account that already exist
+  static const String accountAlreadyExist =
+      'An account already exist with this email';
 }

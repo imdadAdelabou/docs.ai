@@ -37,4 +37,31 @@ class LoginViewModel {
       navigator.replace('/');
     }
   }
+
+  /// A function that trigger the register with email and password
+  Future<bool> registerWithEmailAndPassword(
+    WidgetRef ref,
+    BuildContext context, {
+    required String email,
+    required String name,
+    required String password,
+  }) async {
+    final ScaffoldMessengerState sMessenger = ScaffoldMessenger.of(context);
+    final ErrorModel result =
+        await ref.read(authRepositoryProvider).registerWithEmailAndPassword(
+              email: email,
+              name: name,
+              password: password,
+            );
+    if (result.error != null) {
+      sMessenger.showSnackBar(
+        customSnackBar(content: result.error!, isError: true),
+      );
+      return false;
+    }
+    //We need to update the state with a new value of user
+    ref.read(userProvider.notifier).update((UserModel? state) => result.data);
+
+    return true;
+  }
 }

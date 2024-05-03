@@ -1,4 +1,4 @@
-package com.example.google_clone; // replace "com.example.myapp" with your app's package
+package com.docsai.app; // replace "com.example.myapp" with your app's package
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.Test;

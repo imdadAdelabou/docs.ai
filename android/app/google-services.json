@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:909204974606:android:dfc5c0603aaa353bd3605f",
+        "mobilesdk_app_id": "1:909204974606:android:340480fd4f6473a5d3605f",
         "android_client_info": {
-          "package_name": "com.example.google_clone"
+          "package_name": "com.docsai.app"
         }
       },
       "oauth_client": [],
