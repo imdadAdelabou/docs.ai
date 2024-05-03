@@ -50,6 +50,33 @@ async function registerWithEmailAndPassword(req, res) {
   }
 }
 
+async function loginWithEmailAndPassword(req, res) {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWTPRIVATEKEY);
+    return res.status(201).json({
+      message: "User login successful",
+      user: user,
+      token: token,
+      isNewUser: false,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server error", error });
+  }
+}
+
 async function me(req, res) {
   try {
     const userId = req.userId;
@@ -62,4 +89,4 @@ async function me(req, res) {
   }
 }
 
-export { signUp, me, registerWithEmailAndPassword };
+export { signUp, me, registerWithEmailAndPassword, loginWithEmailAndPassword };

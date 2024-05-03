@@ -3,6 +3,7 @@ import {
   me,
   signUp,
   registerWithEmailAndPassword,
+  loginWithEmailAndPassword,
 } from "../controllers/auth.js";
 import auth from "../middlewares/auth.midldleware.js";
 
@@ -13,6 +14,7 @@ authRouter.post(
   "/register-with-email-and-password",
   registerWithEmailAndPassword
 );
+authRouter.post("/login", loginWithEmailAndPassword);
 authRouter.get("/me", auth, me);
 
 export default authRouter;
