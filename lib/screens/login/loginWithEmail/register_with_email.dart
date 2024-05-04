@@ -1,5 +1,6 @@
 import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/utils/constant.dart';
 import 'package:docs_ai/viewModels/login_viewmodel.dart';
 import 'package:docs_ai/widgets/custom_btn.dart';
 import 'package:docs_ai/widgets/custom_text_form_field.dart';
@@ -85,6 +86,7 @@ class _RegisterWithEmailState extends ConsumerState<RegisterWithEmail> {
               validators: <FieldValidator<dynamic>>[
                 RequiredValidator(errorText: 'This field is required'),
               ],
+              keyboardType: TextInputType.text,
             ),
             const Gap(15),
             CustomTextFormField(
@@ -94,6 +96,7 @@ class _RegisterWithEmailState extends ConsumerState<RegisterWithEmail> {
                 RequiredValidator(errorText: 'This field is required'),
                 EmailValidator(errorText: 'Enter a valid email address'),
               ],
+              keyboardType: TextInputType.emailAddress,
             ),
             const Gap(15),
             CustomTextFormField(
@@ -111,6 +114,8 @@ class _RegisterWithEmailState extends ConsumerState<RegisterWithEmail> {
                       'passwords must have at least one special character',
                 ),
               ],
+              keyboardType: TextInputType.text,
+              type: TextFormFieldType.password,
             ),
             const Gap(30),
             CustomBtn(

@@ -2,6 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:docs_ai/models/pricing.dart';
 import 'package:flutter/material.dart';
 
+/// Represents the type of a text form field
+enum TextFormFieldType {
+  /// Represents a text form field
+  text,
+
+  /// Represents a password form field
+  password
+}
+
 /// Contains the base url of the api
 const String baseApiUrl = 'http://192.168.1.23:3001';
 

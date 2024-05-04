@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 /// A function to create a snackBar
 SnackBar customSnackBar({required String content, bool isError = false}) {
   return SnackBar(
-    width: 400,
+    width: 350,
     content: Text(
       content,
       style: GoogleFonts.lato(

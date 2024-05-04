@@ -1,6 +1,7 @@
 import 'package:docs_ai/screens/login/loginWithEmail/register_with_email.dart';
 import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/utils/constant.dart';
 import 'package:docs_ai/viewModels/login_viewmodel.dart';
 import 'package:docs_ai/widgets/custom_btn.dart';
 import 'package:docs_ai/widgets/custom_text_form_field.dart';
@@ -76,6 +77,7 @@ class _LoginWithEmailState extends ConsumerState<LoginWithEmail> {
                         ),
                       ],
                       controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
                     ),
                     const Gap(15),
                     CustomTextFormField(
@@ -84,6 +86,8 @@ class _LoginWithEmailState extends ConsumerState<LoginWithEmail> {
                         RequiredValidator(errorText: 'This field is required'),
                       ],
                       controller: _passwordController,
+                      keyboardType: TextInputType.text,
+                      type: TextFormFieldType.password,
                     ),
                     const Gap(30),
                     CustomBtn(
