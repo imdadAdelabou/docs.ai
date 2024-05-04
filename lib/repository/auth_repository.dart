@@ -47,7 +47,12 @@ class AuthRepository {
   /// A function used to sign out a user from the app
   Future<bool> signOut() async {
     try {
-      await _googleSignIn.signOut();
+      final String provider = _providerRef.watch(userProvider)!.provider;
+
+      if (provider == 'GOOGLE') {
+        await _googleSignIn.signOut();
+      }
+
       final bool isRemove = await LocalStorageRepository().removeToken();
       if (isRemove) {
         _providerRef
