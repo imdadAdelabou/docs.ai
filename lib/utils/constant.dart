@@ -12,7 +12,7 @@ enum TextFormFieldType {
 }
 
 /// Contains the base url of the api
-const String baseApiUrl = 'http://192.168.1.23:3001';
+const String baseApiUrl = 'http://ec2-54-234-23-162.compute-1.amazonaws.com';
 
 /// Contains the base url of the api
 const String apiHost = '$baseApiUrl/api';
