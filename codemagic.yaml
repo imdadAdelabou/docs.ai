@@ -32,6 +32,9 @@ workflows:
   android-workflow:
     name: Android Workflow
     scripts:
+      - name: Java version
+        script: |
+          java -version
       - name: Install dependencies
         script: |
           flutter pub get
