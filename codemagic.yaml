@@ -87,6 +87,7 @@ workflows:
 
     environment:
       flutter: stable
+      java: 17
       groups:
         - firebase_credentials
 
