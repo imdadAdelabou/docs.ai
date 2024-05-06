@@ -67,6 +67,7 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
             firebaseAppDistribution {
+                appId="1:909204974606:android:340480fd4f6473a5d3605f"
                 serviceCredentialsFile=System.getenv('GOOGLE_APPLICATION_CREDENTIALS')
             }
         }
