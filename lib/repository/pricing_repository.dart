@@ -52,3 +52,12 @@ class PricingRepository {
     }
   }
 }
+
+/// Get Pricing provider
+Future<ErrorModel> getPricing(FutureProviderRef<Object?> ref) {
+  return ref.watch(pricingRepositoryProvider).getPricing();
+}
+
+/// Get Pricing provider
+final FutureProvider<ErrorModel> getPricingProvider =
+    FutureProvider<ErrorModel>(getPricing);

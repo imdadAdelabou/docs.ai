@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/utils/app_assets.dart';
@@ -24,6 +25,7 @@ class _CustomSplashScreenState extends ConsumerState<CustomSplashScreen> {
   void initState() {
     super.initState();
     final String? token = ref.read(userProvider)?.token;
+    log('Token: $token');
     if (token == null || token.isEmpty) {
       _timer = Timer(const Duration(seconds: 3), () {
         if (kIsWeb) {

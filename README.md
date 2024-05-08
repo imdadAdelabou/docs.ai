@@ -99,6 +99,10 @@ A simple and collaborative editor that uses AI to enhance and make your research
     ```
     Defines the annotations used by json_serializable to create code for JSON serialization and deserialization.
     ```
+- [riverpod_annotation](https://pub.dev/packages/riverpod_annotation/)
+    ```
+   This is a side package for riverpod_generator, exposing annotations.
+    ```
 - [routemaster](https://pub.dev/packages/routemaster/)
     ```
     An easy to use router for Flutter. Simple declarative mapping from URLs to pages

@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:docs_ai/utils/functions.dart';
+
 /// Represents the pricing model
 class Pricing {
   /// Creates a [Pricing] model
@@ -17,7 +19,7 @@ class Pricing {
   factory Pricing.fromJson(Map<String, dynamic> json) {
     return Pricing(
       id: json['_id'] as String,
-      labelColor: Color(json['labelColor'] as int),
+      labelColor: stringToColor(json['labelColor'] as String),
       label: json['label'] as String,
       price: (json['price'] as num).toDouble(),
       currency: json['currency'] as String,
