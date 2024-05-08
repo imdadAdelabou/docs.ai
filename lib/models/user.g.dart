@@ -14,6 +14,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       id: json['_id'] as String,
       isNewUser: json['isNewUser'] != null ? json['isNewUser'] as bool : null,
       provider: json['provider'] != null ? json['provider'] as String : '',
+      pricing: Pricing.fromJson(json['pricing'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{

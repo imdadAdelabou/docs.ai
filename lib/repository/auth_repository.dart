@@ -84,6 +84,7 @@ class AuthRepository {
           token: '',
           id: '',
           provider: 'GOOGLE',
+          pricing: null,
         );
 
         final Response<dynamic> res = await _dioClient.post(

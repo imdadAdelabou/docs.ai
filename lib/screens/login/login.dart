@@ -129,7 +129,7 @@ class AuthTextButton extends StatelessWidget {
         ),
       ),
       child: Text(
-        isRegister ? AppText.dontHaveAnAccount : AppText.haveAnAccount,
+        !isRegister ? AppText.dontHaveAnAccount : AppText.haveAnAccount,
         style: GoogleFonts.lato(
           color: kGreyColorPure,
         ),
