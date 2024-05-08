@@ -1,5 +1,6 @@
 import 'package:docs_ai/models/error_model.dart';
 import 'package:docs_ai/models/pricing.dart';
+import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/repository/pricing_repository.dart';
 import 'package:docs_ai/screens/pricing/get_started_btn.dart';
 import 'package:docs_ai/utils/colors.dart';
@@ -17,6 +18,7 @@ class PricingCard extends StatelessWidget {
   const PricingCard({
     required this.pricing,
     required this.width,
+    this.isCurrentPricing = false,
     super.key,
   });
 
@@ -25,6 +27,9 @@ class PricingCard extends StatelessWidget {
 
   /// The width of the card
   final double width;
+
+  /// To know if the current pricing is the current pricing
+  final bool isCurrentPricing;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +41,10 @@ class PricingCard extends StatelessWidget {
         surfaceTintColor: kPriceCardBg,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
+          side: BorderSide(
+            color: isCurrentPricing ? kBlueColor : kPriceCardBg,
+            width: 2,
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -93,8 +102,24 @@ class PricingCard extends StatelessWidget {
               ),
               const Gap(18),
               const Spacer(),
-              const GetStartedBtn(
-                onPressed: null,
+              Visibility(
+                visible: !isCurrentPricing,
+                child: const GetStartedBtn(
+                  onPressed: null,
+                ),
+              ),
+              Visibility(
+                visible: isCurrentPricing,
+                child: Align(
+                  child: Text(
+                    'Current Plan',
+                    style: GoogleFonts.lato(
+                      color: kBlueColor,
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
             ],
           ),
@@ -151,6 +176,8 @@ class _PricingViewForLargeScreen extends ConsumerWidget {
                               child: PricingCard(
                                 pricing: pricing,
                                 width: 300,
+                                isCurrentPricing: pricing.id ==
+                                    ref.watch(userProvider)?.getPricing.id,
                               ),
                             ),
                           )
