@@ -67,9 +67,13 @@ A simple and collaborative editor that uses AI to enhance and make your research
     separating the logic from your UI
     ensuring your code is testable, scalable and reusable.
     ```
-- [flutter_svg](https://pub.dev/packages/flutter_svg/)
+- [flutter_stripe](https://pub.dev/packages/flutter_stripe/)
     ```
-    A Flutter package used to display an svg image.
+    The Stripe Flutter SDK allows you to build delightful payment experiences in your native Android and iOS apps using Flutter. We provide powerful and customizable UI screens and elements that can be used out-of-the-box to collect your users' payment details.
+    ```
+- [flutter_stripe_web](https://pub.dev/packages/flutter_stripe_web/)
+    ```
+    An additional package to use with flutter_stripe to integrate the stripe widget on the web.
     ```
 - [form_field_validator](https://pub.dev/packages/form_field_validator)
     ```
