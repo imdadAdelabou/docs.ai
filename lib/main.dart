@@ -6,6 +6,7 @@ import 'package:docs_ai/models/user.dart';
 import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/router.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,6 +36,7 @@ class MainApp extends ConsumerStatefulWidget {
 class _MainAppState extends ConsumerState<MainApp> {
   bool isLoading = false;
   ErrorModel? errorModel;
+  late Timer? _timer;
 
   Future<void> getUserData() async {
     errorModel = await ref.read(authRepositoryProvider).getUserData();
@@ -42,6 +44,19 @@ class _MainAppState extends ConsumerState<MainApp> {
       ref.read(userProvider.notifier).update(
             (UserModel? state) => errorModel!.data,
           );
+
+      return;
+    }
+    final String? token = ref.read(userProvider)?.token;
+
+    if (token == null || token.isEmpty) {
+      _timer = Timer(const Duration(seconds: 3), () {
+        if (kIsWeb) {
+          Routemaster.of(context).replace('/login');
+        } else {
+          Routemaster.of(context).replace('/login-mobile');
+        }
+      });
     }
   }
 
@@ -68,6 +83,12 @@ class _MainAppState extends ConsumerState<MainApp> {
       ),
       routeInformationParser: const RoutemasterParser(),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 }
 
