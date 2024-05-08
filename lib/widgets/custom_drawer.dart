@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:docs_ai/models/pricing.dart';
 import 'package:docs_ai/models/user.dart';
 import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/screens/pricing/pricing_view.dart';
 import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
-import 'package:docs_ai/utils/constant.dart';
 import 'package:docs_ai/widgets/type_pricing_view.dart';
 import 'package:docs_ai/widgets/user_data.display.dart';
 import 'package:flutter/material.dart';
@@ -61,20 +61,20 @@ class CustomDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final UserModel? user = ref.watch(userProvider);
+    final Pricing currentPricing = user!.getPricing;
 
     return Drawer(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       child: Column(
         children: <Widget>[
           const Gap(20),
-          if (user != null)
-            UserDataDisplay(
-              userModel: user,
-            ),
+          UserDataDisplay(
+            userModel: user,
+          ),
           const Gap(8),
           TypePriciningView(
-            label: pricingTest[1].label,
-            labelColor: pricingTest[1].labelColor,
+            label: currentPricing.label,
+            labelColor: currentPricing.labelColor,
           ),
           const Gap(20),
           ListTile(

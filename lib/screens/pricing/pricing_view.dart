@@ -6,7 +6,7 @@ import 'package:docs_ai/utils/colors.dart';
 import 'package:docs_ai/utils/constant.dart';
 import 'package:docs_ai/widgets/custom_btn.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,6 +30,7 @@ class PricingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
+      height: 300,
       child: Card(
         color: kPriceCardBg,
         surfaceTintColor: kPriceCardBg,
@@ -91,6 +92,7 @@ class PricingCard extends StatelessWidget {
                 ),
               ),
               const Gap(18),
+              const Spacer(),
               const GetStartedBtn(
                 onPressed: null,
               ),

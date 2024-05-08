@@ -49,6 +49,9 @@ class UserModel {
   /// A function that returns a JSON representation of the UserModel instance
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
+  /// A function to get the pricing plan of the user
+  Pricing get getPricing => pricing!;
+
   /// A function to change the pricing plan of the user
   UserModel changePricing(Pricing newPricing) {
     return copyWith(pricing: newPricing);

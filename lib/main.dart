@@ -44,7 +44,6 @@ class _MainAppState extends ConsumerState<MainApp> {
       ref.read(userProvider.notifier).update(
             (UserModel? state) => errorModel!.data,
           );
-
       return;
     }
     final String? token = ref.read(userProvider)?.token;
