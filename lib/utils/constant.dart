@@ -14,6 +14,10 @@ enum TextFormFieldType {
 /// Contains the base url of the api
 const String baseApiUrl = 'http://ec2-54-234-23-162.compute-1.amazonaws.com';
 
+/// Contains the stripe publishable key
+const String kStripePublishableKey =
+    'pk_test_51PEQdbDJoBHbjuPPfWql8aNb2akhFc1k47vM828GUntan5l6dpLrjZakLpVIZnK4nGq1ufeHwPbYzVM6pA1dKS6C00jBSlKAox';
+
 /// Contains the base url of the api
 const String apiHost = '$baseApiUrl/api';
 

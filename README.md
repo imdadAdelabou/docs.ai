@@ -31,7 +31,6 @@ A simple and collaborative editor that uses AI to enhance and make your research
          git clone https://github.com/imdadAdelabou/docs.ai
          ```
          
-
 ## Packages
 - [cached_network_image](https://pub.dev/packages/cached_network_image/)
     ```

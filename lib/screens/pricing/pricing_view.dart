@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:docs_ai/models/error_model.dart';
 import 'package:docs_ai/models/pricing.dart';
 import 'package:docs_ai/repository/auth_repository.dart';
@@ -22,14 +23,14 @@ class PricingCard extends StatelessWidget {
     super.key,
   });
 
+  /// To know if the current pricing is the current pricing
+  final bool isCurrentPricing;
+
   /// The pricing model
   final Pricing pricing;
 
   /// The width of the card
   final double width;
-
-  /// To know if the current pricing is the current pricing
-  final bool isCurrentPricing;
 
   @override
   Widget build(BuildContext context) {
@@ -87,12 +88,13 @@ class PricingCard extends StatelessWidget {
                       ),
                       const Gap(4),
                       SizedBox(
-                        width: width - 60,
-                        child: Text(
+                        width: width * .8,
+                        child: AutoSizeText(
                           advantage,
                           style: GoogleFonts.lato(
                             color: kBlackColor,
                           ),
+                          maxFontSize: 14,
                           maxLines: 2,
                         ),
                       ),
@@ -150,7 +152,7 @@ class _PricingViewForLargeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
-      width: MediaQuery.sizeOf(context).width * .5,
+      width: MediaQuery.sizeOf(context).width * .8,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -166,19 +168,12 @@ class _PricingViewForLargeScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: (value.data as List<Pricing>)
                           .map(
-                            (Pricing pricing) => Padding(
-                              padding: EdgeInsets.only(
-                                right: pricingTest.indexOf(pricing) !=
-                                        pricingTest.length - 1
-                                    ? 10
-                                    : 0,
-                              ),
-                              child: PricingCard(
-                                pricing: pricing,
-                                width: 300,
-                                isCurrentPricing: pricing.id ==
-                                    ref.watch(userProvider)?.getPricing.id,
-                              ),
+                            (Pricing pricing) => PricingCard(
+                              pricing: pricing,
+                              width:
+                                  (MediaQuery.sizeOf(context).width * .8) / 2,
+                              isCurrentPricing: pricing.id ==
+                                  ref.watch(userProvider)?.getPricing.id,
                             ),
                           )
                           .toList(),
