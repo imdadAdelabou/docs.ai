@@ -1,20 +1,27 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:docs_ai/models/error_model.dart';
 import 'package:docs_ai/models/pricing.dart';
 import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/repository/pricing_repository.dart';
+import 'package:docs_ai/repository/stripe_repository.dart';
 import 'package:docs_ai/screens/pricing/get_started_btn.dart';
+import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:docs_ai/utils/constant.dart';
 import 'package:docs_ai/widgets/custom_btn.dart';
+import 'package:docs_ai/widgets/custom_snack_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// A widget to display the pricing card
-class PricingCard extends StatelessWidget {
+class PricingCard extends ConsumerWidget {
   /// Creates a [PricingCard] widget
   const PricingCard({
     required this.pricing,
@@ -32,8 +39,46 @@ class PricingCard extends StatelessWidget {
   /// The width of the card
   final double width;
 
+  Future<void> _makePayment({
+    required WidgetRef ref,
+    required Pricing pricing,
+    required BuildContext context,
+  }) async {
+    final ScaffoldMessengerState scaffoldMessanger =
+        ScaffoldMessenger.of(context);
+    final bool result =
+        await ref.read(stripeRepositoryProvider).stripeMakePayment(
+              amount: pricing.price.toInt() * 100,
+              currency: 'USD',
+            );
+    log(result.toString());
+    if (result) {
+      try {
+        await Stripe.instance.presentPaymentSheet();
+        scaffoldMessanger
+            .showSnackBar(customSnackBar(content: AppText.paymentSucessful));
+      } on Exception catch (e) {
+        if (e is StripeException) {
+          scaffoldMessanger.showSnackBar(
+            customSnackBar(
+              content: e.error.localizedMessage!,
+              isError: true,
+            ),
+          );
+        } else {
+          scaffoldMessanger.showSnackBar(
+            customSnackBar(
+              content: AppText.errorHappened,
+              isError: true,
+            ),
+          );
+        }
+      }
+    }
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: width,
       height: 300,
@@ -105,18 +150,37 @@ class PricingCard extends StatelessWidget {
               const Gap(18),
               const Spacer(),
               Visibility(
-                visible: !isCurrentPricing,
-                child: const GetStartedBtn(
-                  onPressed: null,
+                visible: !isCurrentPricing && !kIsWeb,
+                child: GetStartedBtn(
+                  onPressed: () => unawaited(
+                    _makePayment(
+                      ref: ref,
+                      pricing: pricing,
+                      context: context,
+                    ),
+                  ),
                 ),
               ),
               Visibility(
                 visible: isCurrentPricing,
                 child: Align(
                   child: Text(
-                    'Current Plan',
+                    AppText.currentPlan,
                     style: GoogleFonts.lato(
                       color: kBlueColor,
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: !isCurrentPricing && kIsWeb,
+                child: Align(
+                  child: Text(
+                    AppText.changePlanOnMobile,
+                    style: GoogleFonts.lato(
+                      color: kRedColor,
                       fontSize: 14,
                     ),
                     textAlign: TextAlign.center,

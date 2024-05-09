@@ -2,7 +2,27 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+
+const String _kstripeSecret =
+    'sk_test_51PEQdbDJoBHbjuPPkRWJSLzV1bnjrav90ZVraPQxbeMcjYb6B3NayflzZ4eluvHFivTeRFDTP9rY5uhj9VqICftd00xpCuPBuL';
+
+/// Contains the provider for the [StripeRepository] access it globaly
+final Provider<StripeRepository> stripeRepositoryProvider =
+    Provider<StripeRepository>(
+  (ProviderRef<Object?> ref) => StripeRepository(
+    dioClient: Dio(
+      BaseOptions(
+        baseUrl: 'https://api.stripe.com/v1',
+        headers: <String, dynamic>{
+          'Authorization': 'Bearer $_kstripeSecret',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      ),
+    ),
+  ),
+);
 
 /// Contains the methods to interact with the Stripe API2
 class StripeRepository {

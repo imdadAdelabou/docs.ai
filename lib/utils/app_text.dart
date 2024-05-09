@@ -20,6 +20,10 @@ class AppText {
   static const String descriptionOnUploadPicture =
       'Help your friends to easily find you by adding a profile picture';
 
+  /// Contains the text that is displayed when  user try to change plan on a web device
+  static const String changePlanOnMobile =
+      'You can only change your plan on a mobile device';
+
   /// Contains the cta upload text
   static const String upload = 'Upload';
 
@@ -35,6 +39,9 @@ class AppText {
 
   /// Contains the title that is displayed on the second section of the onboarding screen
   static const String easyToUseTitle = 'Easy to use';
+
+  /// Contains the text to display when the payment is successful
+  static const String paymentSucessful = 'Payment successful';
 
   /// Contains the text description that is displayed on the second section of the onboarding screen
   static const String easyToUseDescription =
@@ -90,4 +97,7 @@ class AppText {
 
   /// Contains the message to display when the user try to sign-in with a wrong password
   static const String wrongPassword = 'The password is wrong';
+
+  /// Display a current plan text
+  static const String currentPlan = 'Current Plan';
 }
