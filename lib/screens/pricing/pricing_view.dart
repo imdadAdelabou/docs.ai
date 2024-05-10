@@ -10,7 +10,6 @@ import 'package:docs_ai/repository/stripe_repository.dart';
 import 'package:docs_ai/screens/pricing/get_started_btn.dart';
 import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
-import 'package:docs_ai/utils/constant.dart';
 import 'package:docs_ai/widgets/custom_btn.dart';
 import 'package:docs_ai/widgets/custom_snack_bar.dart';
 import 'package:flutter/foundation.dart';
@@ -20,12 +19,31 @@ import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+class _ErrorPricingFetchingWidget extends StatelessWidget {
+  const _ErrorPricingFetchingWidget({
+    required this.error,
+  });
+
+  final String error;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      error,
+      style: GoogleFonts.lato(
+        color: kBlackColor,
+      ),
+    );
+  }
+}
+
 /// A widget to display the pricing card
 class PricingCard extends ConsumerWidget {
   /// Creates a [PricingCard] widget
   const PricingCard({
     required this.pricing,
     required this.width,
+    required this.height,
     this.isCurrentPricing = false,
     super.key,
   });
@@ -38,6 +56,9 @@ class PricingCard extends ConsumerWidget {
 
   /// The width of the card
   final double width;
+
+  /// The height of the card
+  final double? height;
 
   Future<void> _makePayment({
     required WidgetRef ref,
@@ -81,7 +102,7 @@ class PricingCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: width,
-      height: 300,
+      height: height,
       child: Card(
         color: kPriceCardBg,
         surfaceTintColor: kPriceCardBg,
@@ -133,7 +154,7 @@ class PricingCard extends ConsumerWidget {
                       ),
                       const Gap(4),
                       SizedBox(
-                        width: width * .8,
+                        width: width * .7,
                         child: AutoSizeText(
                           advantage,
                           style: GoogleFonts.lato(
@@ -234,6 +255,7 @@ class _PricingViewForLargeScreen extends ConsumerWidget {
                           .map(
                             (Pricing pricing) => PricingCard(
                               pricing: pricing,
+                              height: 300,
                               width:
                                   (MediaQuery.sizeOf(context).width * .8) / 2,
                               isCurrentPricing: pricing.id ==
@@ -242,11 +264,8 @@ class _PricingViewForLargeScreen extends ConsumerWidget {
                           )
                           .toList(),
                     ),
-                  AsyncError<Widget>() => Text(
-                      errorModel.error.toString(),
-                      style: GoogleFonts.lato(
-                        color: kBlackColor,
-                      ),
+                  AsyncError<Widget>() => _ErrorPricingFetchingWidget(
+                      error: errorModel.error.toString(),
                     ),
                   _ => const CustomCircularProgressIndicator(),
                 },
@@ -259,28 +278,42 @@ class _PricingViewForLargeScreen extends ConsumerWidget {
   }
 }
 
-class _PricingViewMobileScreen extends StatelessWidget {
+class _PricingViewMobileScreen extends ConsumerWidget {
   const _PricingViewMobileScreen();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: pricingTest
-          .map(
-            (Pricing pricing) => Padding(
-              padding: EdgeInsets.only(
-                bottom: pricingTest.indexOf(pricing) != pricingTest.length - 1
-                    ? 10
-                    : 0,
-              ),
-              child: PricingCard(
-                pricing: pricing,
-                width: double.infinity,
-              ),
-            ),
-          )
-          .toList(),
+      children: <Widget>[
+        Consumer(
+          builder: (BuildContext context, WidgetRef ref, Widget? child) {
+            final AsyncValue<ErrorModel> errorModel =
+                ref.watch(getPricingProvider);
+
+            return switch (errorModel) {
+              AsyncData<ErrorModel>(:final ErrorModel value) => Column(
+                  children: (value.data as List<Pricing>)
+                      .map(
+                        (Pricing pricing) => PricingCard(
+                          pricing: pricing,
+                          width: MediaQuery.sizeOf(context).width,
+                          height: MediaQuery.sizeOf(context).height * .5,
+                          isCurrentPricing: pricing.id ==
+                              ref.watch(userProvider)?.getPricing.id,
+                        ),
+                      )
+                      .toList(),
+                ),
+              AsyncError<Widget>() => _ErrorPricingFetchingWidget(
+                  error: errorModel.error.toString(),
+                ),
+              _ => const CustomCircularProgressIndicator(),
+            };
+          },
+        ),
+        const Gap(20),
+      ],
     );
   }
 }

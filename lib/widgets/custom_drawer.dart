@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:docs_ai/models/pricing.dart';
 import 'package:docs_ai/models/user.dart';
@@ -19,6 +20,7 @@ class CustomDrawer extends ConsumerWidget {
   const CustomDrawer({super.key});
 
   void _showDialog(BuildContext context) {
+    log(MediaQuery.sizeOf(context).width.toString());
     unawaited(
       showDialog<void>(
         context: context,
@@ -35,9 +37,8 @@ class CustomDrawer extends ConsumerWidget {
               ),
             ),
             content: const PricingView(),
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               vertical: 30,
-              horizontal: MediaQuery.sizeOf(context).width > 480 ? 0 : 10,
             ),
             backgroundColor: kDialogColor,
             surfaceTintColor: kDialogColor,
