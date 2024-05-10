@@ -10,6 +10,7 @@ import 'package:docs_ai/repository/stripe_repository.dart';
 import 'package:docs_ai/screens/pricing/get_started_btn.dart';
 import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/viewModels/pricing_viewmodel.dart';
 import 'package:docs_ai/widgets/custom_btn.dart';
 import 'package:docs_ai/widgets/custom_snack_bar.dart';
 import 'package:flutter/foundation.dart';
@@ -65,6 +66,7 @@ class PricingCard extends ConsumerWidget {
     required Pricing pricing,
     required BuildContext context,
   }) async {
+    final NavigatorState navigator = Navigator.of(context);
     final ScaffoldMessengerState scaffoldMessanger =
         ScaffoldMessenger.of(context);
     final bool result =
@@ -76,8 +78,17 @@ class PricingCard extends ConsumerWidget {
     if (result) {
       try {
         await Stripe.instance.presentPaymentSheet();
-        scaffoldMessanger
-            .showSnackBar(customSnackBar(content: AppText.paymentSucessful));
+        final bool result = await PricingViewModel().updateUserPricing(
+          pricingId: pricing.id,
+          ref: ref,
+        );
+        if (result) {
+          navigator
+            ..pop()
+            ..pop();
+          scaffoldMessanger
+              .showSnackBar(customSnackBar(content: AppText.paymentSucessful));
+        }
       } on Exception catch (e) {
         if (e is StripeException) {
           scaffoldMessanger.showSnackBar(

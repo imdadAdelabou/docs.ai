@@ -266,4 +266,44 @@ class AuthRepository {
       );
     }
   }
+
+  /// A function to update the user pricing
+  Future<ErrorModel> updateUserPricing({required String pricingId}) async {
+    ErrorModel errorModel = const ErrorModel(data: null);
+
+    try {
+      final String? token = await _localStorageRepository.getToken();
+
+      if (token != null) {
+        final Response<dynamic> res = await _dioClient.put(
+          '/user/pricing',
+          data: <String, dynamic>{
+            'pricingId': pricingId,
+          },
+          options: Options(
+            headers: <String, dynamic>{
+              'x-auth-token': token,
+            },
+          ),
+        );
+
+        errorModel = ErrorModel(
+          data: UserModel.fromJson(
+            res.data['user'],
+          ).copyWith(token: token),
+        );
+        return errorModel;
+      }
+
+      return const ErrorModel(
+        error: 'Bad request',
+        data: null,
+      );
+    } catch (e) {
+      return const ErrorModel(
+        data: null,
+        error: AppText.unauthorized,
+      );
+    }
+  }
 }
