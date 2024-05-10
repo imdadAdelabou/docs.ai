@@ -22,18 +22,16 @@ class GetStartedBtn extends StatelessWidget {
       child: FilledButton(
         onPressed: onPressed,
         style: FilledButton.styleFrom(
+          backgroundColor: kBlueColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
-            side: const BorderSide(
-              color: kDescriptionColor,
-            ),
           ),
         ),
         child: Text(
           AppText.getStarted,
           style: GoogleFonts.lato(
             fontWeight: FontWeight.w500,
-            color: kBlackColor,
+            color: kWhiteColor,
           ),
         ),
       ),

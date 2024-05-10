@@ -46,14 +46,25 @@ class CustomBtn extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               )
-            : SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                  backgroundColor: kGreyColor,
-                  color: kWhiteColor,
-                ),
-              ),
+            : const CustomCircularProgressIndicator(),
+      ),
+    );
+  }
+}
+
+/// Represents a circular progress indicator
+class CustomCircularProgressIndicator extends StatelessWidget {
+  /// Creates a [CustomCircularProgressIndicator] instance
+  const CustomCircularProgressIndicator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 20,
+      height: 20,
+      child: CircularProgressIndicator(
+        backgroundColor: kGreyColor,
+        color: kWhiteColor,
       ),
     );
   }

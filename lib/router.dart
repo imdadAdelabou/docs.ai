@@ -7,6 +7,10 @@ import 'package:docs_ai/screens/picture/upload_picture.dart';
 import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
 
+// const MaterialPage<dynamic>(
+//           child: CustomSplashScreen(),
+//         )
+
 /// Contains the routes available when the user is logOut
 final RouteMap loggedOutRoute = RouteMap(
   routes: <String, PageBuilder>{

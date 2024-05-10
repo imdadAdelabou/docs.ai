@@ -5,14 +5,17 @@ import 'package:docs_ai/models/error_model.dart';
 import 'package:docs_ai/models/user.dart';
 import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/router.dart';
+import 'package:docs_ai/utils/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:routemaster/routemaster.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = kStripePublishableKey;
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -35,6 +38,7 @@ class MainApp extends ConsumerStatefulWidget {
 class _MainAppState extends ConsumerState<MainApp> {
   bool isLoading = false;
   ErrorModel? errorModel;
+  late Timer? _timer;
 
   Future<void> getUserData() async {
     errorModel = await ref.read(authRepositoryProvider).getUserData();
@@ -42,13 +46,16 @@ class _MainAppState extends ConsumerState<MainApp> {
       ref.read(userProvider.notifier).update(
             (UserModel? state) => errorModel!.data,
           );
+      return;
     }
   }
 
   @override
   void initState() {
     super.initState();
-    unawaited(getUserData());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      unawaited(getUserData());
+    });
   }
 
   @override
@@ -68,6 +75,12 @@ class _MainAppState extends ConsumerState<MainApp> {
       ),
       routeInformationParser: const RoutemasterParser(),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 }
 

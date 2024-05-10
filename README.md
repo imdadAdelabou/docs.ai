@@ -31,7 +31,6 @@ A simple and collaborative editor that uses AI to enhance and make your research
          git clone https://github.com/imdadAdelabou/docs.ai
          ```
          
-
 ## Packages
 - [cached_network_image](https://pub.dev/packages/cached_network_image/)
     ```
@@ -67,9 +66,13 @@ A simple and collaborative editor that uses AI to enhance and make your research
     separating the logic from your UI
     ensuring your code is testable, scalable and reusable.
     ```
-- [flutter_svg](https://pub.dev/packages/flutter_svg/)
+- [flutter_stripe](https://pub.dev/packages/flutter_stripe/)
     ```
-    A Flutter package used to display an svg image.
+    The Stripe Flutter SDK allows you to build delightful payment experiences in your native Android and iOS apps using Flutter. We provide powerful and customizable UI screens and elements that can be used out-of-the-box to collect your users' payment details.
+    ```
+- [flutter_stripe_web](https://pub.dev/packages/flutter_stripe_web/)
+    ```
+    An additional package to use with flutter_stripe to integrate the stripe widget on the web.
     ```
 - [form_field_validator](https://pub.dev/packages/form_field_validator)
     ```
@@ -98,6 +101,10 @@ A simple and collaborative editor that uses AI to enhance and make your research
 - [json_annotation](https://pub.dev/packages/json_annotation/)
     ```
     Defines the annotations used by json_serializable to create code for JSON serialization and deserialization.
+    ```
+- [riverpod_annotation](https://pub.dev/packages/riverpod_annotation/)
+    ```
+   This is a side package for riverpod_generator, exposing annotations.
     ```
 - [routemaster](https://pub.dev/packages/routemaster/)
     ```
@@ -146,6 +153,7 @@ A simple and collaborative editor that uses AI to enhance and make your research
     ```
 
 ## Architectures
+First, we use Riverpod for the state management. Riverpod because it provides a better way to register providers into the widget tree and access them easily. It also provides an optimizable way to change a view state according to the result of an asynchronous API request.
 
 ## Management
 

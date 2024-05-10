@@ -18,25 +18,23 @@ class CustomSplashScreen extends ConsumerStatefulWidget {
 }
 
 class _CustomSplashScreenState extends ConsumerState<CustomSplashScreen> {
-  late Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    final String? token = ref.read(userProvider)?.token;
-    if (token == null || token.isEmpty) {
-      _timer = Timer(const Duration(seconds: 3), () {
-        if (kIsWeb) {
-          Routemaster.of(context).replace('/login');
-        } else {
-          Routemaster.of(context).replace('/login-mobile');
-        }
-      });
-    }
-  }
+  late Timer timer;
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      timer = Timer(const Duration(seconds: 2), () {
+        final String? token = ref.read(userProvider)?.token;
+        if (token == null || token.isEmpty) {
+          if (kIsWeb) {
+            Routemaster.of(context).replace('/login');
+          } else {
+            Routemaster.of(context).replace('/login-mobile');
+          }
+        }
+      });
+    });
+
     return Scaffold(
       body: Center(
         child: Image.asset(
@@ -50,7 +48,7 @@ class _CustomSplashScreenState extends ConsumerState<CustomSplashScreen> {
 
   @override
   void dispose() {
-    _timer?.cancel();
+    timer.cancel();
     super.dispose();
   }
 }

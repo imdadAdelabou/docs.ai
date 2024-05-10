@@ -1,3 +1,4 @@
+import 'package:docs_ai/models/pricing.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
@@ -13,6 +14,7 @@ class UserModel {
     required this.token,
     required this.id,
     required this.provider,
+    required this.pricing,
     this.isNewUser,
   });
 
@@ -41,8 +43,19 @@ class UserModel {
   /// The provider used to sign-in the user
   final String provider;
 
+  /// The current pricing plan of the user
+  final Pricing? pricing;
+
   /// A function that returns a JSON representation of the UserModel instance
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
+  /// A function to get the pricing plan of the user
+  Pricing get getPricing => pricing!;
+
+  /// A function to change the pricing plan of the user
+  UserModel changePricing(Pricing newPricing) {
+    return copyWith(pricing: newPricing);
+  }
 
   /// A function to make a copy of the UserModel instance
   UserModel copyWith({
@@ -53,6 +66,7 @@ class UserModel {
     String? id,
     bool? isNewUser,
     String? provider,
+    Pricing? pricing,
   }) =>
       UserModel(
         email: email ?? this.email,
@@ -62,5 +76,6 @@ class UserModel {
         id: id ?? this.id,
         isNewUser: isNewUser ?? this.isNewUser,
         provider: provider ?? this.provider,
+        pricing: pricing ?? this.pricing,
       );
 }
