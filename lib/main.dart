@@ -7,7 +7,6 @@ import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/router.dart';
 import 'package:docs_ai/utils/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -49,23 +48,14 @@ class _MainAppState extends ConsumerState<MainApp> {
           );
       return;
     }
-    final String? token = ref.read(userProvider)?.token;
-
-    if (token == null || token.isEmpty) {
-      _timer = Timer(const Duration(seconds: 3), () {
-        if (kIsWeb) {
-          Routemaster.of(context).replace('/login');
-        } else {
-          Routemaster.of(context).replace('/login-mobile');
-        }
-      });
-    }
   }
 
   @override
   void initState() {
     super.initState();
-    unawaited(getUserData());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      unawaited(getUserData());
+    });
   }
 
   @override
