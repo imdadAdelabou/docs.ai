@@ -153,7 +153,8 @@ A simple and collaborative editor that uses AI to enhance and make your research
     ```
 
 ## Architectures
-First, we use Riverpod for the state management. Riverpod because it provides a better way to register providers into the widget tree and access them easily. It also provides an optimizable way to change a view state according to the result of an asynchronous API request.
+First, we use Riverpod for the state management. Riverpod because it provides a better way to register providers into the widget tree and access them easily. It also provides an optimizable way to change a view state according to the result of an asynchronous API request. 
+Our project files is separated into different directories. Each directory has a specific purpose. 
 
 ## Management
 
