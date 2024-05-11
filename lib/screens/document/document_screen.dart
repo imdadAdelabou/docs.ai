@@ -8,7 +8,6 @@ import 'package:docs_ai/repository/socket_repository.dart';
 import 'package:docs_ai/screens/document/widgets/document_screen_app_bar.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
