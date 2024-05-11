@@ -13,6 +13,31 @@ import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
+class _FloatingAIActionButton extends StatelessWidget {
+  const _FloatingAIActionButton({
+    required this.icon,
+    required this.onPressed,
+  });
+
+  final IconData icon;
+  final Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      backgroundColor: kBlueColorVariant,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      onPressed: onPressed,
+      child: Icon(
+        icon,
+        color: Colors.white,
+      ),
+    );
+  }
+}
+
 //Snippet : stfl
 /// Contains the visual aspect of the document screen
 class DocumentScreen extends ConsumerStatefulWidget {
@@ -127,6 +152,22 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          _FloatingAIActionButton(
+            icon: Icons.summarize,
+            onPressed: () {},
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: _FloatingAIActionButton(
+              icon: Icons.image,
+              onPressed: () {},
+            ),
+          ),
+        ],
       ),
     );
   }
