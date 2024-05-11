@@ -8,6 +8,7 @@ import 'package:docs_ai/repository/socket_repository.dart';
 import 'package:docs_ai/screens/document/widgets/document_screen_app_bar.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -103,24 +104,29 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
         titleCtrl: titleCtrl,
         id: widget.id,
       ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            const Gap(10),
-            QuillToolbar.simple(
-              configurations: QuillSimpleToolbarConfigurations(
-                controller: _controller,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              const Gap(10),
+              QuillToolbar.simple(
+                configurations: QuillSimpleToolbarConfigurations(
+                  controller: _controller,
+                ),
               ),
-            ),
-            Expanded(
-              child: SizedBox(
-                width: 750,
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: 750,
+                  minHeight: MediaQuery.of(context).size.height - 100,
+                ),
+                // width: 750,
+                // height: MediaQuery.of(context).size.height - 100,
                 child: DocumentBody(
                   controller: _controller,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
