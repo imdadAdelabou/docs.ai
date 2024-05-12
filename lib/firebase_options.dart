@@ -15,7 +15,7 @@ import 'package:flutter/foundation.dart'
 /// );
 /// ```
 class DefaultFirebaseOptions {
-  /// Returns the current device where the user is connected from
+  /// To get th
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       return web;
@@ -26,7 +26,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -45,7 +48,7 @@ class DefaultFirebaseOptions {
     }
   }
 
-  /// Contains the configuration for web device
+  /// Firebase options for the web platform.
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDFgIb-9rf0YtoApQhcb_PkUNwRl1MQbNo',
     appId: '1:909204974606:web:b4adcf63a412a443d3605f',
@@ -56,32 +59,22 @@ class DefaultFirebaseOptions {
     measurementId: 'G-6RNBWMRGXB',
   );
 
-  /// Contains the configuration for android device
+  /// Firebase options for the Android platform.
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAc---6d5K5WY5BPQ6BWf70T1gW8EicpCc',
-    appId: '1:909204974606:android:dfc5c0603aaa353bd3605f',
+    appId: '1:909204974606:android:340480fd4f6473a5d3605f',
     messagingSenderId: '909204974606',
     projectId: 'docs-ai-192fb',
     storageBucket: 'docs-ai-192fb.appspot.com',
   );
 
-  /// Contains the configuration for ios device
+  /// Firebase options for the iOS platform.
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBkvzH07iSfuGUgX2n3jVNy32Fjog65gIE',
-    appId: '1:909204974606:ios:50a1d22f18cc3705d3605f',
+    appId: '1:909204974606:ios:7a72ef7ee06fae7dd3605f',
     messagingSenderId: '909204974606',
     projectId: 'docs-ai-192fb',
     storageBucket: 'docs-ai-192fb.appspot.com',
-    iosBundleId: 'com.example.googleClone',
-  );
-
-  /// Contains the configuration for macos device
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBkvzH07iSfuGUgX2n3jVNy32Fjog65gIE',
-    appId: '1:909204974606:ios:5404103141037c2bd3605f',
-    messagingSenderId: '909204974606',
-    projectId: 'docs-ai-192fb',
-    storageBucket: 'docs-ai-192fb.appspot.com',
-    iosBundleId: 'com.example.googleClone.RunnerTests',
+    iosBundleId: 'com.docsai.app',
   );
 }

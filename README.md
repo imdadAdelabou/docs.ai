@@ -48,6 +48,10 @@ A simple and collaborative editor that uses AI to enhance and make your research
     ```
     A Flutter plugin to use the Firebase Core API, which enables connecting to multiple Firebase apps.
     ```
+- [firebase_crashlytics](https://pub.dev/packages/firebase_crashlytics/)
+    ```
+    Flutter plugin for Firebase Crashlytics. It reports uncaught errors to the Firebase console.
+    ```
 - [firebase_storage](https://pub.dev/packages/firebase_storage/)
     ```
     A Flutter package to interact with the cloud firebase storage service.
