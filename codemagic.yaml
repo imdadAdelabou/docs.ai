@@ -111,6 +111,10 @@ workflows:
         script: | 
           echo "$FIREBASE_SERVICE_ACCOUNT" > "$GOOGLE_APPLICATION_CREDENTIALS"
 
+      - name: Update pod
+        script: | 
+          pod repo update
+
       - name: Build iOS
         script: |
           flutter build ios --release --no-codesign
