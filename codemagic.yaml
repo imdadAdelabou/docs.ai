@@ -10,6 +10,9 @@ workflows:
           include: true
       cancel_previous_builds: false
     scripts:
+      - name: Upgrade flutter
+        script: |
+          flutter upgrade
       - name: Install dependencies
         script: |
           flutter pub get
@@ -103,7 +106,6 @@ workflows:
 
     environment:
       flutter: stable
-      dart: 3.2.5
       java: 17
       groups:
         - firebase_credentials
