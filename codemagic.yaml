@@ -57,6 +57,10 @@ workflows:
       - name: Java version
         script: |
           java -version
+       - name: Upgrade flutter
+        script: |
+          flutter upgrade
+          
       - name: Install dependencies
         script: |
           flutter pub get
