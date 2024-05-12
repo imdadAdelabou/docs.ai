@@ -84,6 +84,41 @@ workflows:
       - build/web.zip
       - flutter_drive.log
 
+  ios-workflow:
+    name: iOS Workflow
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: master
+          include: true
+      cancel_previous_builds: false
+    scripts:
+      - name: Install dependencies
+        script: |
+          flutter pub get
+
+      - name: Flutter analyze
+        script: |
+          flutter analyze
+
+      - name: Flutter test
+        script: |
+          flutter test
+
+      - name: Write Google credentials
+        script: | 
+          echo "$FIREBASE_SERVICE_ACCOUNT" > "$GOOGLE_APPLICATION_CREDENTIALS"
+
+      - name: Build iOS
+        script: |
+          flutter build ios --release --no-codesign
+
+      - name: Distribute app to firebase with gradle plugin
+        script: | 
+          cd ios && fastlane distribute
+
     publishing:
       firebase:
         firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
@@ -103,6 +138,8 @@ workflows:
         recipients:
           - imdadadelabou0@gmail.com
           - hamidtessilimi@gmail.com
+
+  
 
     environment:
       flutter: stable
