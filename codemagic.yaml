@@ -45,6 +45,11 @@ workflows:
 
   android-workflow:
     name: Android Workflow
+    environment:
+      flutter: stable
+      java: 17
+      groups:
+        - firebase_credentials
     triggering:
       events:
         - push
@@ -94,6 +99,11 @@ workflows:
 
   ios-workflow:
     name: iOS Workflow
+    environment:
+      flutter: stable
+      java: 17
+      groups:
+        - firebase_credentials
     triggering:
       events:
         - push
