@@ -136,10 +136,15 @@ workflows:
       - name: Build iOS
         script: |
           flutter build ios --release --no-codesign
+      
+      - name: Install Fastlane
+        script: |
+          gem install fastlane -NV
+      - name: Execute Fastlane Lane
+        script: |
+          fastlane deploy_debug
 
-      - name: Distribute app to firebase with gradle plugin
-        script: | 
-          cd ios && fastlane distribute
+      
 
     publishing:
       firebase:
