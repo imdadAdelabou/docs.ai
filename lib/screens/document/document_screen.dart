@@ -10,6 +10,7 @@ import 'package:docs_ai/screens/document/widgets/summarize_text.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:docs_ai/widgets/close_dialog_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -127,7 +128,11 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
     });
   }
 
-  Future<void> _showSummaryDialog() async {
+  Future<void> _showSummaryDialog({
+    required BuildContext context,
+    required String dialogTitle,
+    required Widget child,
+  }) async {
     final double maxWidth = MediaQuery.of(context).size.width;
 
     unawaited(
@@ -143,7 +148,7 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
               borderRadius: BorderRadius.circular(10),
             ),
             title: Text(
-              'Summarize a text using AI',
+              dialogTitle,
               style: GoogleFonts.lato(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -152,9 +157,7 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
             ),
             content: SizedBox(
               width: maxWidth > 480 ? maxWidth * .5 : maxWidth,
-              child: SummarizeText(
-                controller: _controller,
-              ),
+              child: child,
             ),
           );
         },
@@ -197,7 +200,13 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
         children: <Widget>[
           _FloatingAIActionButton(
             icon: Icons.summarize,
-            onPressed: _showSummaryDialog,
+            onPressed: () => unawaited(
+              _showSummaryDialog(
+                context: context,
+                dialogTitle: 'Summarize a text using AI',
+                child: SummarizeText(controller: _controller),
+              ),
+            ),
           ),
           Visibility(
             visible: ref.watch(userProvider)!.pricing!.label == 'Pro',

@@ -10,6 +10,10 @@ workflows:
           include: true
       cancel_previous_builds: false
     scripts:
+      - name: Clean Build Cache
+        script: rm -rf build/
+      - name: Clean var Directory
+        script: rm -rf var/
       - name: Upgrade flutter
         script: |
           flutter upgrade
@@ -29,8 +33,7 @@ workflows:
       - name: Write Google credentials
         script: | 
           echo "$FIREBASE_SERVICE_ACCOUNT" > "$GOOGLE_APPLICATION_CREDENTIALS"
-
-
+          
       - name: Build for web
         script: | 
           flutter build web --release
