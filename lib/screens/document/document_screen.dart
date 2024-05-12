@@ -10,6 +10,7 @@ import 'package:docs_ai/screens/document/widgets/gen_ai_image.dart';
 import 'package:docs_ai/screens/document/widgets/summarize_text.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:docs_ai/widgets/close_dialog_icon.dart';
+import 'package:docs_ai/widgets/custom_snack_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
@@ -196,6 +197,25 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
     );
   }
 
+  void _saved() {
+    unawaited(
+      ref
+          .read(documentRepositoryProvider)
+          .updateContentDocument(
+            docId: widget.id,
+            token: ref.read(userProvider)!.token,
+            content: _controller.document.toDelta().toJson(),
+          )
+          .then(
+            (ErrorModel value) => ScaffoldMessenger.of(context).showSnackBar(
+              customSnackBar(
+                content: 'Saved',
+              ),
+            ),
+          ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -249,6 +269,11 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
                 ),
               ),
             ),
+          ),
+          const Gap(8),
+          _FloatingAIActionButton(
+            icon: Icons.save,
+            onPressed: _saved,
           ),
         ],
       ),

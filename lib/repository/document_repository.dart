@@ -120,6 +120,42 @@ class DocumentRepository {
     }
   }
 
+  /// A function used to update the content of a document
+  Future<ErrorModel> updateContentDocument({
+    required String docId,
+    required String token,
+    required List<dynamic> content,
+  }) async {
+    try {
+      final Response<dynamic> result = await _dioClient.put(
+        '/doc/content',
+        data: <String, dynamic>{
+          'id': docId,
+          'content': content,
+        },
+        options: Options(
+          headers: <String, dynamic>{
+            'x-auth-token': token,
+          },
+        ),
+      );
+      if (result.statusCode == 200 && result.data['document'] != null) {
+        return ErrorModel(
+          data: DocumentModel.fromJson(
+            result.data['document'],
+          ),
+        );
+      }
+
+      return ErrorModel(data: null, error: result.data['message']);
+    } on DioException catch (e) {
+      return ErrorModel(
+        data: null,
+        error: e.message,
+      );
+    }
+  }
+
   /// A function to get a document by his id
   Future<ErrorModel> getDocumentById({
     required String docId,
