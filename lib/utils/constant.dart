@@ -12,7 +12,7 @@ enum TextFormFieldType {
 }
 
 /// Contains the base url of the api
-const String baseApiUrl = 'http://ec2-54-234-23-162.compute-1.amazonaws.com';
+const String baseApiUrl = 'https://docsai-0273dc8c6d35.herokuapp.com';
 
 /// Contains the stripe publishable key
 const String kStripePublishableKey =
