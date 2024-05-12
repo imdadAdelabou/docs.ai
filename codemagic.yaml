@@ -13,6 +13,8 @@ workflows:
       - name: Upgrade flutter
         script: |
           flutter upgrade
+      
+
       - name: Install dependencies
         script: |
           flutter pub get
