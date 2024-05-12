@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 /// Display a circular avatar with a profile pic of the user
@@ -20,7 +19,9 @@ class ShowRemoteProfilPic extends StatelessWidget {
       height: 100,
     );
     // return CachedNetworkImage(
-    //   httpHeaders: ,
+    //   httpHeaders: {
+    //     'mode': 'no-cors',
+    //   },
     //   imageUrl: url,
     //   imageBuilder:
     //       (BuildContext context, ImageProvider<Object> imageProvider) =>
