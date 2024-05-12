@@ -6,9 +6,12 @@ A simple and collaborative editor that uses AI to enhance and make your research
 - A  user can login and register with email/username/password or with his google account
 - A user can create a new document
 - A user can fill a created document with a title and content
+- A user can save a content of a document
 - A user can summarize a long text using AI and add the result inside the document
 - A user can modify the style of the text document using a simple editor
-
+- A user can generate an image using a AI and add the image to the document
+- A user can choose a subscription and the fee by stripe (There is two subscription basic and pro)
+- A user can upload a profile picture
 
 ## Technologies
 <li>Flutter</li>
@@ -172,9 +175,28 @@ A simple and collaborative editor that uses AI to enhance and make your research
     ```
 
 ## Architectures
-First, we use Riverpod for the state management. Riverpod because it provides a better way to register providers into the widget tree and access them easily. It also provides an optimizable way to change a view state according to the result of an asynchronous API request. 
-Our project files is separated into different directories. Each directory has a specific purpose. 
+First, we use Riverpod for the state management. Riverpod provides a better way to register providers into the widget tree and access them easily. It also provides an optimizable way to change a view state according to the result of an asynchronous API request. 
+
+Our project files are separated into different directories. Each directory has a specific purpose. 
+The models directory contains our data model.
+The repository directory contains a set of functions to interact with our backend server and other external services. Each repository is registered inside the provider to easily access it globally.
+The screens directory contains all the UI.
+The widgets directory contains all the shared components.
+The utils directory contains some reusable functions and constants.
+The viewModels directory is like a controller, it connects the UI interface to the repository.
+Basically, each feature has a UI screen, a serviceModel, and a repository associated with it. All connected using the power of provider.
+
 
 ## Management
+We use github project to manage the project and here I will explain the meaning of S, XS, L and XL. It represent the complexity of a task and how many days it will take to accomplish this task.
+- XS -> the task will take 01 day to finish
+- S -> the task will take 02 days to finish
+- L -> the task will take 03 days to finish
+- XL -> the task will take more than 03 days to finish
+  
 
 ## Authors
+
+-  [IMDAD ADELABOU](https://www.linkedin.com/in/imdad-adelabou-a4056919a/)
+-  [HAMIDOU TESSILIMI](https://www.linkedin.com/in/hamidou-tessilimi/)
+-  [DODJI AKUESSON](https://www.linkedin.com/in/dodji-akuesson/)
