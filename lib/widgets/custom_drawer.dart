@@ -7,6 +7,7 @@ import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/screens/pricing/pricing_view.dart';
 import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/widgets/close_dialog_icon.dart';
 import 'package:docs_ai/widgets/type_pricing_view.dart';
 import 'package:docs_ai/widgets/user_data.display.dart';
 import 'package:flutter/material.dart';
@@ -26,16 +27,7 @@ class CustomDrawer extends ConsumerWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            icon: GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
-              child: const Align(
-                alignment: Alignment.topRight,
-                child: Icon(
-                  Icons.close,
-                  color: kBlackColor,
-                ),
-              ),
-            ),
+            icon: const CloseDialogIcon(),
             content: const PricingView(),
             insetPadding: const EdgeInsets.symmetric(
               vertical: 30,

@@ -6,12 +6,43 @@ import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/repository/document_repository.dart';
 import 'package:docs_ai/repository/socket_repository.dart';
 import 'package:docs_ai/screens/document/widgets/document_screen_app_bar.dart';
+import 'package:docs_ai/screens/document/widgets/summarize_text.dart';
 import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/widgets/close_dialog_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class _FloatingAIActionButton extends StatelessWidget {
+  const _FloatingAIActionButton({
+    required this.icon,
+    required this.onPressed,
+    super.key,
+  });
+
+  final IconData icon;
+  final Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      heroTag: null,
+      key: key,
+      backgroundColor: kBlueColorVariant,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      onPressed: onPressed,
+      child: Icon(
+        icon,
+        color: Colors.white,
+      ),
+    );
+  }
+}
 
 //Snippet : stfl
 /// Contains the visual aspect of the document screen
@@ -96,6 +127,41 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
     });
   }
 
+  Future<void> _showSummaryDialog() async {
+    final double maxWidth = MediaQuery.of(context).size.width;
+
+    unawaited(
+      showDialog<dynamic>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            scrollable: true,
+            icon: const CloseDialogIcon(),
+            backgroundColor: kWhiteColor,
+            surfaceTintColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: Text(
+              'Summarize a text using AI',
+              style: GoogleFonts.lato(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.start,
+            ),
+            content: SizedBox(
+              width: maxWidth > 480 ? maxWidth * .5 : maxWidth,
+              child: SummarizeText(
+                controller: _controller,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,25 +169,48 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
         titleCtrl: titleCtrl,
         id: widget.id,
       ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            const Gap(10),
-            QuillToolbar.simple(
-              configurations: QuillSimpleToolbarConfigurations(
-                controller: _controller,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              const Gap(10),
+              QuillToolbar.simple(
+                configurations: QuillSimpleToolbarConfigurations(
+                  controller: _controller,
+                ),
               ),
-            ),
-            Expanded(
-              child: SizedBox(
-                width: 750,
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: 750,
+                  minHeight: MediaQuery.of(context).size.height - 100,
+                ),
                 child: DocumentBody(
                   controller: _controller,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          _FloatingAIActionButton(
+            icon: Icons.summarize,
+            onPressed: _showSummaryDialog,
+          ),
+          Visibility(
+            visible: ref.watch(userProvider)!.pricing!.label == 'Pro',
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: _FloatingAIActionButton(
+                key: const Key('gen_image_ai_button'),
+                icon: Icons.image,
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

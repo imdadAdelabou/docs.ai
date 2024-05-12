@@ -4,6 +4,7 @@ import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/repository/document_repository.dart';
 import 'package:docs_ai/screens/document/widgets/share_btn.dart';
 import 'package:docs_ai/utils/app_assets.dart';
+import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:docs_ai/widgets/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:routemaster/routemaster.dart';
 
 /// Contains the AppBar of the document screen
@@ -53,19 +55,31 @@ class DocumentScreenAppBar extends ConsumerWidget
       elevation: 0,
       automaticallyImplyLeading: false,
       actions: <Widget>[
-        ShareBtn(
-          onPressed: () {
-            unawaited(
-              Clipboard.setData(
-                ClipboardData(text: 'http://localhost:3000/#/document/$id'),
-              ).then(
-                (_) => ScaffoldMessenger.of(context).showSnackBar(
-                  customSnackBar(content: 'Link Copied'),
+        if (MediaQuery.sizeOf(context).width > 480)
+          ShareBtn(
+            onPressed: () {
+              unawaited(
+                Clipboard.setData(
+                  ClipboardData(text: 'http://localhost:3000/#/document/$id'),
+                ).then(
+                  (_) => ScaffoldMessenger.of(context).showSnackBar(
+                    customSnackBar(content: 'Link Copied'),
+                  ),
                 ),
+              );
+            },
+          )
+        else
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              AppText.shareLabel,
+              style: GoogleFonts.lato(
+                fontWeight: FontWeight.w600,
+                color: kBlueColor,
               ),
-            );
-          },
-        ),
+            ),
+          ),
         const Gap(20),
       ],
       title: Padding(
