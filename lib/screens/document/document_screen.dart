@@ -10,9 +10,11 @@ import 'package:docs_ai/screens/document/widgets/gen_ai_image.dart';
 import 'package:docs_ai/screens/document/widgets/summarize_text.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:docs_ai/widgets/close_dialog_icon.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -187,7 +189,9 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
       _showAIFeatureDialog(
         context: context,
         dialogTitle: 'Generate an image using AI',
-        child: const GenAiImage(),
+        child: GenAiImage(
+          controller: _controller,
+        ),
       ),
     );
   }
@@ -271,6 +275,15 @@ class DocumentBody extends StatelessWidget {
 
   final QuillController _controller;
 
+  // EmbedBuilder _myCustomEmbedBuilder(
+  //     BuildContext context, Embed node, bool readOnly) {
+  //   if (node.value.type == 'image') {
+  //     return Image.network(node.value.data);
+  //   }
+  //   // Return null to handle unsupported embed types
+  //   return Container();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -285,6 +298,9 @@ class DocumentBody extends StatelessWidget {
         child: QuillEditor.basic(
           configurations: QuillEditorConfigurations(
             controller: _controller,
+            embedBuilders: kIsWeb
+                ? FlutterQuillEmbeds.editorWebBuilders()
+                : FlutterQuillEmbeds.editorBuilders(),
           ),
         ),
       ),

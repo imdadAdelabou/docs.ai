@@ -3,6 +3,7 @@ import 'package:docs_ai/viewModels/ai_viewmodel.dart';
 import 'package:docs_ai/widgets/custom_btn.dart';
 import 'package:docs_ai/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gap/gap.dart';
@@ -11,7 +12,13 @@ import 'package:google_fonts/google_fonts.dart';
 /// Contains the visual aspect of the AI image generation
 class GenAiImage extends ConsumerStatefulWidget {
   /// Creates [GenAiImage] widget
-  const GenAiImage({super.key});
+  const GenAiImage({
+    required this.controller,
+    super.key,
+  });
+
+  /// Contains the controller of the Quill editor
+  final QuillController controller;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _GenAiImageState();
@@ -40,6 +47,24 @@ class _GenAiImageState extends ConsumerState<GenAiImage> {
         _urlImage = result;
       }
     });
+  }
+
+  void _addToDocument() {
+    widget.controller.document.insert(
+      widget.controller.document.toDelta().length - 1,
+      Embeddable('image', _urlImage[0]),
+    );
+    // final imageDelta = Delta.fromJson(<Map<String, dynamic>>[
+    //   <String, Map<String, String>>{
+    //     'insert': <String, String>{
+    //       'image': _urlImage[0],
+    //     },
+    //   }
+    // ]);
+    // final newDelta = widget.controller.document.toDelta().concat(imageDelta);
+    // widget.controller.setContents(newDelta);
+    _promptController.clear();
+    Navigator.of(context).pop();
   }
 
   @override
@@ -98,7 +123,7 @@ class _GenAiImageState extends ConsumerState<GenAiImage> {
                 const Gap(8),
                 CustomBtn(
                   label: AppText.addToDocument,
-                  onPressed: () {},
+                  onPressed: _addToDocument,
                 ),
                 const Gap(8),
               ],
