@@ -14,22 +14,28 @@ class ShowRemoteProfilPic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: url,
-      imageBuilder:
-          (BuildContext context, ImageProvider<Object> imageProvider) =>
-              CircleAvatar(
-        radius: 70,
-        backgroundImage: imageProvider,
-      ),
-      errorWidget: (BuildContext context, _, Object object) =>
-          const CircleAvatar(
-        radius: 70,
-        child: Icon(
-          Icons.error,
-          color: Colors.red,
-        ),
-      ),
+    return Image.network(
+      url,
+      width: 100,
+      height: 100,
     );
+    // return CachedNetworkImage(
+    //   httpHeaders: ,
+    //   imageUrl: url,
+    //   imageBuilder:
+    //       (BuildContext context, ImageProvider<Object> imageProvider) =>
+    //           CircleAvatar(
+    //     radius: 70,
+    //     backgroundImage: imageProvider,
+    //   ),
+    //   errorWidget: (BuildContext context, _, Object object) =>
+    //       const CircleAvatar(
+    //     radius: 70,
+    //     child: Icon(
+    //       Icons.error,
+    //       color: Colors.red,
+    //     ),
+    //   ),
+    // );
   }
 }
