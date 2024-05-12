@@ -30,6 +30,12 @@ class AppText {
   /// Contains the skip label
   static const String skip = 'Skip';
 
+  /// Contains the Result text
+  static const String result = 'Result';
+
+  /// Contains the Add to document text
+  static const String addToDocument = 'Add to document';
+
   /// Contains the title that is displayed on the first section of the onboarding screen
   static const String collaborativeTitle = 'Collaborative';
 
@@ -49,6 +55,9 @@ class AppText {
 
   /// Contains the text that is displayed on the AI text
   static const String ai = 'AI';
+
+  /// Contains the text with Summarize
+  static const String summarize = 'Summarize';
 
   /// Contains the text that is displayed on the AI description
   static const String aiDescription =

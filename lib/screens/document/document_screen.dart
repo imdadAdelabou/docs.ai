@@ -6,17 +6,21 @@ import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/repository/document_repository.dart';
 import 'package:docs_ai/repository/socket_repository.dart';
 import 'package:docs_ai/screens/document/widgets/document_screen_app_bar.dart';
+import 'package:docs_ai/screens/document/widgets/summarize_text.dart';
 import 'package:docs_ai/utils/colors.dart';
+import 'package:docs_ai/widgets/close_dialog_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class _FloatingAIActionButton extends StatelessWidget {
   const _FloatingAIActionButton({
     required this.icon,
     required this.onPressed,
+    super.key,
   });
 
   final IconData icon;
@@ -25,6 +29,8 @@ class _FloatingAIActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      heroTag: null,
+      key: key,
       backgroundColor: kBlueColorVariant,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
@@ -121,6 +127,41 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
     });
   }
 
+  Future<void> _showSummaryDialog() async {
+    final double maxWidth = MediaQuery.of(context).size.width;
+
+    unawaited(
+      showDialog<dynamic>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            scrollable: true,
+            icon: const CloseDialogIcon(),
+            backgroundColor: kWhiteColor,
+            surfaceTintColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: Text(
+              'Summarize a text using AI',
+              style: GoogleFonts.lato(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.start,
+            ),
+            content: SizedBox(
+              width: maxWidth > 480 ? maxWidth * .5 : maxWidth,
+              child: SummarizeText(
+                controller: _controller,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,8 +184,6 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
                   maxWidth: 750,
                   minHeight: MediaQuery.of(context).size.height - 100,
                 ),
-                // width: 750,
-                // height: MediaQuery.of(context).size.height - 100,
                 child: DocumentBody(
                   controller: _controller,
                 ),
@@ -158,13 +197,17 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
         children: <Widget>[
           _FloatingAIActionButton(
             icon: Icons.summarize,
-            onPressed: () {},
+            onPressed: _showSummaryDialog,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: _FloatingAIActionButton(
-              icon: Icons.image,
-              onPressed: () {},
+          Visibility(
+            visible: ref.watch(userProvider)!.pricing!.label == 'Pro',
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: _FloatingAIActionButton(
+                key: const Key('gen_image_ai_button'),
+                icon: Icons.image,
+                onPressed: () {},
+              ),
             ),
           ),
         ],
