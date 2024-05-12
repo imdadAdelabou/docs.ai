@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:docs_ai/models/error_model.dart';
+import 'package:docs_ai/models/pricing.dart';
 import 'package:docs_ai/models/user.dart';
 import 'package:docs_ai/repository/local_storage_repository.dart';
 import 'package:docs_ai/utils/app_text.dart';
@@ -99,6 +100,9 @@ class AuthRepository {
                 token: res.data['token'],
                 isNewUser: res.data['isNewUser'],
                 photoUrl: res.data['user']['photoUrl'],
+                pricing: Pricing.fromJson(
+                  res.data['user']['pricing'],
+                ),
               );
 
               error = ErrorModel(data: newUser);
