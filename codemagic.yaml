@@ -27,7 +27,7 @@ workflows:
           flutter test
 
       - name: Write Google credentials
-        script: | 
+        script: |
           echo "$FIREBASE_SERVICE_ACCOUNT" > "$GOOGLE_APPLICATION_CREDENTIALS"
           
       - name: Build for web
@@ -114,8 +114,6 @@ workflows:
       - name: Write Google credentials
         script: | 
           echo "$FIREBASE_SERVICE_ACCOUNT" > "$GOOGLE_APPLICATION_CREDENTIALS"
-
-      
 
       - name: Build iOS
         script: |
