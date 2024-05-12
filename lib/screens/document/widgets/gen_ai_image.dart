@@ -54,15 +54,6 @@ class _GenAiImageState extends ConsumerState<GenAiImage> {
       widget.controller.document.toDelta().length - 1,
       Embeddable('image', _urlImage[0]),
     );
-    // final imageDelta = Delta.fromJson(<Map<String, dynamic>>[
-    //   <String, Map<String, String>>{
-    //     'insert': <String, String>{
-    //       'image': _urlImage[0],
-    //     },
-    //   }
-    // ]);
-    // final newDelta = widget.controller.document.toDelta().concat(imageDelta);
-    // widget.controller.setContents(newDelta);
     _promptController.clear();
     Navigator.of(context).pop();
   }
