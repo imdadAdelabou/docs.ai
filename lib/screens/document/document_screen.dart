@@ -275,15 +275,6 @@ class DocumentBody extends StatelessWidget {
 
   final QuillController _controller;
 
-  // EmbedBuilder _myCustomEmbedBuilder(
-  //     BuildContext context, Embed node, bool readOnly) {
-  //   if (node.value.type == 'image') {
-  //     return Image.network(node.value.data);
-  //   }
-  //   // Return null to handle unsupported embed types
-  //   return Container();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Card(
