@@ -111,10 +111,7 @@ workflows:
         script: | 
           echo "$FIREBASE_SERVICE_ACCOUNT" > "$GOOGLE_APPLICATION_CREDENTIALS"
 
-      - name: Update pod
-        script: | 
-          pod install --repo-update
-          pod update Firebase/CoreOnly
+      
 
       - name: Build iOS
         script: |
