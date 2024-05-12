@@ -1,6 +1,14 @@
 workflows:
   web-workflow:
     name: Web Workflow
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: master
+          include: true
+      cancel_previous_builds: false
     scripts:
       - name: Install dependencies
         script: |
@@ -31,6 +39,14 @@ workflows:
 
   android-workflow:
     name: Android Workflow
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: master
+          include: true
+      cancel_previous_builds: false
     scripts:
       - name: Java version
         script: |
