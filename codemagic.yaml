@@ -113,7 +113,8 @@ workflows:
 
       - name: Update pod
         script: | 
-          pod repo update
+          pod install --repo-update
+          pod update Firebase/CoreOnly
 
       - name: Build iOS
         script: |
