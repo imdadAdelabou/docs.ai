@@ -23,13 +23,18 @@ A simple and collaborative editor that uses AI to enhance and make your research
          - Download the Flutter SDK from the official Flutter website.
          - Extract the downloaded file to a desired location.
          - Add the Flutter SDK's `bin` directory to your system's `PATH` environment variable.
-2. Clone the GitHub repository:
+2. Clone the GitHub repository and run the project:
      - Open a terminal or command prompt.
      - Navigate to the directory where you want to clone the repository.
      - Run the following command:
          ```
          git clone https://github.com/imdadAdelabou/docs.ai
          ```
+     - And then ```
+                cd docs.ai
+                flutter run
+                ```
+     - And select your device
          
 ## Packages
 - [cached_network_image](https://pub.dev/packages/cached_network_image/)

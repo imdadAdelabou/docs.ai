@@ -95,6 +95,10 @@ workflows:
           include: true
       cancel_previous_builds: false
     scripts:
+      - name: Update CocoaPods
+        script: |
+          gem install cocoapods
+          
       - name: Install dependencies
         script: |
           flutter pub get
@@ -144,6 +148,7 @@ workflows:
   
 
     environment:
+      cocoapods: latest
       flutter: stable
       java: 17
       groups:
