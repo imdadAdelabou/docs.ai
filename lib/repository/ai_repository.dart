@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:docs_ai/models/error_model.dart';
 import 'package:docs_ai/utils/app_text.dart';
@@ -41,6 +43,39 @@ class AIRepository {
       return ErrorModel(
         error: e.response!.statusMessage,
         data: null,
+      );
+    }
+  }
+
+  /// Generate an image using the prompt
+  Future<ErrorModel> generateAImage(String prompt) async {
+    try {
+      final Response<dynamic> response = await _dioClient.post(
+        '/openai/gen_image',
+        data: <String, dynamic>{
+          'prompt': prompt,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = response.data as Map<String, dynamic>;
+
+        return ErrorModel(
+          data: (data['data'] as List<dynamic>)
+              .map((dynamic e) => e['url'] as String)
+              .toList(),
+        );
+      }
+
+      return const ErrorModel(
+        data: <String>[],
+        error: AppText.errorHappened,
+      );
+    } on DioException catch (e) {
+      log(e.toString());
+      return ErrorModel(
+        error: e.response!.statusMessage,
+        data: <String>[],
       );
     }
   }

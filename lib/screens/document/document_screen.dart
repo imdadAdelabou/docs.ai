@@ -6,11 +6,11 @@ import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/repository/document_repository.dart';
 import 'package:docs_ai/repository/socket_repository.dart';
 import 'package:docs_ai/screens/document/widgets/document_screen_app_bar.dart';
+import 'package:docs_ai/screens/document/widgets/gen_ai_image.dart';
 import 'package:docs_ai/screens/document/widgets/summarize_text.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:docs_ai/widgets/close_dialog_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -128,7 +128,7 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
     });
   }
 
-  Future<void> _showSummaryDialog({
+  Future<void> _showAIFeatureDialog({
     required BuildContext context,
     required String dialogTitle,
     required Widget child,
@@ -138,6 +138,7 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
     unawaited(
       showDialog<dynamic>(
         context: context,
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             scrollable: true,
@@ -161,6 +162,32 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  void _showSummaryDialog({
+    required BuildContext context,
+    required String dialogTitle,
+  }) {
+    unawaited(
+      _showAIFeatureDialog(
+        context: context,
+        dialogTitle: 'Summarize a text using AI',
+        child: SummarizeText(controller: _controller),
+      ),
+    );
+  }
+
+  void _showGenAiImageDialog({
+    required BuildContext context,
+    required String dialogTitle,
+  }) {
+    unawaited(
+      _showAIFeatureDialog(
+        context: context,
+        dialogTitle: 'Generate an image using AI',
+        child: const GenAiImage(),
       ),
     );
   }
@@ -200,12 +227,9 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
         children: <Widget>[
           _FloatingAIActionButton(
             icon: Icons.summarize,
-            onPressed: () => unawaited(
-              _showSummaryDialog(
-                context: context,
-                dialogTitle: 'Summarize a text using AI',
-                child: SummarizeText(controller: _controller),
-              ),
+            onPressed: () => _showSummaryDialog(
+              context: context,
+              dialogTitle: 'Summarize a text using AI',
             ),
           ),
           Visibility(
@@ -215,7 +239,10 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
               child: _FloatingAIActionButton(
                 key: const Key('gen_image_ai_button'),
                 icon: Icons.image,
-                onPressed: () {},
+                onPressed: () => _showGenAiImageDialog(
+                  context: context,
+                  dialogTitle: 'Generate an image using AI',
+                ),
               ),
             ),
           ),
