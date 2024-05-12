@@ -1,6 +1,9 @@
 workflows:
   web-workflow:
     name: Web Workflow
+    environment:
+      groups:
+        - firebase_credentials
     triggering:
       events:
         - push

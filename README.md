@@ -3,6 +3,9 @@
 A simple and collaborative editor that uses AI to enhance and make your research or writing process faster.
 
 ## Features
+- User can login and register with email/username/password or with his google account
+- User can create a new document
+- Fill this dcoument with a title and content 
 
 ## Technologies
 <li>Flutter</li>
