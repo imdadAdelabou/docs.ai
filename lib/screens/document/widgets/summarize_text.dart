@@ -1,5 +1,5 @@
 import 'package:docs_ai/utils/app_text.dart';
-import 'package:docs_ai/viewModels/summarize_viewmodel.dart';
+import 'package:docs_ai/viewModels/ai_viewmodel.dart';
 import 'package:docs_ai/widgets/custom_btn.dart';
 import 'package:docs_ai/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _SummarizeTextState extends ConsumerState<SummarizeText> {
       setState(() {
         _isLoading = true;
       });
-      final String? result = await SummarizeViewModel().summarize(
+      final String? result = await AIViewModel().summarize(
         ref: ref,
         text: _textController.text,
       );
@@ -46,6 +46,25 @@ class _SummarizeTextState extends ConsumerState<SummarizeText> {
         _isLoading = false;
         _summarizeTextResult = result ?? '';
       });
+    }
+  }
+
+  void _handleAddToDocument() {
+    if (_summarizeTextResult.isNotEmpty) {
+      final Delta newContent = Delta.fromJson(
+        <Map<String, dynamic>>[
+          <String, String>{
+            'insert': '$_summarizeTextResult\n',
+          }
+        ],
+      );
+      final Delta currentContent = widget.controller.document.toDelta();
+      final Delta combinedContent = currentContent.concat(newContent);
+      widget.controller.setContents(
+        combinedContent,
+      );
+      _textController.clear();
+      Navigator.of(context).pop();
     }
   }
 
@@ -94,26 +113,7 @@ class _SummarizeTextState extends ConsumerState<SummarizeText> {
                 const Gap(8),
                 CustomBtn(
                   label: AppText.addToDocument,
-                  onPressed: () {
-                    if (_summarizeTextResult.isNotEmpty) {
-                      final Delta newContent = Delta.fromJson(
-                        <Map<String, dynamic>>[
-                          <String, String>{
-                            'insert': '$_summarizeTextResult\n',
-                          }
-                        ],
-                      );
-                      final Delta currentContent =
-                          widget.controller.document.toDelta();
-                      final Delta combinedContent =
-                          currentContent.concat(newContent);
-                      widget.controller.setContents(
-                        combinedContent,
-                      );
-                      _textController.clear();
-                      Navigator.of(context).pop();
-                    }
-                  },
+                  onPressed: _handleAddToDocument,
                 ),
               ],
             ),

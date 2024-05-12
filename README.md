@@ -60,6 +60,10 @@ A simple and collaborative editor that uses AI to enhance and make your research
     ```
     A Flutter package used to have a google docs like editor view.
     ```
+- [flutter_quill_extensions](https://pub.dev/packages/flutter_quill_extensions#platform-specific-configurations/)
+    ```
+    An extensions for flutter_quill to support embedding widgets like images, formulas, videos, and more.
+    ```
 - [flutter_riverpod](https://pub.dev/packages/flutter_riverpod/)
     ```
     A reactive caching and data-binding framework. https://riverpod.dev

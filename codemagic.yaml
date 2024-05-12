@@ -10,10 +10,6 @@ workflows:
           include: true
       cancel_previous_builds: false
     scripts:
-      - name: Clean Build Cache
-        script: rm -rf build/
-      - name: Clean var Directory
-        script: rm -rf var/
       - name: Upgrade flutter
         script: |
           flutter upgrade

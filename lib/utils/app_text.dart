@@ -33,6 +33,9 @@ class AppText {
   /// Contains the Result text
   static const String result = 'Result';
 
+  /// Contains the text that is displayed on the AI text
+  static const String generate = 'Generate';
+
   /// Contains the Add to document text
   static const String addToDocument = 'Add to document';
 
