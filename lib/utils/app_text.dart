@@ -112,4 +112,7 @@ class AppText {
 
   /// Display a current plan text
   static const String currentPlan = 'Current Plan';
+
+  /// Contains the title to display as the title of ai studio dialog
+  static const String aiStudio = 'AI Studio';
 }

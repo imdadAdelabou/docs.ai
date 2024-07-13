@@ -27,4 +27,13 @@ class AppAssets {
 
   /// Contains the AI icons of software
   static String googleDocsIcon = 'assets/imgs/docsIcons.png';
+
+  /// Contains the icon to display on the summarize section of AI studio
+  static String summarizeTextIcon = 'assets/imgs/summerizeTextIcon.svg';
+
+  /// Contains the icon to display on the generate image section of AI studio
+  static String generateImageIcon = 'assets/imgs/generateImageIcon.svg';
+
+  /// Contains the icon to display on the ask AI section of AI studio
+  static String askAIIcon = 'assets/imgs/askAiIcon.svg';
 }

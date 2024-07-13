@@ -5,14 +5,17 @@ import 'package:docs_ai/models/error_model.dart';
 import 'package:docs_ai/repository/auth_repository.dart';
 import 'package:docs_ai/repository/document_repository.dart';
 import 'package:docs_ai/repository/socket_repository.dart';
+import 'package:docs_ai/screens/document/studio/ai_studio.dart';
 import 'package:docs_ai/screens/document/widgets/document_screen_app_bar.dart';
 import 'package:docs_ai/screens/document/widgets/gen_ai_image.dart';
 import 'package:docs_ai/screens/document/widgets/summarize_text.dart';
+import 'package:docs_ai/utils/app_text.dart';
 import 'package:docs_ai/utils/colors.dart';
 import 'package:docs_ai/widgets/close_dialog_icon.dart';
 import 'package:docs_ai/widgets/custom_snack_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
@@ -182,6 +185,19 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
     );
   }
 
+  void _showEngineStudio({
+    required BuildContext context,
+    required String dialogTitle,
+  }) {
+    unawaited(
+      _showAIFeatureDialog(
+        context: context,
+        dialogTitle: dialogTitle,
+        child: AiStudio(),
+      ),
+    );
+  }
+
   void _showGenAiImageDialog({
     required BuildContext context,
     required String dialogTitle,
@@ -249,6 +265,13 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          _FloatingAIActionButton(
+            icon: Icons.build,
+            onPressed: () => _showEngineStudio(
+              context: context,
+              dialogTitle: AppText.aiStudio,
+            ),
+          ),
           _FloatingAIActionButton(
             icon: Icons.summarize,
             onPressed: () => _showSummaryDialog(

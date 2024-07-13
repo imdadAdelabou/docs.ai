@@ -174,7 +174,7 @@ class _UploadPictureMobileViewState
                     Icons.add,
                   ),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateColor.resolveWith(
+                    backgroundColor: WidgetStateColor.resolveWith(
                       (_) => kWhiteColor,
                     ),
                   ),
